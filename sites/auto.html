@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Мотор — автосервис</title>
+  <meta name="description" content="Демо-сайт автосервиса: калькулятор стоимости ремонта, услуги, гарантия, запись на ремонт.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="kit.css">
+  <style>
+    :root { --y: #ffc400; --dark: #16181b; --dark2: #1f2226; --line: #2e3237; --text: #eef0f2; --muted: #9aa1a9; --menu-bg: #1f2226; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--dark); color: var(--text); font: 16px/1.6 Rubik, system-ui, sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3 { font-weight: 800; text-transform: uppercase; letter-spacing: -0.01em; line-height: 1.05; }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+    .btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 28px; border: 0; background: var(--y); color: #111; font: 700 15px Rubik, sans-serif; text-transform: uppercase; letter-spacing: 0.04em; cursor: pointer; clip-path: polygon(0 0, 100% 0, 100% 70%, 92% 100%, 0 100%); }
+    .btn:hover { background: #ffd23f; }
+    .btn--line { background: transparent; color: var(--text); box-shadow: inset 0 0 0 2px var(--line); clip-path: none; }
+    .stripe { height: 10px; background: repeating-linear-gradient(-45deg, var(--y) 0 18px, #111 18px 36px); }
+
+    header { background: var(--dark2); border-bottom: 1px solid var(--line); }
+    header .wrap { position: relative; display: flex; align-items: center; gap: 24px; padding-top: 16px; padding-bottom: 16px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 22px; text-transform: uppercase; }
+    .logo i { width: 42px; height: 42px; display: grid; place-items: center; background: var(--y); color: #111; font-style: normal; font-size: 22px; }
+    nav { display: flex; gap: 26px; margin-left: auto; font-weight: 500; color: var(--muted); }
+    nav a:hover { color: var(--y); }
+    .call { font-weight: 700; color: var(--y); font-size: 18px; }
+    .kit-burger { margin-left: auto; width: 44px; height: 44px; align-items: center; justify-content: center; border: 2px solid var(--line); background: transparent; color: var(--text); font-size: 20px; }
+    @media (max-width: 860px) { .call { display: none; } }
+
+    .hero { position: relative; padding: clamp(60px, 10vw, 120px) 0;
+      background: linear-gradient(100deg, rgba(22, 24, 27, 0.97) 35%, rgba(22, 24, 27, 0.6)), url('https://cdn.stocksnap.io/img-thumbs/960w/O8DVPXYOIY.jpg') center / cover no-repeat, var(--dark2); }
+    .hero h1 { margin: 0; max-width: 760px; font-size: clamp(38px, 7vw, 82px); }
+    .hero h1 span { color: var(--y); }
+    .hero p { max-width: 520px; margin: 22px 0 32px; font-size: 18px; color: #c5cad0; }
+    .hero .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+    .badges { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 42px; }
+    .badges span { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; background: rgba(255, 255, 255, 0.06); border: 1px solid var(--line); font-weight: 500; font-size: 14px; }
+
+    section { padding: clamp(60px, 9vw, 100px) 0; }
+    .title { margin-bottom: 36px; }
+    .title small { color: var(--y); font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; font-size: 13px; }
+    .title h2 { margin: 8px 0 0; font-size: clamp(30px, 5vw, 52px); }
+
+    .calc { display: grid; gap: 20px; grid-template-columns: minmax(0, 1fr); }
+    @media (min-width: 900px) { .calc { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: start; } }
+    .calc__box { min-width: 0; padding: clamp(18px, 4vw, 26px); background: var(--dark2); border: 1px solid var(--line); }
+    .calc__box h3 { margin: 0 0 14px; font-size: 16px; color: var(--muted); letter-spacing: 0.06em; }
+    .classes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 24px; }
+    .cls { min-width: 0; padding: 14px 4px; border: 2px solid var(--line); background: transparent; color: var(--text); font: 600 14px Rubik, sans-serif; cursor: pointer; text-align: center; }
+    .cls span { display: block; font-size: 26px; }
+    .cls.is-on { border-color: var(--y); background: rgba(255, 196, 0, 0.08); }
+    .works { display: grid; gap: 8px; }
+    .work { display: grid; grid-template-columns: 24px 1fr auto; gap: 12px; align-items: center; padding: 14px 16px; border: 1px solid var(--line); cursor: pointer; transition: border-color 0.15s; }
+    .work:hover { border-color: #555; }
+    .work input { width: 20px; height: 20px; accent-color: var(--y); }
+    .work small { display: block; color: var(--muted); font-size: 13px; }
+    .work b { white-space: nowrap; color: var(--y); }
+    .total { position: sticky; top: 20px; padding: 28px; background: var(--y); color: #111; }
+    .total h3 { margin: 0; font-size: 16px; }
+    .total .sum { margin: 10px 0 2px; font-size: clamp(38px, 6vw, 52px); font-weight: 800; line-height: 1; }
+    .total p { margin: 0 0 18px; font-weight: 500; }
+    .total ul { margin: 0 0 20px; padding: 0; list-style: none; font-size: 14px; display: grid; gap: 4px; }
+    .total .btn { width: 100%; justify-content: center; background: #111; color: var(--y); clip-path: none; }
+
+    .services { display: grid; gap: 2px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); background: var(--line); border: 2px solid var(--line); }
+    .service { padding: 28px 24px; background: var(--dark); transition: background 0.2s; }
+    .service:hover { background: var(--dark2); }
+    .service span { font-size: 34px; }
+    .service h3 { margin: 12px 0 6px; font-size: 19px; }
+    .service p { margin: 0; color: var(--muted); font-size: 15px; }
+
+    .gallery { display: grid; gap: 10px; grid-template-columns: 2fr 1fr; grid-template-rows: 220px 220px; }
+    .gallery div { background: var(--img) center / cover, var(--dark2); }
+    .gallery div:first-child { grid-row: span 2; }
+    @media (max-width: 640px) { .gallery { grid-template-columns: 1fr 1fr; grid-template-rows: 200px 140px; } .gallery div:first-child { grid-column: 1 / -1; grid-row: auto; } }
+
+    .guarantee { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); margin-top: 30px; }
+    .guarantee div { padding: 22px; border-left: 4px solid var(--y); background: var(--dark2); }
+    .guarantee b { display: block; font-size: 30px; font-weight: 800; color: var(--y); }
+    .guarantee span { color: var(--muted); font-size: 14px; }
+
+    .booking { background: var(--dark2); }
+    .booking .wrap { display: grid; gap: 30px; }
+    @media (min-width: 860px) { .booking .wrap { grid-template-columns: 1fr 1fr; align-items: center; } }
+    form { display: grid; gap: 10px; }
+    input, select { width: 100%; padding: 15px 16px; border: 2px solid var(--line); background: var(--dark); color: var(--text); font: inherit; font-size: 16px; outline: none; }
+    input:focus, select:focus { border-color: var(--y); }
+    footer { padding: 30px 0 100px; color: var(--muted); font-size: 14px; }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="logo" href="#"><i>⚙</i>Мотор</a>
+      <nav class="kit-menu"><a href="#calc">Калькулятор</a><a href="#services">Услуги</a><a href="#about">Гарантия</a><a href="#booking">Запись</a></nav>
+      <a class="call" href="#booking">+7 (900) 000-00-00</a>
+      <button class="kit-burger" aria-label="Меню">☰</button>
+    </div>
+  </header>
+  <div class="stripe"></div>
+
+  <section class="hero">
+    <div class="wrap">
+      <h1>Ремонт авто <span>за 1 день</span> с гарантией</h1>
+      <p>Диагностика, ТО, ремонт двигателя и ходовой. Согласуем цену до начала работ и покажем старые запчасти. Пока ждёте — кофе и Wi-Fi.</p>
+      <div class="cta"><a class="btn" href="#calc">Рассчитать стоимость</a><a class="btn btn--line" href="#booking">Записаться</a></div>
+      <div class="badges"><span>🔧 Компьютерная диагностика 0 ₽ при ремонте</span><span>🛡 Гарантия 1 год</span><span>🚗 Все марки</span></div>
+    </div>
+  </section>
+
+  <section id="calc">
+    <div class="wrap">
+      <div class="title kit-reveal"><small>Онлайн-расчёт</small><h2>Сколько стоит ремонт?</h2></div>
+      <div class="calc kit-reveal">
+        <div class="calc__box">
+          <h3>1. Класс автомобиля</h3>
+          <div class="classes" id="classes"></div>
+          <h3>2. Какие работы нужны</h3>
+          <div class="works" id="works"></div>
+        </div>
+        <div class="total" id="total"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" style="padding-top: 0">
+    <div class="wrap">
+      <div class="title kit-reveal"><small>Что мы делаем</small><h2>Услуги</h2></div>
+      <div class="services kit-reveal">
+        <div class="service"><span>🔍</span><h3>Диагностика</h3><p>Компьютерная и ручная проверка всех систем за 40 минут.</p></div>
+        <div class="service"><span>🛢</span><h3>ТО и замена масла</h3><p>По регламенту производителя, с сохранением гарантии дилера.</p></div>
+        <div class="service"><span>⚙️</span><h3>Двигатель</h3><p>Ремонт ГРМ, капремонт, замена прокладок и сальников.</p></div>
+        <div class="service"><span>🛞</span><h3>Ходовая часть</h3><p>Подвеска, рулевое, тормоза, развал-схождение 3D.</p></div>
+        <div class="service"><span>❄️</span><h3>Кондиционер</h3><p>Заправка, поиск утечек, антибактериальная обработка.</p></div>
+        <div class="service"><span>⚡</span><h3>Автоэлектрика</h3><p>Стартеры, генераторы, проводка, сигнализации.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" style="padding-top: 0">
+    <div class="wrap">
+      <div class="title kit-reveal"><small>О сервисе</small><h2>Честный автосервис</h2></div>
+      <div class="gallery kit-reveal">
+        <div style="--img: url('https://cdn.stocksnap.io/img-thumbs/960w/LG87P0Z8W5.jpg')"></div>
+        <div style="--img: url('https://cdn.stocksnap.io/img-thumbs/960w/4RHOB6RC3S.jpg')"></div>
+        <div style="--img: url('https://cdn.stocksnap.io/img-thumbs/960w/JCHI5DYDEG.jpg')"></div>
+      </div>
+      <div class="guarantee">
+        <div class="kit-reveal"><b>1 год</b><span>гарантия на работы и запчасти</span></div>
+        <div class="kit-reveal"><b>15 лет</b><span>ремонтируем автомобили</span></div>
+        <div class="kit-reveal"><b>8 постов</b><span>без очередей и ожидания</span></div>
+        <div class="kit-reveal"><b>24 000+</b><span>отремонтированных машин</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="booking" id="booking">
+    <div class="wrap">
+      <div class="kit-reveal">
+        <div class="title"><small>Запись</small><h2>Запишитесь на удобное время</h2></div>
+        <p style="color: var(--muted)">📍 ул. Промышленная, 7 · Пн–Сб 8:00–20:00<br>Эвакуатор за наш счёт при ремонте от 15 000 ₽</p>
+      </div>
+      <form data-demo="Заявка принята! Это демо-сайт — на настоящем мастер перезвонил бы для уточнения." class="kit-reveal">
+        <input required placeholder="Имя" autocomplete="name">
+        <input required type="tel" placeholder="Телефон" autocomplete="tel">
+        <input placeholder="Марка и модель авто">
+        <button class="btn" type="submit">Записаться на ремонт</button>
+      </form>
+    </div>
+  </section>
+  <div class="stripe"></div>
+
+  <footer><div class="wrap"><span>© 2026 «Мотор» · демо-сайт, сервис вымышлен</span><span>Фото: StockSnap (CC0)</span></div></footer>
+
+  <script src="kit.js"></script>
+  <script>
+    const CLASSES = [['🚗', 'Легковой', 1], ['🚙', 'Кроссовер', 1.25], ['🚐', 'Внедорожник', 1.5]];
+    const WORKS = [
+      ['diag', 'Компьютерная диагностика', '40 мин', 1500, 0.7],
+      ['to', 'ТО: масло и фильтры', '1 ч', 3500, 1],
+      ['brake', 'Замена тормозных колодок', '1 ч', 2400, 1],
+      ['grm', 'Замена ремня ГРМ', '3 ч', 9800, 3],
+      ['susp', 'Ремонт подвески', '2–4 ч', 6500, 3],
+      ['ac', 'Заправка кондиционера', '45 мин', 2900, 0.8],
+      ['align', 'Развал-схождение 3D', '40 мин', 2200, 0.7],
+    ];
+    let cls = 0;
+    const picked = new Set(['diag', 'to']);
+    const money = (n) => `${Math.round(n / 10) * 10}`.replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽';
+    function render() {
+      const k = CLASSES[cls][2];
+      document.getElementById('classes').innerHTML = CLASSES.map(([e, n], i) => `<button class="cls ${i === cls ? 'is-on' : ''}" data-cls="${i}"><span>${e}</span>${n}</button>`).join('');
+      document.getElementById('works').innerHTML = WORKS.map(([id, n, t, p]) => `
+        <label class="work"><input type="checkbox" data-work="${id}" ${picked.has(id) ? 'checked' : ''}><span>${n}<small>${t}</small></span><b>${money(p * k)}</b></label>`).join('');
+      const chosen = WORKS.filter((w) => picked.has(w[0]));
+      let sum = chosen.reduce((s, w) => s + w[3] * k, 0);
+      const hours = chosen.reduce((s, w) => s + w[4], 0);
+      const discount = picked.has('diag') && chosen.length > 1;
+      if (discount) sum -= 1500 * k;
+      document.getElementById('total').innerHTML = `<h3>Примерная стоимость</h3>
+        <div class="sum">${money(Math.max(sum, 0))}</div>
+        <p>≈ ${hours ? (hours < 1 ? 'меньше часа' : `${Math.ceil(hours)} ч работы`) : 'выберите работы'}</p>
+        <ul>${discount ? '<li>✓ Диагностика бесплатно при ремонте</li>' : ''}<li>✓ Цена с работой, без запчастей</li><li>✓ Точную сумму назовём после осмотра</li></ul>
+        <a class="btn" href="#booking">Записаться с этим расчётом</a>`;
+    }
+    document.querySelector('.calc').addEventListener('click', (e) => { const b = e.target.closest('[data-cls]'); if (b) { cls = Number(b.dataset.cls); render(); } });
+    document.querySelector('.calc').addEventListener('change', (e) => {
+      const c = e.target.closest('[data-work]');
+      if (!c) return;
+      if (c.checked) picked.add(c.dataset.work); else picked.delete(c.dataset.work);
+      render();
+    });
+    render();
+  </script>
+</body>
+</html>

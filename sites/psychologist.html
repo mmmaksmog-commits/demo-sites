@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Анна Светлова — психолог</title>
+  <meta name="description" content="Демо-сайт частного психолога: запросы, подход, стоимость, онлайн-запись на удобное время.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="kit.css">
+  <style>
+    :root { --bg: #f5f3ee; --sage: #7d9a84; --sage-d: #4f6b57; --sand: #e8e1d4; --ink: #2d332e; --muted: #6e766f; --card: #fffdf9; --menu-bg: #fffdf9; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.7 Inter, system-ui, sans-serif; overflow-x: clip; }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3 { font-family: Lora, Georgia, serif; font-weight: 500; letter-spacing: -0.01em; line-height: 1.15; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 22px; }
+    .btn { display: inline-block; padding: 15px 30px; border: 0; border-radius: 999px; background: var(--sage-d); color: #fff; font: 600 16px Inter, sans-serif; cursor: pointer; transition: background 0.2s; }
+    .btn:hover { background: #3e5645; }
+    .btn--soft { background: var(--sand); color: var(--ink); }
+    .btn--soft:hover { background: #ddd3c2; }
+
+    header .wrap { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-top: 24px; padding-bottom: 24px; }
+    .logo { font-family: Lora, serif; font-size: 21px; }
+    .logo small { display: block; font-family: Inter, sans-serif; font-size: 12px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; }
+    nav { display: flex; gap: 28px; font-size: 15px; color: var(--muted); }
+    nav a:hover { color: var(--sage-d); }
+    .kit-burger { width: 44px; height: 44px; align-items: center; justify-content: center; border: 1px solid var(--sand); border-radius: 50%; background: transparent; font-size: 18px; }
+
+    .hero { padding: 30px 0 90px; }
+    .hero .wrap { display: grid; gap: 50px; align-items: center; }
+    @media (min-width: 880px) { .hero .wrap { grid-template-columns: 1.15fr 1fr; } }
+    .hero h1 { margin: 0; font-size: clamp(38px, 6vw, 64px); }
+    .hero h1 em { color: var(--sage-d); }
+    .hero p { max-width: 480px; margin: 22px 0 32px; font-size: 18px; color: var(--muted); }
+    .hero .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+    .portrait { position: relative; justify-self: center; width: min(100%, 400px); aspect-ratio: 4 / 5; }
+    .portrait .arch { position: absolute; inset: 0; border-radius: 200px 200px 24px 24px; background: linear-gradient(180deg, #c9d6c6, var(--sage)); overflow: hidden; }
+    .portrait .arch::before { content: ''; position: absolute; left: 50%; top: 22%; width: 34%; aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%; background: #f1e3d3; }
+    .portrait .arch::after { content: ''; position: absolute; left: 50%; bottom: -8%; width: 74%; height: 52%; transform: translateX(-50%); border-radius: 50% 50% 0 0; background: #f6f1e8; }
+    .leaf { position: absolute; font-size: 44px; animation: sway 6s ease-in-out infinite; }
+    .leaf--1 { top: -4%; right: 2%; } .leaf--2 { bottom: 10%; left: -6%; animation-delay: -3s; }
+    @keyframes sway { 50% { transform: rotate(10deg) translateY(-6px); } }
+    .stamp { position: absolute; right: -4%; bottom: 14%; padding: 14px 18px; border-radius: 18px; background: var(--card); box-shadow: 0 20px 40px -20px rgba(45, 51, 46, 0.35); font-size: 14px; }
+    .stamp b { display: block; font-family: Lora, serif; font-size: 26px; color: var(--sage-d); }
+
+    section { padding: clamp(60px, 9vw, 100px) 0; }
+    .title { max-width: 620px; margin-bottom: 40px; }
+    .title h2 { margin: 0; font-size: clamp(32px, 5vw, 46px); }
+    .title p { color: var(--muted); }
+
+    .requests { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); }
+    .req { padding: 26px; border-radius: 24px; background: var(--card); }
+    .req span { font-size: 30px; }
+    .req h3 { margin: 10px 0 6px; font-size: 21px; }
+    .req p { margin: 0; color: var(--muted); font-size: 15px; }
+
+    .about { background: var(--card); }
+    .about .wrap { display: grid; gap: 40px; }
+    @media (min-width: 880px) { .about .wrap { grid-template-columns: 1fr 1fr; } }
+    .quote { margin: 0; font-family: Lora, serif; font-style: italic; font-size: clamp(24px, 3.4vw, 32px); line-height: 1.4; color: var(--sage-d); }
+    .creds { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; }
+    .creds li { display: grid; grid-template-columns: 26px 1fr; gap: 10px; color: var(--muted); }
+    .creds li::before { content: '✦'; color: var(--sage); }
+
+    .prices { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+    .price { padding: 30px; border-radius: 28px; background: var(--card); border: 1px solid var(--sand); }
+    .price--main { background: var(--sage-d); color: #fff; border-color: var(--sage-d); }
+    .price--main p { color: #d9e4dc !important; }
+    .price h3 { margin: 0; font-size: 23px; }
+    .price b { display: block; margin: 14px 0 6px; font-family: Lora, serif; font-size: 38px; font-weight: 500; }
+    .price p { margin: 0; color: var(--muted); font-size: 15px; }
+
+    .booking .wrap { display: grid; gap: 40px; }
+    @media (min-width: 880px) { .booking .wrap { grid-template-columns: 1fr 1.1fr; } }
+    .slots-card { padding: 28px; border-radius: 28px; background: var(--card); }
+    .days { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 18px; }
+    .day { padding: 10px 0; border: 1px solid var(--sand); border-radius: 16px; background: transparent; font: 500 14px Inter, sans-serif; cursor: pointer; color: var(--ink); }
+    .day b { display: block; font-size: 20px; font-family: Lora, serif; }
+    .day.is-on { background: var(--sage-d); border-color: var(--sage-d); color: #fff; }
+    .times { display: flex; flex-wrap: wrap; gap: 8px; }
+    .time { padding: 10px 16px; border: 1px solid var(--sand); border-radius: 999px; background: transparent; font: 500 15px Inter, sans-serif; color: var(--ink); cursor: pointer; }
+    .time.is-on { background: var(--sage); border-color: var(--sage); color: #fff; }
+    .time:disabled { opacity: 0.35; text-decoration: line-through; cursor: default; }
+    .chosen { margin: 18px 0; padding: 14px 16px; border-radius: 16px; background: var(--bg); color: var(--muted); font-size: 15px; }
+    form { display: grid; gap: 10px; }
+    input { width: 100%; padding: 14px 18px; border: 1px solid var(--sand); border-radius: 999px; background: var(--bg); font: inherit; font-size: 16px; outline: none; }
+    input:focus { border-color: var(--sage); }
+    footer { padding: 40px 0 100px; color: var(--muted); font-size: 14px; text-align: center; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="logo" href="#">Анна Светлова<small>психолог · онлайн и очно</small></a>
+      <nav class="kit-menu"><a href="#requests">С чем работаю</a><a href="#about">Обо мне</a><a href="#prices">Стоимость</a><a href="#booking">Запись</a></nav>
+      <button class="kit-burger" aria-label="Меню">☰</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <h1>Помогаю вернуть <em>опору</em> и спокойствие</h1>
+        <p>Работаю с тревогой, выгоранием и сложностями в отношениях. Бережно, без оценок и в вашем темпе — онлайн из любой точки мира.</p>
+        <div class="cta"><a class="btn" href="#booking">Записаться на сессию</a><a class="btn btn--soft" href="#requests">С чем я работаю</a></div>
+      </div>
+      <div class="portrait" aria-hidden="true">
+        <div class="arch"></div>
+        <span class="leaf leaf--1">🌿</span><span class="leaf leaf--2">🍃</span>
+        <div class="stamp"><b>10 лет</b>практики · 2 000+ сессий</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="requests">
+    <div class="wrap">
+      <div class="title kit-reveal"><h2>Вам сюда, если…</h2><p>Если вы узнали себя хотя бы в одном пункте — давайте поговорим.</p></div>
+      <div class="requests">
+        <div class="req kit-reveal"><span>🌊</span><h3>Тревога не отпускает</h3><p>Постоянное напряжение, мысли по кругу, сложно расслабиться и уснуть.</p></div>
+        <div class="req kit-reveal"><span>🕯️</span><h3>Нет сил и радости</h3><p>Работа и дела выжимают, а отдых больше не восстанавливает.</p></div>
+        <div class="req kit-reveal"><span>💞</span><h3>Сложно в отношениях</h3><p>Ссоры повторяются, чувствуете одиночество рядом с близким человеком.</p></div>
+        <div class="req kit-reveal"><span>🧭</span><h3>Не понимаете, чего хотите</h3><p>Кризис, перемены, страх ошибиться с выбором.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="wrap">
+      <blockquote class="quote kit-reveal">«Терапия — это не про то, чтобы стать другим человеком. Это про то, чтобы наконец стать собой и перестать с собой воевать».</blockquote>
+      <div class="kit-reveal">
+        <h2 style="margin-top:0">Обо мне</h2>
+        <ul class="creds">
+          <li>Клинический психолог, высшее психологическое образование</li>
+          <li>Когнитивно-поведенческая терапия и схема-терапия</li>
+          <li>Регулярная супервизия и личная терапия</li>
+          <li>Соблюдаю этический кодекс и полную конфиденциальность</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="prices">
+    <div class="wrap">
+      <div class="title kit-reveal"><h2>Стоимость</h2><p>Первая встреча — знакомство: обсудим запрос и решим, подходим ли мы друг другу.</p></div>
+      <div class="prices">
+        <div class="price kit-reveal"><h3>Знакомство</h3><b>2 000 ₽</b><p>30 минут · онлайн</p></div>
+        <div class="price price--main kit-reveal"><h3>Индивидуальная сессия</h3><b>4 500 ₽</b><p>55 минут · онлайн или очно</p></div>
+        <div class="price kit-reveal"><h3>Пакет из 5 сессий</h3><b>20 000 ₽</b><p>Экономия 2 500 ₽ · действует 2 месяца</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="booking" id="booking">
+    <div class="wrap">
+      <div class="kit-reveal">
+        <div class="title"><h2>Выберите удобное время</h2><p>Все сессии проходят по видеосвязи или в кабинете в центре города. Перенести или отменить можно за 24 часа.</p></div>
+      </div>
+      <div class="slots-card kit-reveal">
+        <div class="days" id="days"></div>
+        <div class="times" id="times"></div>
+        <p class="chosen" id="chosen">Выберите день и время</p>
+        <form data-demo="Запись принята 🌿 Это демо-сайт — на настоящем пришло бы подтверждение в мессенджер.">
+          <input required placeholder="Как к вам обращаться" autocomplete="name">
+          <input required type="tel" placeholder="Телефон или Telegram" autocomplete="tel">
+          <button class="btn" type="submit">Записаться</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>© 2026 · демо-сайт, специалист вымышлен</footer>
+
+  <script src="kit.js"></script>
+  <script>
+    // Выбор слота: ближайшие 5 рабочих дней, часть времени «занята»
+    const TIMES = ['10:00', '11:30', '13:00', '15:00', '17:00', '19:00'];
+    const days = [];
+    for (let d = new Date(); days.length < 5; d.setDate(d.getDate() + 1)) {
+      const x = new Date(d);
+      x.setDate(x.getDate() + 1);
+      if (x.getDay() !== 0 && x.getDay() !== 6) days.push(x);
+    }
+    let dayIdx = 0;
+    let time = null;
+    const busy = (i, t) => (i * 7 + TIMES.indexOf(t) * 3) % 5 === 0;
+    function render() {
+      document.getElementById('days').innerHTML = days.map((d, i) => `<button class="day ${i === dayIdx ? 'is-on' : ''}" data-day="${i}">${d.toLocaleDateString('ru-RU', { weekday: 'short' })}<b>${d.getDate()}</b></button>`).join('');
+      document.getElementById('times').innerHTML = TIMES.map((t) => `<button class="time ${t === time ? 'is-on' : ''}" data-time="${t}" ${busy(dayIdx, t) ? 'disabled' : ''}>${t}</button>`).join('');
+      document.getElementById('chosen').textContent = time
+        ? `Вы выбрали: ${days[dayIdx].toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' })}, ${time}`
+        : 'Выберите день и время';
+    }
+    document.querySelector('.slots-card').addEventListener('click', (e) => {
+      const d = e.target.closest('[data-day]');
+      const t = e.target.closest('[data-time]');
+      if (d) { dayIdx = Number(d.dataset.day); time = null; render(); }
+      if (t && !t.disabled) { time = t.dataset.time; render(); }
+    });
+    render();
+  </script>
+</body>
+</html>

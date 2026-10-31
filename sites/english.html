@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Speakly — онлайн-школа английского</title>
+  <meta name="description" content="Демо-сайт онлайн-школы английского: тест уровня, тарифы, преподаватели, пробный урок.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="kit.css">
+  <style>
+    :root { --bg: #fffaf3; --ink: #1f1b3a; --muted: #6b6788; --purple: #6c4cf5; --yellow: #ffd23f; --pink: #ff6b9a; --mint: #3ddc97; --card: #fff; --line: #ece6f7; --menu-bg: #fff; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.6 Nunito, system-ui, sans-serif; overflow-x: clip; }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3 { font-weight: 900; letter-spacing: -0.02em; line-height: 1.1; }
+    .wrap { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 15px 28px; border: 0; border-radius: 16px; background: var(--purple); color: #fff; font: 800 17px Nunito, sans-serif; cursor: pointer; box-shadow: 0 6px 0 #4b2fd1; transition: transform 0.1s, box-shadow 0.1s; }
+    .btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #4b2fd1; }
+    .btn--yellow { background: var(--yellow); color: var(--ink); box-shadow: 0 6px 0 #e0b100; }
+
+    header .wrap { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 20px; padding-bottom: 20px; }
+    .logo { display: flex; align-items: center; gap: 8px; font-size: 26px; font-weight: 900; }
+    .logo i { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 12px; background: var(--purple); color: #fff; font-style: normal; font-size: 20px; transform: rotate(-8deg); }
+    nav { display: flex; gap: 26px; font-weight: 700; color: var(--muted); }
+    nav a:hover { color: var(--purple); }
+    .kit-burger { width: 44px; height: 44px; align-items: center; justify-content: center; border: 2px solid var(--line); border-radius: 12px; background: #fff; font-size: 20px; }
+    @media (max-width: 860px) { header .btn { display: none; } }
+
+    .hero { padding: 30px 0 80px; }
+    .hero .wrap { display: grid; gap: 40px; align-items: center; }
+    @media (min-width: 900px) { .hero .wrap { grid-template-columns: 1.1fr 1fr; } }
+    .badge { display: inline-flex; gap: 8px; align-items: center; padding: 8px 14px; border-radius: 999px; background: #fff; border: 2px solid var(--line); font-weight: 800; font-size: 14px; }
+    .hero h1 { margin: 18px 0 0; font-size: clamp(42px, 7vw, 76px); }
+    .mark { position: relative; white-space: nowrap; }
+    .mark::after { content: ''; position: absolute; left: -4px; right: -4px; bottom: 6%; z-index: -1; height: 34%; border-radius: 8px; background: var(--yellow); transform: rotate(-1.5deg); }
+    .hero p { max-width: 480px; margin: 20px 0 30px; font-size: 19px; color: var(--muted); }
+    .hero .cta { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .hero .note { font-size: 14px; color: var(--muted); font-weight: 700; }
+
+    .bubbles { position: relative; aspect-ratio: 1; max-width: 480px; width: 100%; justify-self: center; }
+    .bubble { position: absolute; padding: 16px 20px; border-radius: 24px; font-weight: 800; box-shadow: 0 14px 30px -12px rgba(31, 27, 58, 0.35); animation: float 6s ease-in-out infinite; }
+    .bubble small { display: block; font-weight: 700; opacity: 0.8; font-size: 13px; }
+    .b1 { top: 4%; left: 0; background: var(--purple); color: #fff; font-size: 24px; border-bottom-left-radius: 4px; }
+    .b2 { top: 30%; right: 0; background: var(--yellow); font-size: 20px; border-bottom-right-radius: 4px; animation-delay: -2s; }
+    .b3 { bottom: 22%; left: 6%; background: var(--pink); color: #fff; font-size: 20px; border-bottom-left-radius: 4px; animation-delay: -4s; }
+    .b4 { bottom: 0; right: 8%; background: #fff; border: 2px solid var(--line); font-size: 18px; animation-delay: -1s; }
+    .globe { position: absolute; inset: 22%; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #a58bff, var(--purple) 60%, #3f22c4); display: grid; place-items: center; font-size: clamp(70px, 14vw, 110px); }
+    @keyframes float { 50% { transform: translateY(-10px); } }
+
+    section { padding: clamp(60px, 9vw, 100px) 0; }
+    .title { text-align: center; margin-bottom: 44px; }
+    .title h2 { margin: 0; font-size: clamp(32px, 5vw, 50px); }
+    .title p { margin: 10px auto 0; max-width: 520px; color: var(--muted); }
+
+    .quiz { max-width: 640px; margin: 0 auto; padding: clamp(24px, 4vw, 40px); border-radius: 28px; background: var(--card); border: 2px solid var(--line); box-shadow: 0 30px 60px -40px rgba(108, 76, 245, 0.6); }
+    .quiz__bar { height: 10px; border-radius: 5px; background: var(--line); overflow: hidden; }
+    .quiz__bar i { display: block; height: 100%; width: 0; background: var(--mint); border-radius: 5px; transition: width 0.3s; }
+    .quiz__q { margin: 22px 0 18px; font-size: 22px; font-weight: 800; }
+    .quiz__q span { color: var(--muted); font-size: 15px; display: block; font-weight: 700; }
+    .options { display: grid; gap: 10px; }
+    .option { padding: 14px 18px; border: 2px solid var(--line); border-radius: 16px; background: #fff; text-align: left; font: 700 17px Nunito, sans-serif; color: var(--ink); cursor: pointer; transition: border-color 0.15s, background 0.15s; }
+    .option:hover { border-color: var(--purple); }
+    .option.ok { border-color: var(--mint); background: #e9fbf3; }
+    .option.bad { border-color: var(--pink); background: #ffeef4; }
+    .result { text-align: center; }
+    .result .level { display: inline-block; margin: 12px 0; padding: 10px 24px; border-radius: 16px; background: var(--yellow); font-size: 40px; font-weight: 900; }
+
+    .plans { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+    .plan { display: grid; gap: 14px; align-content: start; padding: 30px; border-radius: 28px; background: var(--card); border: 2px solid var(--line); }
+    .plan--hot { background: var(--purple); color: #fff; border-color: var(--purple); transform: translateY(-8px); }
+    .plan--hot li::before { color: var(--yellow) !important; }
+    .plan h3 { margin: 0; font-size: 24px; }
+    .plan .price { font-size: 40px; font-weight: 900; }
+    .plan .price small { font-size: 16px; font-weight: 700; opacity: 0.75; }
+    .plan ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+    .plan li::before { content: '✓ '; color: var(--mint); font-weight: 900; }
+
+    .teachers { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); }
+    .teacher { padding: 26px; border-radius: 28px; background: var(--card); border: 2px solid var(--line); text-align: center; }
+    .ava { width: 96px; height: 96px; margin: 0 auto 14px; border-radius: 50%; display: grid; place-items: center; font-size: 46px; }
+    .teacher h3 { margin: 0; font-size: 21px; }
+    .teacher p { margin: 6px 0 0; color: var(--muted); font-size: 15px; }
+    .flag { display: inline-block; margin-top: 10px; padding: 4px 12px; border-radius: 999px; background: var(--bg); font-size: 13px; font-weight: 800; }
+
+    .trial { margin: 0 20px; border-radius: 36px; background: var(--ink); color: #fff; }
+    .trial .wrap { display: grid; gap: 30px; align-items: center; padding-top: 10px; padding-bottom: 10px; }
+    @media (min-width: 860px) { .trial .wrap { grid-template-columns: 1fr 1fr; } }
+    .trial h2 { margin: 0; font-size: clamp(32px, 5vw, 48px); }
+    .trial p { color: #b9b4d9; }
+    form { display: grid; gap: 12px; }
+    input, select { width: 100%; padding: 15px 18px; border: 2px solid #3a3560; border-radius: 16px; background: #2a2650; color: #fff; font: 700 16px Nunito, sans-serif; outline: none; }
+    input::placeholder { color: #8f89b8; }
+    input:focus, select:focus { border-color: var(--yellow); }
+    footer { padding: 40px 0 100px; text-align: center; color: var(--muted); font-size: 14px; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="logo" href="#"><i>S</i>Speakly</a>
+      <nav class="kit-menu"><a href="#test">Тест уровня</a><a href="#plans">Тарифы</a><a href="#teachers">Преподаватели</a><a href="#trial">Пробный урок</a></nav>
+      <a class="btn" href="#trial">Бесплатный урок</a>
+      <button class="kit-burger" aria-label="Меню">☰</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="badge">🔥 4 800 учеников заговорили в этом году</span>
+        <h1>Заговорите на английском <span class="mark">за 3 месяца</span></h1>
+        <p>Живые уроки 1-на-1 с преподавателем, разговорные клубы и приложение с играми. Занимайтесь когда удобно — даже по 20 минут в день.</p>
+        <div class="cta"><a class="btn" href="#test">Узнать свой уровень</a><span class="note">⏱ тест за 1 минуту</span></div>
+      </div>
+      <div class="bubbles" aria-hidden="true">
+        <div class="globe">🌍</div>
+        <div class="bubble b1">Hello! 👋<small>Привет!</small></div>
+        <div class="bubble b2">How are you?<small>Как дела?</small></div>
+        <div class="bubble b3">Let's talk! 💬<small>Давай поговорим!</small></div>
+        <div class="bubble b4">⭐ 4.9 · 2 300 отзывов</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="test">
+    <div class="wrap">
+      <div class="title kit-reveal"><h2>Какой у вас уровень?</h2><p>Пять коротких вопросов — и мы подберём программу под вас.</p></div>
+      <div class="quiz kit-reveal" id="quiz"></div>
+    </div>
+  </section>
+
+  <section id="plans" style="padding-top: 20px">
+    <div class="wrap">
+      <div class="title kit-reveal"><h2>Тарифы</h2><p>Первый урок бесплатно. Платите за пакет — так выгоднее.</p></div>
+      <div class="plans">
+        <article class="plan kit-reveal"><h3>Старт</h3><div class="price">990 ₽<small> / урок</small></div><ul><li>8 уроков в месяц</li><li>Приложение с домашками</li><li>Разговорный клуб раз в неделю</li></ul><a class="btn btn--yellow" href="#trial">Выбрать</a></article>
+        <article class="plan plan--hot kit-reveal"><h3>Прогресс 🔥</h3><div class="price">850 ₽<small> / урок</small></div><ul><li>12 уроков в месяц</li><li>Персональный план и куратор</li><li>Клубы без ограничений</li><li>Сертификат об уровне</li></ul><a class="btn btn--yellow" href="#trial">Выбрать</a></article>
+        <article class="plan kit-reveal"><h3>Носитель</h3><div class="price">1 690 ₽<small> / урок</small></div><ul><li>Преподаватель — носитель языка</li><li>Подготовка к IELTS / TOEFL</li><li>Гибкое расписание 24/7</li></ul><a class="btn btn--yellow" href="#trial">Выбрать</a></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="teachers">
+    <div class="wrap">
+      <div class="title kit-reveal"><h2>Преподаватели</h2><p>Отбираем 1 из 20 кандидатов. Все — с опытом от 3 лет и международными сертификатами.</p></div>
+      <div class="teachers">
+        <article class="teacher kit-reveal"><div class="ava" style="background:#efeaff">👩‍🏫</div><h3>Мария</h3><p>Разговорный английский, CELTA</p><span class="flag">🇷🇺 Русский · 7 лет</span></article>
+        <article class="teacher kit-reveal"><div class="ava" style="background:#fff4cc">🧑‍💼</div><h3>James</h3><p>Бизнес-английский, IELTS 9.0</p><span class="flag">🇬🇧 Носитель · 10 лет</span></article>
+        <article class="teacher kit-reveal"><div class="ava" style="background:#ffe5ee">👩‍🎓</div><h3>Алина</h3><p>Английский для детей и подростков</p><span class="flag">🇷🇺 Русский · 5 лет</span></article>
+        <article class="teacher kit-reveal"><div class="ava" style="background:#dff9ee">🧔</div><h3>Daniel</h3><p>Подготовка к собеседованиям</p><span class="flag">🇺🇸 Носитель · 8 лет</span></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="trial" id="trial">
+    <div class="wrap">
+      <div class="kit-reveal">
+        <h2>Пробный урок — бесплатно</h2>
+        <p>45 минут с преподавателем: определим уровень, поставим цель и составим план. Без обязательств.</p>
+      </div>
+      <form data-demo="Ура! Это демо — на настоящем сайте менеджер написал бы вам в мессенджер 🎉" class="kit-reveal">
+        <input required placeholder="Как вас зовут?" autocomplete="name">
+        <input required type="tel" placeholder="Телефон или Telegram" autocomplete="tel">
+        <select aria-label="Цель"><option>Для путешествий</option><option>Для работы</option><option>Для переезда</option><option>Для ребёнка</option><option>Подготовка к экзамену</option></select>
+        <button class="btn btn--yellow" type="submit">Записаться на урок</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>© 2026 Speakly · демо-сайт, школа вымышлена</footer>
+
+  <script src="kit.js"></script>
+  <script>
+    // Мини-тест уровня: 5 вопросов от простого к сложному
+    const Q = [
+      { q: 'I ___ a student.', a: ['am', 'is', 'are'], ok: 0 },
+      { q: 'She ___ to work every day.', a: ['go', 'goes', 'going'], ok: 1 },
+      { q: 'I have lived here ___ 2015.', a: ['for', 'since', 'from'], ok: 1 },
+      { q: 'If I ___ rich, I would travel the world.', a: ['am', 'was', 'were'], ok: 2 },
+      { q: 'Hardly ___ the station when the train left.', a: ['I had reached', 'had I reached', 'I reached'], ok: 1 },
+    ];
+    const LEVELS = [['A1', 'Начальный'], ['A2', 'Элементарный'], ['B1', 'Средний'], ['B1+', 'Выше среднего'], ['B2', 'Продвинутый'], ['C1', 'Свободный']];
+    const box = document.getElementById('quiz');
+    let i = 0;
+    let score = 0;
+    function step() {
+      if (i === Q.length) {
+        const [lvl, name] = LEVELS[score];
+        box.innerHTML = `<div class="result"><div class="quiz__bar"><i style="width:100%"></i></div>
+          <p class="quiz__q">Ваш примерный уровень</p><div class="level">${lvl}</div><p>${name} · ${score} из ${Q.length} верно</p>
+          <a class="btn" href="#trial">Получить программу для ${lvl}</a>
+          <p><button class="option" style="margin-top:12px" id="again">Пройти ещё раз</button></p></div>`;
+        document.getElementById('again').onclick = () => { i = 0; score = 0; step(); };
+        return;
+      }
+      const { q, a } = Q[i];
+      box.innerHTML = `<div class="quiz__bar"><i style="width:${(i / Q.length) * 100}%"></i></div>
+        <p class="quiz__q"><span>Вопрос ${i + 1} из ${Q.length}</span>${q}</p>
+        <div class="options">${a.map((t, k) => `<button class="option" data-k="${k}">${t}</button>`).join('')}</div>`;
+    }
+    box.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-k]');
+      if (!b || box.dataset.lock) return;
+      const ok = Number(b.dataset.k) === Q[i].ok;
+      if (ok) score++;
+      b.classList.add(ok ? 'ok' : 'bad');
+      if (!ok) box.querySelector(`[data-k="${Q[i].ok}"]`).classList.add('ok');
+      box.dataset.lock = '1';
+      setTimeout(() => { delete box.dataset.lock; i++; step(); }, 700);
+    });
+    step();
+  </script>
+</body>
+</html>

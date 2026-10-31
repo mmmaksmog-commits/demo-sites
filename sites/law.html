@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Право и Ко — юридическая компания</title>
+  <meta name="description" content="Демо-сайт юридической компании: практики, стоимость, кейсы, бесплатная консультация.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="kit.css">
+  <style>
+    :root { --navy: #0f1d33; --navy2: #172a47; --gold: #b8955a; --paper: #f7f4ee; --ink: #1b2230; --muted: #667085; --line: #e3ddd1; --menu-bg: #fff; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.65 Inter, system-ui, sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; font-weight: 600; letter-spacing: -0.01em; }
+    .wrap { max-width: 1160px; margin: 0 auto; padding: 0 20px; }
+    .btn { display: inline-flex; align-items: center; gap: 10px; padding: 15px 28px; background: var(--gold); color: #fff; font-weight: 600; border: 0; cursor: pointer; transition: background 0.2s; }
+    .btn:hover { background: #a3824a; }
+    .btn--line { background: transparent; color: #fff; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4); }
+
+    .top { background: var(--navy); color: #c9d2e3; font-size: 13px; }
+    .top .wrap { display: flex; justify-content: space-between; gap: 16px; padding-top: 8px; padding-bottom: 8px; }
+    header { background: #fff; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 20; }
+    header .wrap { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-top: 16px; padding-bottom: 16px; }
+    .logo { display: flex; align-items: center; gap: 12px; font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--navy); }
+    .logo i { width: 40px; height: 40px; display: grid; place-items: center; background: var(--navy); color: var(--gold); font-style: normal; font-size: 20px; }
+    nav { display: flex; gap: 28px; font-size: 15px; font-weight: 500; }
+    nav a:hover { color: var(--gold); }
+    .kit-burger { width: 44px; height: 44px; align-items: center; justify-content: center; border: 1px solid var(--line); background: #fff; font-size: 20px; }
+    @media (max-width: 860px) { .top .hide-m, header .btn { display: none; } }
+
+    .hero { position: relative; overflow: hidden; background: var(--navy); color: #fff; padding: clamp(70px, 11vw, 130px) 0; }
+    .hero::before { content: '§'; position: absolute; right: -2%; top: 50%; transform: translateY(-50%); font-family: 'Playfair Display', serif; font-size: clamp(300px, 50vw, 620px); line-height: 1; color: rgba(184, 149, 90, 0.09); }
+    .hero .wrap { position: relative; }
+    .hero .kicker { color: var(--gold); letter-spacing: 0.18em; text-transform: uppercase; font-size: 13px; font-weight: 600; }
+    .hero h1 { max-width: 760px; margin: 18px 0 0; font-size: clamp(38px, 6.6vw, 72px); line-height: 1.08; }
+    .hero h1 em { color: var(--gold); font-style: italic; }
+    .hero p { max-width: 560px; margin: 22px 0 34px; font-size: 18px; color: #c9d2e3; }
+    .hero .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+    .trust { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 24px; margin-top: 64px; padding-top: 34px; border-top: 1px solid rgba(255, 255, 255, 0.15); }
+    .trust b { display: block; font-family: 'Playfair Display', serif; font-size: 40px; color: var(--gold); line-height: 1.1; }
+    .trust span { color: #c9d2e3; font-size: 14px; }
+
+    section { padding: clamp(70px, 10vw, 110px) 0; }
+    .head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 44px; }
+    .head h2 { margin: 0; font-size: clamp(32px, 5vw, 52px); line-height: 1.1; color: var(--navy); }
+    .head p { max-width: 420px; margin: 0; color: var(--muted); }
+
+    .practices { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
+    .practice { padding: 32px 28px; background: #fff; transition: background 0.25s, color 0.25s; }
+    .practice:hover { background: var(--navy); color: #fff; }
+    .practice:hover p { color: #c9d2e3; }
+    .practice .n { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 15px; }
+    .practice h3 { margin: 14px 0 10px; font-size: 24px; }
+    .practice p { margin: 0 0 18px; color: var(--muted); font-size: 15px; transition: color 0.25s; }
+    .practice b { color: var(--gold); font-weight: 600; }
+
+    .steps { display: grid; gap: 30px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); counter-reset: s; }
+    .step { position: relative; padding-top: 58px; }
+    .step::before { counter-increment: s; content: '0' counter(s); position: absolute; top: 0; font-family: 'Playfair Display', serif; font-size: 44px; color: var(--gold); line-height: 1; }
+    .step h3 { margin: 0 0 8px; font-size: 21px; color: var(--navy); }
+    .step p { margin: 0; color: var(--muted); font-size: 15px; }
+
+    .cases { background: #fff; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .case-list { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+    .case { padding: 30px; border: 1px solid var(--line); background: var(--paper); }
+    .case .tag { font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold); font-weight: 600; }
+    .case h3 { margin: 10px 0; font-size: 22px; color: var(--navy); }
+    .case p { margin: 0; color: var(--muted); font-size: 15px; }
+    .case .result { display: block; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); font-weight: 600; color: var(--navy); }
+
+    .consult { background: var(--navy); color: #fff; }
+    .consult .wrap { display: grid; gap: 40px; align-items: center; }
+    @media (min-width: 860px) { .consult .wrap { grid-template-columns: 1.1fr 1fr; } }
+    .consult h2 { margin: 0 0 14px; font-size: clamp(32px, 5vw, 48px); line-height: 1.1; }
+    .consult p { color: #c9d2e3; }
+    form { display: grid; gap: 12px; padding: 28px; background: var(--navy2); border: 1px solid rgba(255, 255, 255, 0.1); }
+    input, textarea { width: 100%; padding: 15px 16px; border: 1px solid rgba(255, 255, 255, 0.15); background: rgba(255, 255, 255, 0.04); color: #fff; font: inherit; font-size: 16px; outline: none; }
+    input::placeholder, textarea::placeholder { color: #8796b0; }
+    input:focus, textarea:focus { border-color: var(--gold); }
+    form small { color: #8796b0; font-size: 12px; }
+    footer { padding: 40px 0 100px; background: #0b1627; color: #8796b0; font-size: 14px; }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
+  </style>
+</head>
+<body>
+  <div class="top"><div class="wrap"><span>Москва, Пресненская наб., 1 · Пн–Пт 9:00–20:00</span><span class="hide-m">+7 (900) 000-00-00 · info@pravo.demo</span></div></div>
+  <header>
+    <div class="wrap">
+      <a class="logo" href="#"><i>§</i>Право и Ко</a>
+      <nav class="kit-menu"><a href="#practices">Практики</a><a href="#how">Как работаем</a><a href="#cases">Кейсы</a><a href="#consult">Контакты</a></nav>
+      <a class="btn" href="#consult">Консультация</a>
+      <button class="kit-burger" aria-label="Меню">☰</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <span class="kicker">Юридическая компания · с 2009 года</span>
+      <h1>Защищаем бизнес и людей <em>там, где другие сдаются</em></h1>
+      <p>Арбитраж, банкротство, семейные и трудовые споры. Оцениваем перспективы дела бесплатно и называем цену заранее — без скрытых платежей.</p>
+      <div class="cta"><a class="btn" href="#consult">Бесплатная консультация →</a><a class="btn btn--line" href="#practices">Направления</a></div>
+      <div class="trust">
+        <div><b>87%</b><span>выигранных дел в суде</span></div>
+        <div><b>1 400+</b><span>завершённых дел</span></div>
+        <div><b>2,3 млрд ₽</b><span>сохранили клиентам</span></div>
+        <div><b>16</b><span>юристов и адвокатов</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="practices">
+    <div class="wrap">
+      <div class="head kit-reveal"><h2>Практики</h2><p>Ведём дела «под ключ»: от анализа документов до исполнения решения суда.</p></div>
+      <div class="practices kit-reveal">
+        <article class="practice"><span class="n">I</span><h3>Арбитражные споры</h3><p>Взыскание долгов, споры по договорам поставки и подряда, защита от необоснованных претензий.</p><b>от 60 000 ₽</b></article>
+        <article class="practice"><span class="n">II</span><h3>Банкротство</h3><p>Списание долгов физлиц, сопровождение процедур для компаний, защита от субсидиарной ответственности.</p><b>от 90 000 ₽</b></article>
+        <article class="practice"><span class="n">III</span><h3>Семейное право</h3><p>Развод, раздел имущества, алименты, определение места жительства детей, брачные договоры.</p><b>от 35 000 ₽</b></article>
+        <article class="practice"><span class="n">IV</span><h3>Трудовые споры</h3><p>Восстановление на работе, взыскание зарплаты и компенсаций, защита работодателя.</p><b>от 30 000 ₽</b></article>
+        <article class="practice"><span class="n">V</span><h3>Недвижимость</h3><p>Проверка сделок, споры с застройщиками, признание права собственности, земельные вопросы.</p><b>от 40 000 ₽</b></article>
+        <article class="practice"><span class="n">VI</span><h3>Абонентское обслуживание</h3><p>Юрист для бизнеса по подписке: договоры, претензии, проверки — без штатного сотрудника.</p><b>от 25 000 ₽ / мес</b></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="how" style="padding-top: 0">
+    <div class="wrap">
+      <div class="head kit-reveal"><h2>Как мы работаем</h2></div>
+      <div class="steps kit-reveal">
+        <div class="step"><h3>Консультация</h3><p>Бесплатно изучаем ситуацию и документы, честно оцениваем шансы.</p></div>
+        <div class="step"><h3>Договор и смета</h3><p>Фиксируем стоимость и сроки. Цена не меняется в процессе.</p></div>
+        <div class="step"><h3>Работа по делу</h3><p>Готовим позицию, представляем вас в суде, отчитываемся о каждом шаге.</p></div>
+        <div class="step"><h3>Результат</h3><p>Добиваемся исполнения решения и закрываем вопрос полностью.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cases" id="cases">
+    <div class="wrap">
+      <div class="head kit-reveal"><h2>Кейсы</h2><p>Несколько дел за последний год. Имена клиентов не раскрываем.</p></div>
+      <div class="case-list">
+        <article class="case kit-reveal"><span class="tag">Арбитраж</span><h3>Взыскали долг с поставщика</h3><p>Поставщик сорвал сроки и отказался возвращать предоплату. Добились возврата и неустойки.</p><span class="result">Взыскано 14,2 млн ₽</span></article>
+        <article class="case kit-reveal"><span class="tag">Банкротство</span><h3>Списали долги семьи</h3><p>Клиент не мог платить по пяти кредитам после потери работы. Квартира сохранена.</p><span class="result">Списано 3,8 млн ₽</span></article>
+        <article class="case kit-reveal"><span class="tag">Трудовое право</span><h3>Восстановили на работе</h3><p>Сотрудника уволили «по сокращению» с нарушениями. Суд восстановил и взыскал зарплату.</p><span class="result">Выплата 940 000 ₽</span></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="consult" id="consult">
+    <div class="wrap">
+      <div class="kit-reveal">
+        <h2>Расскажите о ситуации — перезвоним за 15 минут</h2>
+        <p>Первая консультация бесплатна. Мы соблюдаем адвокатскую тайну: всё, что вы расскажете, останется между нами.</p>
+        <p>☎ +7 (900) 000-00-00<br>✉ info@pravo.demo</p>
+      </div>
+      <form data-demo="Заявка принята! Это демо-сайт — на настоящем юрист перезвонил бы в течение 15 минут." class="kit-reveal">
+        <input required placeholder="Ваше имя" autocomplete="name">
+        <input required type="tel" placeholder="Телефон" autocomplete="tel">
+        <textarea rows="4" placeholder="Коротко опишите вопрос"></textarea>
+        <button class="btn" type="submit">Получить консультацию</button>
+        <small>Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</small>
+      </form>
+    </div>
+  </section>
+
+  <footer><div class="wrap"><span>© 2026 «Право и Ко» · демо-сайт, компания вымышлена</span><span>Не является публичной офертой</span></div></footer>
+  <script src="kit.js"></script>
+</body>
+</html>

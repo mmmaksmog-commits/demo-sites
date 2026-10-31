@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Горизонт — турагентство</title>
+  <meta name="description" content="Демо-сайт турагентства: туры с фильтрами, горящие предложения с таймером, подбор тура.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="kit.css">
+  <style>
+    :root { --ocean: #0b5d7a; --ocean-d: #08465c; --sun: #ff8a3d; --sand: #fff7ee; --ink: #10303d; --muted: #5d7681; --card: #fff; --line: #e6eef0; --menu-bg: #fff; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--sand); color: var(--ink); font: 16px/1.6 Manrope, system-ui, sans-serif; overflow-x: clip; }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3 { font-weight: 800; letter-spacing: -0.025em; line-height: 1.08; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 15px 26px; border: 0; border-radius: 999px; background: var(--sun); color: #fff; font: 700 16px Manrope, sans-serif; cursor: pointer; box-shadow: 0 12px 30px -12px rgba(255, 138, 61, 0.9); transition: transform 0.15s; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn--glass { background: rgba(255, 255, 255, 0.18); box-shadow: none; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+
+    header { position: absolute; inset: 0 0 auto; z-index: 10; color: #fff; }
+    header .wrap { position: relative; display: flex; align-items: center; gap: 26px; padding-top: 22px; padding-bottom: 22px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 22px; }
+    .logo i { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; background: var(--sun); font-style: normal; }
+    nav { display: flex; gap: 26px; margin-left: auto; font-weight: 600; }
+    nav a { opacity: 0.9; }
+    .kit-burger { margin-left: auto; width: 46px; height: 46px; align-items: center; justify-content: center; border-radius: 50%; border: 0; background: rgba(255, 255, 255, 0.2); color: #fff; font-size: 20px; }
+    .kit-menu.is-open { color: var(--ink); }
+    @media (max-width: 860px) { header .btn { display: none; } }
+
+    .hero { position: relative; min-height: 100svh; display: grid; align-items: center; padding: 120px 0 140px; color: #fff; text-align: center;
+      background: linear-gradient(180deg, rgba(8, 70, 92, 0.55), rgba(8, 70, 92, 0.25) 50%, rgba(8, 70, 92, 0.75)), url('https://cdn.stocksnap.io/img-thumbs/960w/SXKEQEZFOJ.jpg') center / cover no-repeat, var(--ocean); }
+    .hero h1 { margin: 0 auto; max-width: 860px; font-size: clamp(40px, 7.5vw, 88px); text-shadow: 0 4px 30px rgba(0, 0, 0, 0.25); }
+    .hero p { max-width: 560px; margin: 20px auto 30px; font-size: 19px; color: #e6f4f8; }
+    .finder { display: grid; gap: 8px; max-width: 900px; margin: 0 auto; padding: 10px; border-radius: 24px; background: #fff; text-align: left; box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.5); }
+    @media (min-width: 800px) { .finder { grid-template-columns: 1.3fr 1fr 1fr auto; border-radius: 999px; } }
+    .finder label { display: grid; padding: 8px 18px; color: var(--muted); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+    .finder select { border: 0; background: transparent; font: 700 16px Manrope, sans-serif; color: var(--ink); padding: 2px 0; outline: none; }
+    .finder .btn { box-shadow: none; }
+    .wave { position: absolute; left: 0; right: 0; bottom: -1px; height: 80px; background: var(--sand); clip-path: path('M0 40 C 240 90, 480 0, 720 30 S 1200 70, 1440 20 L 1440 80 L 0 80 Z'); }
+    @media (max-width: 1440px) { .wave { clip-path: ellipse(75% 60% at 50% 100%); } }
+
+    section { padding: clamp(60px, 9vw, 100px) 0; }
+    .title { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 28px; }
+    .title h2 { margin: 0; font-size: clamp(30px, 4.6vw, 48px); }
+    .title p { margin: 0; color: var(--muted); max-width: 420px; }
+
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .chip { padding: 10px 18px; border: 0; border-radius: 999px; background: var(--card); font: 700 15px Manrope, sans-serif; color: var(--ink); cursor: pointer; box-shadow: 0 1px 0 var(--line); }
+    .chip.is-on { background: var(--ocean); color: #fff; }
+    .tours { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); }
+    .tour { position: relative; min-height: 380px; display: flex; flex-direction: column; justify-content: flex-end; padding: 22px; border-radius: 28px; overflow: hidden; color: #fff; background: var(--img) center / cover, var(--ocean); transition: transform 0.25s; }
+    .tour:hover { transform: translateY(-4px); }
+    .tour::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 35%, rgba(6, 30, 40, 0.88)); }
+    .tour > * { position: relative; }
+    .tour .tag { position: absolute; top: 18px; left: 18px; padding: 6px 12px; border-radius: 999px; background: rgba(255, 255, 255, 0.9); color: var(--ink); font-size: 13px; font-weight: 700; }
+    .tour h3 { margin: 0; font-size: 26px; }
+    .tour p { margin: 4px 0 14px; color: #d6e8ee; font-size: 14px; }
+    .tour__row { display: flex; justify-content: space-between; align-items: center; }
+    .tour__row b { font-size: 22px; }
+    .tour__row small { display: block; color: #bcd5dd; font-size: 12px; font-weight: 500; }
+    .tour__row a { padding: 10px 16px; border-radius: 999px; background: #fff; color: var(--ink); font-weight: 700; font-size: 14px; }
+
+    .hot { border-radius: 32px; background: linear-gradient(120deg, var(--sun), #ff5f6d); color: #fff; padding: clamp(26px, 5vw, 50px); display: grid; gap: 24px; align-items: center; }
+    @media (min-width: 860px) { .hot { grid-template-columns: 1.2fr 1fr; } }
+    .hot h2 { margin: 0; font-size: clamp(28px, 4.4vw, 46px); }
+    .hot p { margin: 10px 0 0; color: #fff3ea; font-size: 17px; }
+    .timer { display: flex; gap: 10px; }
+    .timer div { flex: 1; padding: 16px 8px; border-radius: 20px; background: rgba(255, 255, 255, 0.2); text-align: center; }
+    .timer b { display: block; font-size: clamp(30px, 5vw, 44px); line-height: 1; font-variant-numeric: tabular-nums; }
+    .timer span { font-size: 13px; color: #fff3ea; }
+
+    .why { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); }
+    .why div { padding: 26px; border-radius: 24px; background: var(--card); }
+    .why span { font-size: 34px; }
+    .why h3 { margin: 12px 0 6px; font-size: 19px; }
+    .why p { margin: 0; color: var(--muted); font-size: 15px; }
+
+    .lead { display: grid; gap: 24px; align-items: center; padding: clamp(24px, 4vw, 44px); border-radius: 32px; background: var(--ocean); color: #fff; }
+    @media (min-width: 880px) { .lead { grid-template-columns: 1fr 1fr; } }
+    .lead h2 { margin: 0 0 10px; font-size: clamp(28px, 4vw, 42px); }
+    .lead p { margin: 0; color: #cfe6ee; }
+    form { display: grid; gap: 10px; }
+    input, .lead select { width: 100%; padding: 15px 18px; border: 0; border-radius: 16px; font: inherit; font-size: 16px; outline: none; color: var(--ink); }
+    footer { padding: 30px 0 100px; color: var(--muted); font-size: 14px; }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="logo" href="#"><i>☀</i>Горизонт</a>
+      <nav class="kit-menu"><a href="#tours">Туры</a><a href="#hot">Горящие</a><a href="#why">Почему мы</a><a href="#lead">Подбор тура</a></nav>
+      <a class="btn" href="#lead">Подобрать тур</a>
+      <button class="kit-burger" aria-label="Меню">☰</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <h1>Отпуск, который запомнится навсегда</h1>
+      <p>Подбираем туры по лучшим ценам от 120 туроператоров. Море, горы, экскурсии — расскажите о мечте, остальное сделаем мы.</p>
+      <form class="finder" onsubmit="event.preventDefault(); document.getElementById('tours').scrollIntoView({ behavior: 'smooth' });">
+        <label>Куда<select id="finderType"><option value="all">Любое направление</option><option value="sea">Море и пляжи</option><option value="mount">Горы</option><option value="city">Города и экскурсии</option></select></label>
+        <label>Когда<select><option>Ноябрь</option><option>Декабрь</option><option>Январь</option></select></label>
+        <label>Кто едет<select><option>2 взрослых</option><option>2 взрослых + ребёнок</option><option>1 взрослый</option></select></label>
+        <button class="btn" type="submit">Найти туры</button>
+      </form>
+    </div>
+    <div class="wave"></div>
+  </section>
+
+  <section id="tours" style="padding-top: 30px">
+    <div class="wrap">
+      <div class="title kit-reveal"><h2>Популярные направления</h2><p>Цены за двоих с перелётом и проживанием.</p></div>
+      <div class="filters" id="filters"></div>
+      <div class="tours" id="list"></div>
+    </div>
+  </section>
+
+  <section id="hot" style="padding-top: 0">
+    <div class="wrap">
+      <div class="hot kit-reveal">
+        <div><h2>🔥 Горящий тур: Мальдивы −35%</h2><p>7 ночей, вилла на воде, всё включено. Осталось 3 места по специальной цене.</p></div>
+        <div>
+          <div class="timer" id="timer"><div><b id="h">00</b><span>часов</span></div><div><b id="m">00</b><span>минут</span></div><div><b id="s">00</b><span>секунд</span></div></div>
+          <a class="btn" href="#lead" style="width:100%; margin-top:14px; background:#fff; color:#ff5f6d">Забронировать за 189 000 ₽</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="why" style="padding-top: 0">
+    <div class="wrap">
+      <div class="title kit-reveal"><h2>Почему путешествуют с нами</h2></div>
+      <div class="why">
+        <div class="kit-reveal"><span>💸</span><h3>Цены как у туроператора</h3><p>Нашли дешевле — вернём разницу. Без скрытых комиссий.</p></div>
+        <div class="kit-reveal"><span>🛟</span><h3>Поддержка 24/7</h3><p>Личный менеджер на связи в мессенджере на протяжении всей поездки.</p></div>
+        <div class="kit-reveal"><span>💳</span><h3>Рассрочка без переплат</h3><p>Бронируйте сейчас, платите частями до вылета.</p></div>
+        <div class="kit-reveal"><span>⭐</span><h3>12 лет опыта</h3><p>48 000 туристов уже отдохнули с нами — 98% возвращаются.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="lead" style="padding-top: 0">
+    <div class="wrap">
+      <div class="lead kit-reveal">
+        <div><h2>Подберём 3 лучших тура за 30 минут</h2><p>Расскажите о пожеланиях — менеджер пришлёт варианты с ценами в мессенджер.</p></div>
+        <form data-demo="Заявка принята 🌴 Это демо-сайт — на настоящем менеджер прислал бы подборку через 30 минут.">
+          <input required placeholder="Ваше имя" autocomplete="name">
+          <input required type="tel" placeholder="Телефон" autocomplete="tel">
+          <select aria-label="Бюджет"><option>Бюджет до 150 000 ₽</option><option>150–300 000 ₽</option><option>Больше 300 000 ₽</option></select>
+          <button class="btn" type="submit">Подобрать тур</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer><div class="wrap"><span>© 2026 «Горизонт» · демо-сайт, агентство вымышлено</span><span>Фото: StockSnap (CC0)</span></div></footer>
+
+  <script src="kit.js"></script>
+  <script>
+    const IMG = (id) => `https://cdn.stocksnap.io/img-thumbs/960w/${id}.jpg`;
+    const TOURS = [
+      { n: 'Мальдивы', d: 'Вилла на воде · всё включено', t: 'sea', tag: 'Хит сезона', p: 289000, nights: 7, img: '5BRK1O59MS' },
+      { n: 'Швейцарские Альпы', d: 'Горнолыжный курорт · завтраки', t: 'mount', tag: 'Горы', p: 245000, nights: 7, img: 'MOHYBQTEG4' },
+      { n: 'Исландия', d: 'Водопады, гейзеры, северное сияние', t: 'city', tag: 'Экскурсии', p: 198000, nights: 6, img: 'AF9QPX5P5T' },
+      { n: 'Бали', d: 'Джунгли, океан и рисовые террасы', t: 'sea', tag: 'Экзотика', p: 176000, nights: 10, img: 'XPEY4PKBUD' },
+      { n: 'Турция, Анталья', d: 'Отель 5★ · ультра всё включено', t: 'sea', tag: 'Для семьи', p: 98000, nights: 7, img: 'RT8RYXXPJ4' },
+      { n: 'Европа: 4 столицы', d: 'Автобусный тур с гидом', t: 'city', tag: 'Экскурсии', p: 132000, nights: 8, img: 'NKZOS5SNK6' },
+    ];
+    const TYPES = [['all', 'Все'], ['sea', '🏖 Море'], ['mount', '⛰ Горы'], ['city', '🏛 Экскурсии']];
+    let type = 'all';
+    const money = (n) => n.toLocaleString('ru-RU') + ' ₽';
+    function render() {
+      document.getElementById('filters').innerHTML = TYPES.map(([v, n]) => `<button class="chip ${v === type ? 'is-on' : ''}" data-t="${v}">${n}</button>`).join('');
+      document.getElementById('list').innerHTML = TOURS.filter((x) => type === 'all' || x.t === type).map((x) => `
+        <article class="tour" style="--img:url('${IMG(x.img)}')"><span class="tag">${x.tag}</span><h3>${x.n}</h3><p>${x.d}</p>
+          <div class="tour__row"><div><small>${x.nights} ночей, от</small><b>${money(x.p)}</b></div><a href="#lead">Хочу</a></div></article>`).join('');
+    }
+    document.getElementById('filters').addEventListener('click', (e) => { const b = e.target.closest('[data-t]'); if (b) { type = b.dataset.t; render(); } });
+    document.getElementById('finderType').addEventListener('change', (e) => { type = e.target.value; render(); });
+    // Таймер до конца суток
+    function tick() {
+      const now = new Date();
+      const end = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+      const s = Math.floor((end - now) / 1000);
+      const pad = (n) => String(n).padStart(2, '0');
+      document.getElementById('h').textContent = pad(Math.floor(s / 3600));
+      document.getElementById('m').textContent = pad(Math.floor((s % 3600) / 60));
+      document.getElementById('s').textContent = pad(s % 60);
+    }
+    render();
+    tick();
+    setInterval(tick, 1000);
+  </script>
+</body>
+</html>

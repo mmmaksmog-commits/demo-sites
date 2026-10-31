@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>PULSE — фитнес-клуб</title>
+  <meta name="description" content="Демо-сайт фитнес-клуба: расписание занятий, абонементы, тренеры, бесплатная тренировка.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="kit.css">
+  <style>
+    :root { --bg: #0a0a0a; --card: #151515; --line: #262626; --text: #f4f4f4; --muted: #9a9a9a; --lime: #c6ff3d; --menu-bg: #151515; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 Inter, system-ui, sans-serif; overflow-x: clip; }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3, .logo, .btn { font-family: Unbounded, sans-serif; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 28px; border: 0; border-radius: 999px; background: var(--lime); color: #0a0a0a; font-weight: 700; font-size: 15px; cursor: pointer; transition: transform 0.15s, box-shadow 0.2s; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px -8px rgba(198, 255, 61, 0.6); }
+    .btn--ghost { background: transparent; color: var(--text); box-shadow: inset 0 0 0 1.5px #444; }
+    .btn--ghost:hover { box-shadow: inset 0 0 0 1.5px var(--lime); }
+
+    header { position: absolute; inset: 0 0 auto; z-index: 10; }
+    header .wrap { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-top: 22px; padding-bottom: 22px; }
+    .logo { font-weight: 800; font-size: 22px; letter-spacing: 0.06em; }
+    .logo span { color: var(--lime); }
+    nav { display: flex; gap: 28px; font-weight: 600; font-size: 15px; color: #cfcfcf; }
+    nav a:hover { color: var(--lime); }
+    .kit-burger { width: 46px; height: 46px; align-items: center; justify-content: center; border-radius: 50%; border: 1.5px solid #444; background: transparent; color: var(--text); font-size: 18px; }
+    @media (max-width: 860px) { header .btn { display: none; } }
+
+    .hero { position: relative; min-height: 100svh; display: grid; align-items: center; padding: 130px 0 70px;
+      background: linear-gradient(180deg, rgba(10, 10, 10, 0.55), rgba(10, 10, 10, 0.95) 92%), url('https://cdn.stocksnap.io/img-thumbs/960w/LNCLN1NE6K.jpg') center / cover no-repeat, #111; }
+    .hero h1 { margin: 0; font-size: clamp(44px, 9vw, 116px); line-height: 0.95; font-weight: 800; letter-spacing: -0.03em; text-transform: uppercase; }
+    .hero h1 span { color: var(--lime); }
+    .hero p { max-width: 480px; margin: 24px 0 32px; font-size: 18px; color: #cfcfcf; }
+    .hero .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+    .ticker { position: absolute; left: 0; right: 0; bottom: 0; overflow: hidden; background: var(--lime); color: #0a0a0a; white-space: nowrap; padding: 12px 0; font-family: Unbounded, sans-serif; font-weight: 700; font-size: 15px; text-transform: uppercase; }
+    .ticker div { display: inline-block; animation: run 26s linear infinite; }
+    @keyframes run { to { transform: translateX(-50%); } }
+
+    section { padding: clamp(70px, 9vw, 110px) 0; }
+    .title { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 36px; }
+    .title h2 { margin: 0; font-size: clamp(30px, 5vw, 54px); line-height: 1; text-transform: uppercase; letter-spacing: -0.02em; }
+    .title h2 span { color: var(--lime); }
+    .title p { max-width: 380px; margin: 0; color: var(--muted); }
+
+    .zones { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
+    .zone { position: relative; min-height: 300px; display: flex; flex-direction: column; justify-content: flex-end; padding: 24px; border-radius: 26px; overflow: hidden; background: var(--img) center / cover, var(--card); }
+    .zone::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 30%, rgba(0, 0, 0, 0.85)); }
+    .zone > * { position: relative; }
+    .zone h3 { margin: 0; font-size: 22px; text-transform: uppercase; }
+    .zone p { margin: 6px 0 0; color: #cfcfcf; font-size: 15px; }
+    .zone--lime { background: var(--lime); color: #0a0a0a; }
+    .zone--lime::before { display: none; }
+    .zone--lime p { color: #2a2a2a; }
+    .zone--lime b { font-family: Unbounded, sans-serif; font-size: 64px; line-height: 1; }
+
+    .days { display: flex; gap: 8px; overflow-x: auto; margin-bottom: 16px; scrollbar-width: none; }
+    .day { flex: none; padding: 11px 18px; border: 1.5px solid var(--line); border-radius: 999px; background: transparent; color: var(--muted); font: 600 15px Inter, sans-serif; cursor: pointer; }
+    .day.is-on { background: var(--lime); border-color: var(--lime); color: #0a0a0a; }
+    .schedule { display: grid; gap: 10px; }
+    .class { display: grid; grid-template-columns: 80px 1fr auto; gap: 16px; align-items: center; padding: 18px 22px; border-radius: 20px; background: var(--card); border: 1px solid var(--line); }
+    .class time { font-family: Unbounded, sans-serif; font-weight: 700; font-size: 18px; color: var(--lime); }
+    .class b { display: block; font-size: 17px; }
+    .class small { color: var(--muted); }
+    .class button { padding: 10px 16px; border: 1.5px solid var(--line); border-radius: 999px; background: transparent; color: var(--text); font: 600 14px Inter, sans-serif; cursor: pointer; }
+    .class button:hover { border-color: var(--lime); color: var(--lime); }
+    .class .full { color: #ff6b6b; font-size: 13px; font-weight: 600; }
+    @media (max-width: 560px) { .class { grid-template-columns: 64px 1fr; } .class > :last-child { grid-column: 1 / -1; justify-self: start; } }
+
+    .plans { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr)); }
+    .plan { display: grid; gap: 14px; align-content: start; padding: 30px; border-radius: 26px; background: var(--card); border: 1px solid var(--line); }
+    .plan--hot { border-color: var(--lime); box-shadow: 0 0 0 1px var(--lime), 0 30px 60px -30px rgba(198, 255, 61, 0.4); }
+    .plan .tag { justify-self: start; padding: 5px 12px; border-radius: 999px; background: var(--lime); color: #0a0a0a; font-weight: 700; font-size: 12px; text-transform: uppercase; }
+    .plan h3 { margin: 0; font-size: 20px; text-transform: uppercase; }
+    .plan .price { font-family: Unbounded, sans-serif; font-size: 38px; font-weight: 800; }
+    .plan .price small { font-size: 14px; color: var(--muted); font-weight: 500; font-family: Inter, sans-serif; }
+    .plan ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; color: #cfcfcf; }
+    .plan li::before { content: '→ '; color: var(--lime); }
+
+    .coaches { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); }
+    .coach { border-radius: 26px; overflow: hidden; background: var(--card); }
+    .coach img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; filter: grayscale(1) contrast(1.1); transition: filter 0.3s; background: #222; }
+    .coach:hover img { filter: none; }
+    .coach div { padding: 18px 22px 22px; }
+    .coach h3 { margin: 0; font-size: 18px; text-transform: uppercase; }
+    .coach p { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+
+    .trial { border-radius: 32px; background: var(--lime); color: #0a0a0a; padding: clamp(30px, 6vw, 60px); display: grid; gap: 28px; align-items: center; }
+    @media (min-width: 880px) { .trial { grid-template-columns: 1.1fr 1fr; } }
+    .trial h2 { margin: 0; font-size: clamp(30px, 5vw, 52px); line-height: 1; text-transform: uppercase; }
+    .trial p { margin: 14px 0 0; font-size: 17px; }
+    form { display: grid; gap: 10px; }
+    input { width: 100%; padding: 16px 20px; border: 0; border-radius: 999px; background: #0a0a0a; color: #fff; font: inherit; font-size: 16px; outline: none; }
+    input::placeholder { color: #888; }
+    .btn--dark { background: #0a0a0a; color: var(--lime); justify-content: center; }
+    footer { padding: 40px 0 100px; color: var(--muted); font-size: 14px; }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="logo" href="#">PULS<span>E</span></a>
+      <nav class="kit-menu"><a href="#zones">Клуб</a><a href="#schedule">Расписание</a><a href="#plans">Абонементы</a><a href="#coaches">Тренеры</a></nav>
+      <a class="btn" href="#trial">Пробная тренировка</a>
+      <button class="kit-burger" aria-label="Меню">☰</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <h1>Стань <span>сильнее</span><br>каждый день</h1>
+      <p>Фитнес-клуб 24/7: тренажёрный зал, групповые программы, бокс и функциональный тренинг. Первая тренировка с тренером — бесплатно.</p>
+      <div class="cta"><a class="btn" href="#trial">Попробовать бесплатно →</a><a class="btn btn--ghost" href="#plans">Абонементы</a></div>
+    </div>
+    <div class="ticker" aria-hidden="true"><div>Открыто 24/7 ✦ 2 500 м² ✦ 40+ групповых программ ✦ Бассейн 25 м ✦ Парковка ✦ Открыто 24/7 ✦ 2 500 м² ✦ 40+ групповых программ ✦ Бассейн 25 м ✦ Парковка ✦&nbsp;</div></div>
+  </section>
+
+  <section id="zones">
+    <div class="wrap">
+      <div class="title kit-reveal"><h2>Всё для <span>результата</span></h2><p>Профессиональное оборудование и зоны под любую цель — от похудения до соревнований.</p></div>
+      <div class="zones">
+        <div class="zone zone--lime kit-reveal"><b>24/7</b><h3>Без выходных</h3><p>Тренируйтесь в 6 утра или в полночь — клуб открыт всегда.</p></div>
+        <div class="zone kit-reveal" style="--img: url('https://cdn.stocksnap.io/img-thumbs/960w/KZROPA98J8.jpg')"><h3>Тренажёрный зал</h3><p>Более 120 тренажёров и свободные веса</p></div>
+        <div class="zone kit-reveal" style="--img: url('https://cdn.stocksnap.io/img-thumbs/960w/ERD6HQPKSI.jpg')"><h3>Бокс и единоборства</h3><p>Ринг, груши, персональные тренировки</p></div>
+        <div class="zone kit-reveal" style="--img: url('https://cdn.stocksnap.io/img-thumbs/960w/MO8FFFHRSS.jpg')"><h3>Функциональный тренинг</h3><p>Кроссфит-зона и групповые классы</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="schedule" style="padding-top: 0">
+    <div class="wrap">
+      <div class="title kit-reveal"><h2>Расписание</h2><p>Групповые занятия входят во все абонементы. Записывайтесь заранее — места ограничены.</p></div>
+      <div class="days" id="days"></div>
+      <div class="schedule" id="classes"></div>
+    </div>
+  </section>
+
+  <section id="plans" style="padding-top: 0">
+    <div class="wrap">
+      <div class="title kit-reveal"><h2>Абонементы</h2><p>Заморозка до 30 дней и гостевые визиты для друзей.</p></div>
+      <div class="plans">
+        <article class="plan kit-reveal"><h3>Дневной</h3><div class="price">2 490 ₽<small> / мес</small></div><ul><li>С 7:00 до 17:00</li><li>Тренажёрный зал</li><li>Групповые занятия</li></ul><a class="btn btn--ghost" href="#trial">Выбрать</a></article>
+        <article class="plan plan--hot kit-reveal"><span class="tag">Хит продаж</span><h3>Безлимит</h3><div class="price">3 990 ₽<small> / мес</small></div><ul><li>24/7 без ограничений</li><li>Все зоны и бассейн</li><li>2 тренировки с тренером</li><li>Гостевые визиты</li></ul><a class="btn" href="#trial">Выбрать</a></article>
+        <article class="plan kit-reveal"><h3>Годовой</h3><div class="price">34 900 ₽<small> / год</small></div><ul><li>Экономия 13 000 ₽</li><li>Заморозка 60 дней</li><li>Персональная программа</li></ul><a class="btn btn--ghost" href="#trial">Выбрать</a></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="coaches" style="padding-top: 0">
+    <div class="wrap">
+      <div class="title kit-reveal"><h2>Тренеры</h2><p>Сертифицированные специалисты с опытом соревнований.</p></div>
+      <div class="coaches">
+        <article class="coach kit-reveal"><img src="https://cdn.stocksnap.io/img-thumbs/960w/KZROPA98J8.jpg" alt="" loading="lazy"><div><h3>Максим Орлов</h3><p>Силовой тренинг · КМС по пауэрлифтингу</p></div></article>
+        <article class="coach kit-reveal"><img src="https://cdn.stocksnap.io/img-thumbs/960w/MO8FFFHRSS.jpg" alt="" loading="lazy"><div><h3>Алина Петрова</h3><p>Функциональный тренинг и стретчинг</p></div></article>
+        <article class="coach kit-reveal"><img src="https://cdn.stocksnap.io/img-thumbs/960w/ERD6HQPKSI.jpg" alt="" loading="lazy"><div><h3>Дарья Волкова</h3><p>Бокс · мастер спорта</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="trial" style="padding-top: 0">
+    <div class="wrap">
+      <div class="trial kit-reveal">
+        <div><h2>Первая тренировка — бесплатно</h2><p>Экскурсия по клубу, замер состава тела и тренировка с тренером. Без обязательств.</p></div>
+        <form data-demo="Записали! Это демо-сайт — на настоящем менеджер позвонил бы через 5 минут 💪">
+          <input required placeholder="Имя" autocomplete="name">
+          <input required type="tel" placeholder="Телефон" autocomplete="tel">
+          <button class="btn btn--dark" type="submit">Хочу тренировку</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer><div class="wrap"><span>© 2026 PULSE · демо-сайт, клуб вымышлен</span><span>Фото: StockSnap (CC0)</span></div></footer>
+
+  <script src="kit.js"></script>
+  <script>
+    const PROGRAMS = [['Утренний функционал', 'Алина', 45], ['Бокс для начинающих', 'Дарья', 60], ['Силовая тренировка', 'Максим', 60], ['Стретчинг', 'Алина', 50], ['Сайкл', 'Дарья', 45], ['Йога', 'Алина', 60], ['HIIT', 'Максим', 30]];
+    const TIMES = ['07:00', '09:00', '12:30', '18:00', '19:30', '21:00'];
+    const DAYS = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+    let day = (new Date().getDay() + 6) % 7;
+    const booked = new Set();
+    function render() {
+      document.getElementById('days').innerHTML = DAYS.map((d, i) => `<button class="day ${i === day ? 'is-on' : ''}" data-day="${i}">${d}</button>`).join('');
+      const list = TIMES.slice(0, day >= 5 ? 4 : 6).map((t, k) => {
+        const [name, coach, min] = PROGRAMS[(day * 3 + k) % PROGRAMS.length];
+        const id = `${day}-${k}`;
+        const full = (day + k) % 5 === 0;
+        return `<div class="class"><time>${t}</time><div><b>${name}</b><small>${coach} · ${min} мин</small></div>
+          ${full ? '<span class="full">Мест нет</span>' : `<button data-book="${id}">${booked.has(id) ? '✓ Вы записаны' : 'Записаться'}</button>`}</div>`;
+      });
+      document.getElementById('classes').innerHTML = list.join('');
+    }
+    document.getElementById('days').addEventListener('click', (e) => { const b = e.target.closest('[data-day]'); if (b) { day = Number(b.dataset.day); render(); } });
+    document.getElementById('classes').addEventListener('click', (e) => {
+      const b = e.target.closest('[data-book]');
+      if (!b) return;
+      const id = b.dataset.book;
+      if (booked.has(id)) booked.delete(id); else { booked.add(id); window.kitToast('Вы записаны на занятие! (демо)'); }
+      render();
+    });
+    render();
+  </script>
+</body>
+</html>

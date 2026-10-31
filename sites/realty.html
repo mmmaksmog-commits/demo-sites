@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Квартал — агентство недвижимости</title>
+  <meta name="description" content="Демо-сайт агентства недвижимости: каталог квартир с фильтрами, ипотечный калькулятор, заявка на подбор.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="kit.css">
+  <style>
+    :root { --bg: #f4f5f7; --card: #fff; --ink: #121826; --muted: #697386; --blue: #2f5bff; --blue-l: #eaf0ff; --line: #e4e7ec; --menu-bg: #fff; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 Onest, system-ui, sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3 { letter-spacing: -0.025em; line-height: 1.1; font-weight: 800; }
+    .wrap { max-width: 1220px; margin: 0 auto; padding: 0 20px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 24px; border: 0; border-radius: 12px; background: var(--blue); color: #fff; font: 600 16px Onest, sans-serif; cursor: pointer; transition: background 0.2s; }
+    .btn:hover { background: #1f45d8; }
+    .btn--white { background: #fff; color: var(--ink); }
+    .btn--white:hover { background: #f0f2f5; }
+
+    header .wrap { position: relative; display: flex; align-items: center; gap: 26px; padding-top: 18px; padding-bottom: 18px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 21px; }
+    .logo i { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 10px; background: var(--ink); color: #fff; font-style: normal; }
+    nav { display: flex; gap: 24px; margin-left: auto; font-weight: 500; color: var(--muted); }
+    nav a:hover { color: var(--ink); }
+    .kit-burger { margin-left: auto; width: 44px; height: 44px; align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: 12px; background: #fff; font-size: 20px; }
+    @media (max-width: 860px) { header .btn { display: none; } }
+
+    .hero { padding: 6px 0 40px; }
+    .hero__box { position: relative; min-height: min(78vh, 620px); display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(24px, 5vw, 56px); border-radius: 32px; overflow: hidden; color: #fff;
+      background: linear-gradient(180deg, rgba(18, 24, 38, 0.1) 20%, rgba(18, 24, 38, 0.85)), url('https://cdn.stocksnap.io/img-thumbs/960w/D0NOMANBA7.jpg') center / cover no-repeat, #ccc; }
+    .hero h1 { margin: 0; max-width: 720px; font-size: clamp(36px, 6vw, 70px); }
+    .hero p { max-width: 520px; margin: 16px 0 26px; font-size: 18px; color: #e3e7ef; }
+    .search { display: grid; gap: 8px; padding: 10px; border-radius: 18px; background: #fff; max-width: 820px; grid-template-columns: 1fr; }
+    @media (min-width: 760px) { .search { grid-template-columns: 1fr 1fr 1fr auto; } }
+    .search select { width: 100%; padding: 13px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); font: 500 15px Onest, sans-serif; color: var(--ink); }
+
+    section { padding: clamp(50px, 7vw, 90px) 0; }
+    .title { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 26px; }
+    .title h2 { margin: 0; font-size: clamp(28px, 4.4vw, 44px); }
+    .title p { margin: 0; color: var(--muted); }
+
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+    .chip { padding: 10px 16px; border: 1px solid var(--line); border-radius: 999px; background: #fff; font: 600 14px Onest, sans-serif; color: var(--ink); cursor: pointer; }
+    .chip.is-on { background: var(--ink); border-color: var(--ink); color: #fff; }
+    .listings { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }
+    .flat { border-radius: 24px; background: var(--card); overflow: hidden; border: 1px solid var(--line); transition: box-shadow 0.2s, transform 0.2s; }
+    .flat:hover { transform: translateY(-3px); box-shadow: 0 24px 50px -30px rgba(18, 24, 38, 0.4); }
+    .flat__img { position: relative; aspect-ratio: 4 / 3; background: var(--img) center / cover, #dde1e8; }
+    .flat__img span { position: absolute; top: 12px; left: 12px; padding: 5px 10px; border-radius: 8px; background: #fff; font-size: 13px; font-weight: 700; }
+    .like { position: absolute; top: 10px; right: 10px; width: 38px; height: 38px; border: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.92); font-size: 18px; cursor: pointer; }
+    .like.on { color: #e5484d; }
+    .flat__body { padding: 16px 18px 20px; }
+    .flat__price { font-size: 24px; font-weight: 800; }
+    .flat__per { color: var(--muted); font-size: 13px; }
+    .flat__meta { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 10px 0 6px; font-weight: 600; font-size: 15px; }
+    .flat__addr { color: var(--muted); font-size: 14px; }
+    .none { grid-column: 1 / -1; padding: 40px; text-align: center; color: var(--muted); background: #fff; border-radius: 24px; }
+
+    .mortgage { display: grid; gap: 20px; padding: clamp(24px, 4vw, 40px); border-radius: 32px; background: var(--ink); color: #fff; }
+    @media (min-width: 900px) { .mortgage { grid-template-columns: 1.3fr 1fr; align-items: center; } }
+    .mortgage h2 { margin: 0 0 20px; font-size: clamp(28px, 4vw, 40px); }
+    .range { display: grid; gap: 6px; margin-bottom: 18px; }
+    .range label { display: flex; justify-content: space-between; color: #b6bdcc; font-size: 15px; }
+    .range label b { color: #fff; font-size: 17px; }
+    .range input { width: 100%; accent-color: var(--blue); }
+    .pay { padding: 28px; border-radius: 24px; background: #fff; color: var(--ink); }
+    .pay small { color: var(--muted); }
+    .pay .big { display: block; margin: 6px 0 14px; font-size: clamp(36px, 6vw, 48px); font-weight: 800; color: var(--blue); }
+    .pay ul { margin: 0 0 18px; padding: 0; list-style: none; display: grid; gap: 6px; font-size: 15px; }
+    .pay li { display: flex; justify-content: space-between; }
+    .pay li span { color: var(--muted); }
+
+    .steps { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); }
+    .steps div { padding: 24px; border-radius: 22px; background: #fff; border: 1px solid var(--line); }
+    .steps b { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--blue-l); color: var(--blue); font-size: 18px; }
+    .steps h3 { margin: 14px 0 6px; font-size: 18px; }
+    .steps p { margin: 0; color: var(--muted); font-size: 15px; }
+
+    .lead { display: grid; gap: 24px; padding: clamp(24px, 4vw, 44px); border-radius: 32px; background: var(--blue); color: #fff; }
+    @media (min-width: 880px) { .lead { grid-template-columns: 1fr 1fr; align-items: center; } }
+    .lead h2 { margin: 0; font-size: clamp(28px, 4vw, 40px); }
+    .lead p { color: #dbe4ff; }
+    form { display: grid; gap: 10px; }
+    input[type="text"], input[type="tel"] { width: 100%; padding: 15px 16px; border: 0; border-radius: 12px; font: inherit; font-size: 16px; outline: none; }
+    footer { padding: 30px 0 100px; color: var(--muted); font-size: 14px; }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="logo" href="#"><i>К</i>Квартал</a>
+      <nav class="kit-menu"><a href="#catalog">Квартиры</a><a href="#mortgage">Ипотека</a><a href="#how">Как работаем</a><a href="#lead">Контакты</a></nav>
+      <a class="btn" href="#lead">Подобрать квартиру</a>
+      <button class="kit-burger" aria-label="Меню">☰</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero__box">
+        <h1>Квартира мечты без переплат и стресса</h1>
+        <p>1 200+ проверенных квартир в новостройках и на вторичном рынке. Юридическая проверка и ипотека от 5,9% — бесплатно для покупателя.</p>
+        <form class="search" onsubmit="event.preventDefault(); document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' });">
+          <select aria-label="Тип"><option>Купить квартиру</option><option>Снять квартиру</option></select>
+          <select aria-label="Комнаты" id="heroRooms"><option value="all">Любое число комнат</option><option value="1">1-комнатные</option><option value="2">2-комнатные</option><option value="3">3+ комнат</option></select>
+          <select aria-label="Район"><option>Любой район</option><option>Центр</option><option>Север</option><option>Юг</option></select>
+          <button class="btn" type="submit">Найти</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="catalog">
+    <div class="wrap">
+      <div class="title kit-reveal"><h2>Актуальные предложения</h2><p id="found"></p></div>
+      <div class="filters" id="filters"></div>
+      <div class="listings" id="listings"></div>
+    </div>
+  </section>
+
+  <section id="mortgage" style="padding-top: 0">
+    <div class="wrap">
+      <div class="mortgage kit-reveal">
+        <div>
+          <h2>Ипотечный калькулятор</h2>
+          <div class="range"><label>Стоимость квартиры <b id="vPrice"></b></label><input type="range" id="price" min="3000000" max="30000000" step="100000" value="9500000"></div>
+          <div class="range"><label>Первый взнос <b id="vDown"></b></label><input type="range" id="down" min="10" max="80" step="5" value="20"></div>
+          <div class="range"><label>Срок <b id="vYears"></b></label><input type="range" id="years" min="5" max="30" step="1" value="20"></div>
+          <div class="range"><label>Ставка <b id="vRate"></b></label><input type="range" id="rate" min="3" max="25" step="0.1" value="5.9"></div>
+        </div>
+        <div class="pay">
+          <small>Ежемесячный платёж</small>
+          <span class="big" id="monthly"></span>
+          <ul><li><span>Сумма кредита</span><b id="loan"></b></li><li><span>Переплата</span><b id="over"></b></li><li><span>Нужный доход</span><b id="income"></b></li></ul>
+          <a class="btn" href="#lead" style="width:100%">Получить одобрение</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how" style="padding-top: 0">
+    <div class="wrap">
+      <div class="title kit-reveal"><h2>Как мы работаем</h2></div>
+      <div class="steps">
+        <div class="kit-reveal"><b>1</b><h3>Подбор</h3><p>Выясняем пожелания и показываем только подходящие варианты.</p></div>
+        <div class="kit-reveal"><b>2</b><h3>Проверка</h3><p>Юрист проверяет историю квартиры и документы продавца.</p></div>
+        <div class="kit-reveal"><b>3</b><h3>Ипотека</h3><p>Подаём заявку сразу в 12 банков и выбираем лучшую ставку.</p></div>
+        <div class="kit-reveal"><b>4</b><h3>Сделка</h3><p>Безопасные расчёты и регистрация — вы получаете ключи.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="lead" style="padding-top: 0">
+    <div class="wrap">
+      <div class="lead kit-reveal">
+        <div><h2>Подберём 5 вариантов за 24 часа</h2><p>Оставьте телефон — эксперт уточнит пожелания и пришлёт подборку в мессенджер.</p></div>
+        <form data-demo="Заявка отправлена! Это демо-сайт — на настоящем эксперт написал бы вам в течение часа.">
+          <input type="text" required placeholder="Ваше имя" autocomplete="name">
+          <input type="tel" required placeholder="Телефон" autocomplete="tel">
+          <button class="btn btn--white" type="submit">Получить подборку</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer><div class="wrap"><span>© 2026 «Квартал» · демо-сайт, агентство и объекты вымышлены</span><span>Фото: StockSnap (CC0)</span></div></footer>
+
+  <script src="kit.js"></script>
+  <script>
+    const IMG = (id) => `https://cdn.stocksnap.io/img-thumbs/960w/${id}.jpg`;
+    const FLATS = [
+      { r: 1, s: 38, f: '7/16', p: 6900000, a: 'ЖК «Северный», ул. Лесная, 4', img: 'OXC2AJLBXO', t: 'Новостройка' },
+      { r: 2, s: 58, f: '12/25', p: 10400000, a: 'ЖК «Панорама», пр. Мира, 18', img: 'ND7JR4XWKI', t: 'С ремонтом' },
+      { r: 3, s: 84, f: '5/9', p: 14900000, a: 'ул. Садовая, 12', img: 'QSX4WH8BDB', t: 'Вторичка' },
+      { r: 2, s: 64, f: '3/12', p: 9800000, a: 'ЖК «Парковый», ул. Тихая, 2', img: 'CANWWGZAUF', t: 'Новостройка' },
+      { r: 1, s: 42, f: '15/22', p: 7600000, a: 'ЖК «Лето», ул. Южная, 30', img: 'DGBAEIS339', t: 'Вид на парк' },
+      { r: 3, s: 96, f: '9/17', p: 18500000, a: 'ЖК «Резиденция», наб. Реки, 5', img: 'KIKBTBFSAX', t: 'Бассейн' },
+    ];
+    const money = (n) => n.toLocaleString('ru-RU') + ' ₽';
+    const mln = (n) => (n / 1e6).toLocaleString('ru-RU', { maximumFractionDigits: 1 }) + ' млн ₽';
+    let rooms = 'all';
+    const liked = new Set();
+    const ROOMS = [['all', 'Все'], ['1', '1-комн.'], ['2', '2-комн.'], ['3', '3+ комн.']];
+    function renderList() {
+      document.getElementById('filters').innerHTML = ROOMS.map(([v, n]) => `<button class="chip ${v === rooms ? 'is-on' : ''}" data-rooms="${v}">${n}</button>`).join('');
+      const list = FLATS.filter((x) => rooms === 'all' || String(Math.min(x.r, 3)) === rooms);
+      document.getElementById('found').textContent = `Найдено ${list.length} из ${FLATS.length}`;
+      document.getElementById('listings').innerHTML = list.length ? list.map((x, i) => `
+        <article class="flat"><div class="flat__img" style="--img:url('${IMG(x.img)}')"><span>${x.t}</span><button class="like ${liked.has(x.a) ? 'on' : ''}" data-like="${x.a}" aria-label="В избранное">${liked.has(x.a) ? '♥' : '♡'}</button></div>
+          <div class="flat__body"><div class="flat__price">${money(x.p)}</div><div class="flat__per">${money(Math.round(x.p / x.s))} за м²</div>
+          <div class="flat__meta"><span>${x.r}-комн.</span><span>${x.s} м²</span><span>${x.f} этаж</span></div><div class="flat__addr">📍 ${x.a}</div></div></article>`).join('')
+        : '<div class="none">Нет квартир с такими параметрами</div>';
+    }
+    document.getElementById('filters').addEventListener('click', (e) => { const b = e.target.closest('[data-rooms]'); if (b) { rooms = b.dataset.rooms; renderList(); } });
+    document.getElementById('listings').addEventListener('click', (e) => { const b = e.target.closest('[data-like]'); if (b) { const k = b.dataset.like; liked.has(k) ? liked.delete(k) : liked.add(k); renderList(); } });
+    document.getElementById('heroRooms').addEventListener('change', (e) => { rooms = e.target.value; renderList(); });
+
+    // Аннуитетный платёж
+    const $ = (id) => document.getElementById(id);
+    function calc() {
+      const price = +$('price').value;
+      const down = +$('down').value;
+      const years = +$('years').value;
+      const rate = +$('rate').value;
+      const loan = price * (1 - down / 100);
+      const m = rate / 1200;
+      const n = years * 12;
+      const pay = loan * (m * (1 + m) ** n) / ((1 + m) ** n - 1);
+      $('vPrice').textContent = mln(price);
+      $('vDown').textContent = `${down}% · ${mln(price * down / 100)}`;
+      $('vYears').textContent = `${years} лет`;
+      $('vRate').textContent = `${rate.toFixed(1)}%`;
+      $('monthly').textContent = money(Math.round(pay));
+      $('loan').textContent = mln(loan);
+      $('over').textContent = mln(pay * n - loan);
+      $('income').textContent = `от ${money(Math.round(pay / 0.5 / 1000) * 1000)}`;
+    }
+    ['price', 'down', 'years', 'rate'].forEach((id) => $(id).addEventListener('input', calc));
+    renderList();
+    calc();
+  </script>
+</body>
+</html>

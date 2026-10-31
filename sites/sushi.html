@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Сакура Экспресс — доставка суши и роллов</title>
+  <meta name="description" content="Демо-сайт доставки еды: меню с категориями, корзина, расчёт доставки, оформление заказа.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="kit.css">
+  <style>
+    :root { --red: #e63946; --dark: #111; --bg: #faf8f6; --card: #fff; --line: #eee8e3; --muted: #7a726c; --menu-bg: #fff; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--dark); font: 16px/1.5 Inter, system-ui, sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+
+    header { position: sticky; top: 0; z-index: 30; background: rgba(250, 248, 246, 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+    header .wrap { display: flex; align-items: center; gap: 16px; padding-top: 12px; padding-bottom: 12px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; }
+    .logo i { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: var(--red); color: #fff; font-style: normal; font-size: 18px; }
+    .delivery { margin-left: auto; font-size: 14px; color: var(--muted); text-align: right; }
+    .delivery b { display: block; color: var(--dark); }
+    .cart-btn { position: relative; display: inline-flex; align-items: center; gap: 8px; padding: 11px 16px; border: 0; border-radius: 14px; background: var(--red); color: #fff; font-weight: 700; }
+    .cart-btn span { min-width: 22px; height: 22px; padding: 0 6px; display: inline-grid; place-items: center; border-radius: 11px; background: #fff; color: var(--red); font-size: 13px; }
+    @media (max-width: 640px) { .delivery { display: none; } .cart-btn { margin-left: auto; } }
+
+    .hero { padding: 24px 0 10px; }
+    .banner { position: relative; overflow: hidden; display: grid; gap: 20px; align-items: center; padding: clamp(28px, 5vw, 56px); border-radius: 28px; background: var(--dark); color: #fff; }
+    @media (min-width: 760px) { .banner { grid-template-columns: 1.2fr 1fr; } }
+    .banner h1 { margin: 0; font-size: clamp(34px, 5.5vw, 60px); line-height: 1.02; font-weight: 800; letter-spacing: -0.03em; }
+    .banner h1 em { color: var(--red); font-style: normal; }
+    .banner p { margin: 14px 0 22px; color: #bbb; font-size: 17px; max-width: 420px; }
+    .promo { display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1px dashed #555; border-radius: 12px; font-size: 14px; }
+    .promo b { color: #fff; letter-spacing: 0.1em; }
+    .plate { position: relative; aspect-ratio: 1; max-width: 340px; width: 100%; justify-self: center; border-radius: 50%; background: radial-gradient(circle, #2a2a2a 0 58%, #1c1c1c 59% 64%, #2a2a2a 65%); display: grid; place-items: center; }
+    .plate .center { font-size: clamp(70px, 12vw, 110px); animation: bob 4s ease-in-out infinite; } @keyframes bob { 50% { transform: translateY(-8px) rotate(-6deg); } }
+
+    .cats { position: sticky; top: 63px; z-index: 20; display: flex; gap: 8px; overflow-x: auto; padding: 14px 0; background: var(--bg); scrollbar-width: none; }
+    .cats::-webkit-scrollbar { display: none; }
+    .cat { flex: none; padding: 10px 18px; border: 1px solid var(--line); border-radius: 999px; background: var(--card); font-weight: 600; font-size: 15px; white-space: nowrap; }
+    .cat.is-active { background: var(--dark); color: #fff; border-color: var(--dark); }
+
+    .menu h2 { margin: 26px 0 14px; font-size: 26px; font-weight: 800; letter-spacing: -0.02em; }
+    .grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); }
+    .dish { display: flex; flex-direction: column; border-radius: 22px; background: var(--card); border: 1px solid var(--line); overflow: hidden; transition: box-shadow 0.2s, transform 0.2s; }
+    .dish:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -24px rgba(0, 0, 0, 0.35); }
+    .dish__pic { position: relative; aspect-ratio: 4 / 3; display: grid; place-items: center; font-size: 70px; background: radial-gradient(circle at 50% 60%, var(--c1, #ffe8e0), var(--c2, #fff5f0)); }
+    .dish__tag { position: absolute; top: 12px; left: 12px; padding: 4px 10px; border-radius: 999px; background: var(--red); color: #fff; font-size: 12px; font-weight: 700; }
+    .dish__body { display: flex; flex-direction: column; flex: 1; padding: 14px 16px 16px; }
+    .dish h3 { margin: 0; font-size: 17px; font-weight: 700; }
+    .dish p { margin: 4px 0 12px; color: var(--muted); font-size: 13px; }
+    .dish__row { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+    .dish__price { font-weight: 800; font-size: 18px; }
+    .dish__price small { color: var(--muted); font-weight: 500; font-size: 12px; margin-left: 4px; }
+    .add { padding: 9px 16px; border: 0; border-radius: 12px; background: #fdeaec; color: var(--red); font-weight: 700; }
+    .add:hover { background: var(--red); color: #fff; }
+    .qty { display: inline-flex; align-items: center; gap: 4px; border-radius: 12px; background: var(--red); color: #fff; }
+    .qty button { width: 34px; height: 36px; border: 0; background: transparent; color: #fff; font-size: 18px; font-weight: 700; }
+    .qty b { min-width: 18px; text-align: center; }
+
+    .info { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); margin: 50px 0; }
+    .info div { padding: 22px; border-radius: 22px; background: var(--card); border: 1px solid var(--line); }
+    .info b { display: block; font-size: 30px; }
+    .info span { color: var(--muted); font-size: 14px; }
+
+    .drawer { position: fixed; inset: 0; z-index: 60; display: flex; justify-content: flex-end; background: rgba(0, 0, 0, 0.4); }
+    .drawer[hidden] { display: none; }
+    .drawer__box { display: flex; flex-direction: column; width: min(420px, 100%); height: 100%; background: #fff; animation: slide 0.25s ease; }
+    @keyframes slide { from { transform: translateX(40px); opacity: 0; } }
+    .drawer__head { display: flex; justify-content: space-between; align-items: center; padding: 20px; border-bottom: 1px solid var(--line); }
+    .drawer__head h2 { margin: 0; font-size: 22px; }
+    .close { width: 38px; height: 38px; border: 0; border-radius: 50%; background: var(--bg); font-size: 18px; }
+    .lines { flex: 1; overflow-y: auto; padding: 8px 20px; }
+    .line { display: grid; grid-template-columns: 48px 1fr auto; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); }
+    .line i { font-style: normal; font-size: 32px; text-align: center; }
+    .line b { display: block; font-size: 15px; }
+    .line small { color: var(--muted); }
+    .empty { padding: 60px 0; text-align: center; color: var(--muted); }
+    .empty span { font-size: 54px; display: block; }
+    .total { padding: 18px 20px calc(18px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); }
+    .total p { display: flex; justify-content: space-between; margin: 0 0 6px; color: var(--muted); }
+    .total p b { color: var(--dark); }
+    .total .sum { font-size: 20px; color: var(--dark); font-weight: 800; }
+    .hint { font-size: 13px; color: var(--red); }
+    .order { width: 100%; margin-top: 10px; padding: 16px; border: 0; border-radius: 16px; background: var(--red); color: #fff; font-weight: 800; font-size: 17px; }
+    .order:disabled { opacity: 0.4; cursor: default; }
+    footer { padding: 30px 0 100px; color: var(--muted); font-size: 14px; text-align: center; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="logo" href="#"><i>桜</i>Сакура Экспресс</a>
+      <div class="delivery"><b>Доставка за 45 минут</b>Бесплатно от 1 500 ₽</div>
+      <button class="cart-btn" id="cartBtn" aria-label="Корзина">🛒 <em id="cartSum" style="font-style:normal">0 ₽</em> <span id="cartCount">0</span></button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="banner">
+        <div>
+          <h1>Роллы, которые <em>хочется</em> заказать снова</h1>
+          <p>Готовим из охлаждённой рыбы прямо перед доставкой. Не довезём за 60 минут — заказ бесплатно.</p>
+          <span class="promo">−20% на первый заказ по промокоду <b>SAKURA20</b></span>
+        </div>
+        <div class="plate" aria-hidden="true"><span class="center">🍣</span></div>
+      </div>
+    </div>
+  </section>
+
+  <main class="wrap menu">
+    <nav class="cats" id="cats" aria-label="Категории"></nav>
+    <div id="menu"></div>
+    <div class="info">
+      <div><b>45 мин</b><span>среднее время доставки</span></div>
+      <div><b>4.9 ★</b><span>оценка в приложениях доставки</span></div>
+      <div><b>0 ₽</b><span>доставка от 1 500 ₽</span></div>
+      <div><b>10:00–23:00</b><span>принимаем заказы ежедневно</span></div>
+    </div>
+  </main>
+
+  <div class="drawer" id="drawer" hidden>
+    <div class="drawer__box" role="dialog" aria-label="Корзина">
+      <div class="drawer__head"><h2>Ваш заказ</h2><button class="close" id="closeCart" aria-label="Закрыть">✕</button></div>
+      <div class="lines" id="lines"></div>
+      <div class="total" id="total"></div>
+    </div>
+  </div>
+
+  <footer>© 2026 Сакура Экспресс · демо-сайт, ресторан вымышлен</footer>
+
+  <script src="kit.js"></script>
+  <script>
+    const MENU = [
+      { cat: 'Хиты', items: [
+        { id: 1, e: '🍣', n: 'Филадельфия', d: 'Лосось, сливочный сыр, огурец · 8 шт', p: 590, w: '260 г', tag: 'Хит', c: ['#ffe1d6', '#fff4ef'] },
+        { id: 2, e: '🍱', n: 'Сет «Токио»', d: '32 ролла: Филадельфия, Калифорния, Канада, Унаги', p: 1890, w: '1 кг', tag: '−15%', c: ['#ffe8c7', '#fff7ea'] },
+        { id: 3, e: '🔥', n: 'Запечённый с крабом', d: 'Снежный краб, спайси-соус, кунжут · 8 шт', p: 520, w: '240 г', c: ['#ffd9cf', '#fff1ed'] },
+      ] },
+      { cat: 'Роллы', items: [
+        { id: 4, e: '🥑', n: 'Калифорния', d: 'Краб, авокадо, огурец, икра масаго', p: 450, w: '230 г', c: ['#e4f5d9', '#f5fbef'] },
+        { id: 5, e: '🐟', n: 'Канада', d: 'Угорь, лосось, сыр, соус унаги', p: 640, w: '270 г', c: ['#f5e1cf', '#fdf5ee'] },
+        { id: 6, e: '🥒', n: 'Каппа маки', d: 'Огурец, кунжут · 6 шт', p: 190, w: '110 г', tag: 'Веган', c: ['#e1f5e6', '#f3fbf5'] },
+        { id: 7, e: '🍤', n: 'Темпура с креветкой', d: 'Тигровая креветка, сыр, соус спайси', p: 560, w: '250 г', c: ['#fff0c9', '#fffaeb'] },
+      ] },
+      { cat: 'Горячее', items: [
+        { id: 8, e: '🍜', n: 'Рамен с курицей', d: 'Насыщенный бульон, лапша, яйцо', p: 480, w: '450 мл', c: ['#ffe9cf', '#fff8ef'] },
+        { id: 9, e: '🍛', n: 'Вок с говядиной', d: 'Удон, овощи, соус терияки', p: 520, w: '350 г', c: ['#f6dcc9', '#fdf3ec'] },
+      ] },
+      { cat: 'Напитки и десерты', items: [
+        { id: 10, e: '🍵', n: 'Матча латте', d: 'На кокосовом молоке', p: 290, w: '350 мл', c: ['#e3f3d8', '#f5fbf0'] },
+        { id: 11, e: '🍡', n: 'Моти ассорти', d: 'Манго, клубника, матча · 3 шт', p: 360, w: '120 г', c: ['#ffe0ec', '#fff3f8'] },
+      ] },
+    ];
+    const ALL = MENU.flatMap((c) => c.items);
+    const FREE_FROM = 1500;
+    const DELIVERY = 199;
+    const cart = new Map();
+    const money = (n) => `${n.toLocaleString('ru-RU')} ₽`;
+    const $ = (s) => document.querySelector(s);
+
+    const slug = (s) => 'cat-' + MENU.findIndex((c) => c.cat === s);
+    $('#cats').innerHTML = MENU.map((c, i) => `<a class="cat ${i ? '' : 'is-active'}" href="#${slug(c.cat)}">${c.cat}</a>`).join('');
+
+    function control(it) {
+      const q = cart.get(it.id) || 0;
+      return q ? `<span class="qty"><button data-dec="${it.id}" aria-label="Меньше">−</button><b>${q}</b><button data-inc="${it.id}" aria-label="Больше">+</button></span>`
+        : `<button class="add" data-inc="${it.id}">В корзину</button>`;
+    }
+    function renderMenu() {
+      $('#menu').innerHTML = MENU.map((c) => `<section id="${slug(c.cat)}"><h2>${c.cat}</h2><div class="grid">${c.items.map((it) => `
+        <article class="dish"><div class="dish__pic" style="--c1:${it.c[0]};--c2:${it.c[1]}">${it.e}${it.tag ? `<span class="dish__tag">${it.tag}</span>` : ''}</div>
+          <div class="dish__body"><h3>${it.n}</h3><p>${it.d}</p><div class="dish__row"><span class="dish__price">${money(it.p)}<small>${it.w}</small></span><span data-ctl="${it.id}">${control(it)}</span></div></div>
+        </article>`).join('')}</div></section>`).join('');
+    }
+    function renderCart() {
+      let count = 0;
+      let sum = 0;
+      for (const [id, q] of cart) { count += q; sum += ALL.find((x) => x.id === id).p * q; }
+      const delivery = sum >= FREE_FROM || !sum ? 0 : DELIVERY;
+      $('#cartCount').textContent = count;
+      $('#cartSum').textContent = money(sum);
+      document.querySelectorAll('[data-ctl]').forEach((el) => { el.innerHTML = control(ALL.find((x) => x.id === Number(el.dataset.ctl))); });
+      $('#lines').innerHTML = count ? [...cart].map(([id, q]) => { const it = ALL.find((x) => x.id === id); return `
+        <div class="line"><i>${it.e}</i><div><b>${it.n}</b><small>${money(it.p)} × ${q}</small></div>
+        <span class="qty"><button data-dec="${id}" aria-label="Меньше">−</button><b>${q}</b><button data-inc="${id}" aria-label="Больше">+</button></span></div>`; }).join('')
+        : '<div class="empty"><span>🥢</span>Корзина пуста — добавьте что-нибудь вкусное</div>';
+      $('#total').innerHTML = `
+        <p>Блюда <b>${money(sum)}</b></p>
+        <p>Доставка <b>${delivery ? money(delivery) : 'бесплатно'}</b></p>
+        ${sum && sum < FREE_FROM ? `<p class="hint">Добавьте ещё на ${money(FREE_FROM - sum)} — доставка станет бесплатной</p>` : ''}
+        <p class="sum">Итого <b>${money(sum + delivery)}</b></p>
+        <button class="order" id="order" ${count ? '' : 'disabled'}>Оформить заказ</button>`;
+    }
+    document.addEventListener('click', (e) => {
+      const inc = e.target.closest('[data-inc]');
+      const dec = e.target.closest('[data-dec]');
+      if (inc) { const id = Number(inc.dataset.inc); cart.set(id, (cart.get(id) || 0) + 1); renderCart(); }
+      if (dec) { const id = Number(dec.dataset.dec); const q = (cart.get(id) || 0) - 1; if (q > 0) cart.set(id, q); else cart.delete(id); renderCart(); }
+      if (e.target.closest('#order')) { cart.clear(); renderCart(); $('#drawer').hidden = true; window.kitToast('Заказ принят! Это демо-сайт — на настоящем курьер уже бы выехал 🛵'); }
+    });
+    $('#cartBtn').onclick = () => { $('#drawer').hidden = false; };
+    $('#closeCart').onclick = () => { $('#drawer').hidden = true; };
+    $('#drawer').addEventListener('click', (e) => { if (e.target.id === 'drawer') $('#drawer').hidden = true; });
+
+    // Подсветка категории при прокрутке
+    const io = new IntersectionObserver((entries) => entries.forEach((en) => {
+      if (en.isIntersecting) document.querySelectorAll('.cat').forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === `#${en.target.id}`));
+    }), { rootMargin: '-40% 0px -55% 0px' });
+    renderMenu();
+    renderCart();
+    document.querySelectorAll('#menu section').forEach((s) => io.observe(s));
+  </script>
+</body>
+</html>
