@@ -1,4 +1,5 @@
 /* Общее для всех демо-сайтов: плашка «назад», уведомление, мобильное меню, появление при прокрутке. */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .kit-back {
   position: fixed;
   left: 14px;

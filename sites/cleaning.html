@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Чисто — клининг квартир и домов</title>
+  <meta name="description" content="Демо-сайт клининговой компании: калькулятор стоимости уборки, что входит в уборку, гарантии и онлайн-заявка.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="kit.css">
+  <style>
+    :root { --blue: #2f6bff; --blue-d: #1f4fd1; --sky: #eaf1ff; --aqua: #19c3c0; --ink: #0f1d3a; --muted: #5f6b85; --bg: #f7f9ff; --line: #e1e7f5; --menu-bg: #fff; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 Manrope, system-ui, sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; color: inherit; }
+    button { cursor: pointer; }
+    h1, h2, h3 { line-height: 1.1; font-weight: 800; letter-spacing: -0.025em; }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 15px 26px; border: 0; border-radius: 14px; background: var(--blue); color: #fff; font-weight: 800; transition: background 0.2s, transform 0.15s; }
+    .btn:hover { background: var(--blue-d); }
+    .btn:active { transform: scale(0.97); }
+    .btn--white { background: #fff; color: var(--blue); }
+    .btn--white:hover { background: var(--sky); }
+
+    header { position: sticky; top: 0; z-index: 30; background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+    header .wrap { position: relative; display: flex; align-items: center; gap: 26px; padding-top: 13px; padding-bottom: 13px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 22px; }
+    .logo i { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; background: linear-gradient(135deg, var(--aqua), var(--blue)); font-style: normal; font-size: 20px; }
+    nav { display: flex; gap: 24px; margin-left: auto; font-weight: 600; color: var(--muted); font-size: 15px; }
+    nav a:hover { color: var(--blue); }
+    .phone { font-weight: 800; }
+    .kit-burger { margin-left: auto; width: 44px; height: 44px; align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: 12px; background: #fff; font-size: 20px; }
+    @media (max-width: 860px) { .phone, header .btn { display: none; } }
+
+    .hero { position: relative; padding: clamp(30px, 6vw, 70px) 0; overflow: hidden; }
+    .hero .wrap { display: grid; gap: 40px; align-items: center; }
+    @media (min-width: 940px) { .hero .wrap { grid-template-columns: 1.05fr 1fr; } }
+    .pill { display: inline-flex; gap: 8px; align-items: center; padding: 8px 14px; border-radius: 999px; background: var(--sky); color: var(--blue); font-weight: 800; font-size: 14px; }
+    .hero h1 { margin: 16px 0 0; font-size: clamp(38px, 6vw, 68px); }
+    .hero h1 span { background: linear-gradient(90deg, var(--aqua), var(--blue)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero p { max-width: 500px; margin: 18px 0 28px; font-size: 18px; color: var(--muted); }
+    .hero .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+    .trust { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 28px; }
+    .trust div { font-size: 14px; color: var(--muted); }
+    .trust b { display: block; font-size: 24px; color: var(--ink); }
+    .hero__img { position: relative; }
+    .hero__img img { width: 100%; aspect-ratio: 1.05; object-fit: cover; border-radius: 32px; display: block; background: var(--sky); }
+    .sparkle { position: absolute; font-size: 30px; animation: tw 2.4s ease-in-out infinite; }
+    .sparkle:nth-of-type(2) { animation-delay: 0.8s; } .sparkle:nth-of-type(3) { animation-delay: 1.6s; }
+    @keyframes tw { 50% { transform: scale(0.6) rotate(20deg); opacity: 0.4; } }
+    .float { position: absolute; left: -14px; bottom: 26px; display: flex; gap: 12px; align-items: center; padding: 14px 18px; border-radius: 18px; background: #fff; box-shadow: 0 20px 40px -20px rgba(15, 29, 58, 0.4); font-size: 14px; }
+    .float b { display: block; font-size: 18px; }
+    @media (max-width: 600px) { .float { left: 10px; } }
+
+    section { padding: clamp(56px, 8vw, 96px) 0; }
+    .title { max-width: 620px; margin-bottom: 30px; }
+    .title h2 { margin: 0 0 10px; font-size: clamp(30px, 4.6vw, 46px); }
+    .title p { margin: 0; color: var(--muted); }
+
+    .calc { display: grid; gap: 20px; }
+    @media (min-width: 960px) { .calc { grid-template-columns: 1.4fr 1fr; align-items: start; } }
+    .panel { padding: clamp(20px, 3vw, 30px); border-radius: 28px; background: #fff; border: 1px solid var(--line); }
+    .lbl { margin: 0 0 10px; font-weight: 800; font-size: 15px; }
+    .group + .group { margin-top: 24px; }
+    .types { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); gap: 8px; }
+    .types button { padding: 14px; border: 2px solid var(--line); border-radius: 16px; background: #fff; text-align: left; transition: border-color 0.2s; }
+    .types button b { display: block; font-size: 15px; }
+    .types button small { color: var(--muted); font-size: 13px; }
+    .types button span { font-size: 24px; }
+    .types button.is-on { border-color: var(--blue); background: var(--sky); }
+    .range { display: flex; align-items: center; gap: 14px; }
+    .range input { flex: 1; accent-color: var(--blue); height: 28px; }
+    .range output { min-width: 86px; padding: 8px 12px; border-radius: 12px; background: var(--sky); color: var(--blue); font-weight: 800; text-align: center; }
+    .steps { display: flex; gap: 6px; flex-wrap: wrap; }
+    .steps button { min-width: 50px; padding: 10px 14px; border: 2px solid var(--line); border-radius: 12px; background: #fff; font-weight: 800; }
+    .steps button.is-on { border-color: var(--blue); background: var(--sky); color: var(--blue); }
+    .extras { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 8px; }
+    .extras label { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: 2px solid var(--line); border-radius: 14px; cursor: pointer; font-weight: 600; font-size: 14px; transition: border-color 0.2s; }
+    .extras label:has(input:checked) { border-color: var(--blue); background: var(--sky); }
+    .extras input { width: 18px; height: 18px; accent-color: var(--blue); flex: none; }
+    .extras small { margin-left: auto; color: var(--muted); white-space: nowrap; }
+    .result { position: sticky; top: 90px; padding: 28px; border-radius: 28px; background: linear-gradient(150deg, var(--blue), #4f46e5); color: #fff; }
+    .result small { color: #c8d6ff; font-weight: 600; }
+    .result .sum { margin: 4px 0; font-size: clamp(42px, 8vw, 56px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; }
+    .result .old { color: #c8d6ff; text-decoration: line-through; font-weight: 700; }
+    .result ul { margin: 18px 0 22px; padding: 0; list-style: none; display: grid; gap: 8px; }
+    .result li { display: flex; justify-content: space-between; gap: 10px; font-size: 14px; color: #e3eaff; }
+    .result li b { color: #fff; }
+    .result .btn { width: 100%; }
+    .freq { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin-top: 16px; }
+    .freq button { padding: 10px 4px; border: 1.5px solid rgba(255, 255, 255, 0.35); border-radius: 12px; background: transparent; color: #fff; font-weight: 700; font-size: 13px; line-height: 1.3; }
+    .freq button.is-on { background: #fff; color: var(--blue); border-color: #fff; }
+    .freq small { display: block; font-size: 11px; opacity: 0.8; color: inherit; }
+
+    .rooms { display: grid; gap: 20px; }
+    @media (min-width: 900px) { .rooms { grid-template-columns: 1fr 1fr; align-items: center; } }
+    .rooms__tabs { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
+    .rooms__tabs button { padding: 10px 18px; border: 0; border-radius: 12px; background: #fff; font-weight: 800; color: var(--muted); border: 1px solid var(--line); }
+    .rooms__tabs button.is-on { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .checklist { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+    .checklist li { display: flex; gap: 12px; align-items: flex-start; font-weight: 600; }
+    .checklist li::before { content: '✓'; flex: none; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--aqua); color: #fff; font-size: 13px; }
+    .rooms img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 28px; display: block; background: var(--sky); }
+
+    .guar { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); }
+    .guar div { padding: 24px; border-radius: 24px; background: #fff; border: 1px solid var(--line); }
+    .guar i { font-style: normal; font-size: 34px; }
+    .guar h3 { margin: 12px 0 6px; font-size: 19px; }
+    .guar p { margin: 0; color: var(--muted); font-size: 15px; }
+
+    .cta-band { display: grid; gap: 24px; align-items: center; padding: clamp(28px, 5vw, 50px); border-radius: 32px; background: var(--ink); color: #fff; }
+    @media (min-width: 880px) { .cta-band { grid-template-columns: 1.2fr 1fr; } }
+    .cta-band h2 { margin: 0; font-size: clamp(28px, 4vw, 42px); }
+    .cta-band p { color: #aab6d3; margin: 10px 0 0; }
+    form { display: grid; gap: 10px; }
+    form input { width: 100%; padding: 15px 16px; border: 0; border-radius: 14px; background: rgba(255, 255, 255, 0.95); color: var(--ink); font-size: 16px; }
+    form small { color: #aab6d3; font-size: 13px; }
+
+    footer { padding: 30px 0 100px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; margin-top: 40px; }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="logo" href="#"><i>✨</i>Чисто</a>
+      <nav class="kit-menu"><a href="#calc">Цены</a><a href="#rooms">Что входит</a><a href="#guar">Гарантии</a><a href="#order">Заявка</a></nav>
+      <a class="phone" href="#order">+7 (900) 000-00-00</a>
+      <a class="btn" href="#calc">Рассчитать</a>
+      <button class="kit-burger" aria-label="Меню">☰</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="pill">🧽 Первая уборка −15%</span>
+        <h1>Приходите домой, <span>а там чисто</span></h1>
+        <p>Уборка квартир и домов за один визит. Своя химия и инвентарь, проверенные клинеры и фиксированная цена — узнайте её за 30 секунд.</p>
+        <div class="cta"><a class="btn" href="#calc">Рассчитать стоимость</a><a class="btn btn--white" href="#rooms">Что входит в уборку</a></div>
+        <div class="trust"><div><b>4.9 ★</b>18 000 отзывов</div><div><b>2 часа</b>до выезда</div><div><b>0 ₽</b>за переделку</div></div>
+      </div>
+      <div class="hero__img">
+        <img src="https://cdn.stocksnap.io/img-thumbs/960w/QSX4WH8BDB.jpg" alt="Чистая светлая кухня">
+        <span class="sparkle" style="top:8%;left:12%">✨</span><span class="sparkle" style="top:30%;right:8%">✨</span><span class="sparkle" style="bottom:30%;left:46%">✨</span>
+        <div class="float"><span style="font-size:28px">🛡️</span><div><b>Застраховано</b>на 1 000 000 ₽</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="calc" style="padding-top:10px">
+    <div class="wrap">
+      <div class="title kit-reveal"><h2>Калькулятор уборки</h2><p>Цена окончательная: клинер не будет ничего «досчитывать» на месте.</p></div>
+      <div class="calc">
+        <div class="panel kit-reveal">
+          <div class="group"><p class="lbl">Тип уборки</p><div class="types" id="types"></div></div>
+          <div class="group"><p class="lbl">Площадь</p><div class="range"><input type="range" id="area" min="20" max="250" step="5" value="55" aria-label="Площадь"><output id="areaOut">55 м²</output></div></div>
+          <div class="group"><p class="lbl">Санузлов</p><div class="steps" id="baths"></div></div>
+          <div class="group"><p class="lbl">Дополнительно</p><div class="extras" id="extras"></div></div>
+        </div>
+        <div class="result kit-reveal">
+          <small>Стоимость уборки</small>
+          <div class="sum" id="sum">0 ₽</div>
+          <div class="old" id="old"></div>
+          <div class="freq" id="freq"></div>
+          <ul id="details"></ul>
+          <a class="btn btn--white" href="#order" id="orderBtn">Заказать уборку</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="rooms" style="padding-top:0">
+    <div class="wrap">
+      <div class="title kit-reveal"><h2>Что входит в уборку</h2><p>Работаем по чек-листу из 80 пунктов. Вот главное по каждой зоне.</p></div>
+      <div class="rooms kit-reveal">
+        <div><div class="rooms__tabs" id="roomTabs"></div><ul class="checklist" id="checklist"></ul></div>
+        <img id="roomImg" alt="" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <section id="guar" style="padding-top:0">
+    <div class="wrap">
+      <div class="title kit-reveal"><h2>Почему нам доверяют ключи</h2></div>
+      <div class="guar">
+        <div class="kit-reveal"><i>🕵️</i><h3>Проверенные клинеры</h3><p>Проверка документов, собеседование и обучение — до первой уборки доходит 1 кандидат из 9.</p></div>
+        <div class="kit-reveal"><i>🧴</i><h3>Безопасная химия</h3><p>Гипоаллергенные средства, безопасные для детей и животных. Можем убрать только вашими.</p></div>
+        <div class="kit-reveal"><i>🔄</i><h3>Переделаем бесплатно</h3><p>Не понравилось — сообщите в течение суток, и клинер вернётся без доплаты.</p></div>
+        <div class="kit-reveal"><i>🛡️</i><h3>Страховка имущества</h3><p>Ответственность застрахована на 1 млн ₽. Если что-то случится — компенсируем.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="order" style="padding-top:0">
+    <div class="wrap">
+      <div class="cta-band kit-reveal">
+        <div><h2>Оставьте заявку — перезвоним за 5 минут</h2><p id="orderNote">Уточним детали и подберём удобное время. Приедем уже сегодня.</p></div>
+        <form data-demo="Спасибо! Это демо-сайт — на настоящем менеджер перезвонил бы через 5 минут.">
+          <input required placeholder="Ваше имя" autocomplete="name">
+          <input required type="tel" placeholder="Телефон" autocomplete="tel">
+          <input placeholder="Адрес (можно позже)" autocomplete="street-address">
+          <button class="btn">Жду звонка</button>
+          <small>Оплата после уборки — картой или наличными.</small>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer><div class="wrap"><span>© 2026 Клининг «Чисто» · демо-сайт, компания вымышлена</span><span>Работаем ежедневно с 8:00 до 22:00</span></div></footer>
+
+  <script src="kit.js"></script>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const TYPES = [
+      { id: 'light', icon: '🧹', name: 'Поддерживающая', note: 'Пыль, полы, кухня, санузел', perM: 38, base: 1200, speed: 30 },
+      { id: 'deep', icon: '🧽', name: 'Генеральная', note: 'Каждый уголок, мебель внутри', perM: 85, base: 2500, speed: 14 },
+      { id: 'reno', icon: '🏗️', name: 'После ремонта', note: 'Строительная пыль и следы', perM: 120, base: 3500, speed: 10 },
+    ];
+    const EXTRAS = [['windows', '🪟 Мытьё окон', 450, 'за окно', 'unit'], ['fridge', '🧊 Холодильник внутри', 900], ['oven', '🔥 Духовка внутри', 900], ['balcony', '🌿 Балкон', 1200], ['iron', '👕 Глажка, 1 час', 800], ['dishes', '🍽️ Помыть посуду', 400], ['pets', '🐾 Шерсть питомцев', 600]];
+    const FREQ = [['once', 'Разово', 0], ['biweekly', 'Раз в 2 недели', 0.1], ['weekly', 'Каждую неделю', 0.15]];
+    let type = 'light', baths = 1, freq = 'once', windows = 3;
+    const on = new Set();
+    const fmt = (v) => `${Math.round(v).toLocaleString('ru-RU')} ₽`;
+
+    $('types').innerHTML = TYPES.map((t) => `<button data-t="${t.id}"><span>${t.icon}</span><b>${t.name}</b><small>${t.note}</small></button>`).join('');
+    $('baths').innerHTML = [1, 2, 3, 4].map((n) => `<button data-b="${n}">${n}</button>`).join('');
+    $('extras').innerHTML = EXTRAS.map(([id, name, price, unit]) => `<label><input type="checkbox" data-x="${id}">${name}<small>${unit ? `${price} ₽ ${unit}` : '+' + price + ' ₽'}</small></label>`).join('');
+    $('freq').innerHTML = FREQ.map(([id, name, d]) => `<button data-f="${id}">${name}${d ? `<small>−${d * 100}%</small>` : '<small>&nbsp;</small>'}</button>`).join('');
+
+    function calc() {
+      const t = TYPES.find((x) => x.id === type), area = +$('area').value;
+      $('areaOut').textContent = `${area} м²`;
+      document.querySelectorAll('[data-t]').forEach((b) => b.classList.toggle('is-on', b.dataset.t === type));
+      document.querySelectorAll('[data-b]').forEach((b) => b.classList.toggle('is-on', +b.dataset.b === baths));
+      document.querySelectorAll('[data-f]').forEach((b) => b.classList.toggle('is-on', b.dataset.f === freq));
+      const lines = [[`${t.name}, ${area} м²`, t.base + t.perM * area]];
+      if (baths > 1) lines.push([`Ещё санузлов: ${baths - 1}`, (baths - 1) * (type === 'light' ? 700 : 1400)]);
+      for (const [id, name, price, unit] of EXTRAS) if (on.has(id)) lines.push([unit ? `${name.slice(3)} × ${windows}` : name.slice(3), unit ? price * windows : price]);
+      const total = lines.reduce((s, l) => s + l[1], 0);
+      const disc = FREQ.find((f) => f[0] === freq)[2];
+      const first = freq === 'once' ? 0.15 : 0;
+      const final = total * (1 - Math.max(disc, first));
+      $('sum').textContent = fmt(Math.round(final / 10) * 10);
+      $('old').textContent = disc || first ? `${fmt(total)} без скидки` : '';
+      const hours = (area / t.speed + baths * 0.5 + on.size * 0.4);
+      const cleaners = hours > 5 ? 2 : 1;
+      $('details').innerHTML = lines.map(([n, v]) => `<li><span>${n}</span><b>${fmt(v)}</b></li>`).join('')
+        + `<li><span>${first ? 'Скидка на первую уборку' : 'Скидка за регулярность'}</span><b>${disc || first ? '−' + Math.round(Math.max(disc, first) * 100) + '%' : '—'}</b></li>`
+        + `<li><span>Приедет клинеров</span><b>${cleaners}</b></li><li><span>Займёт примерно</span><b>${Math.max(2, Math.round(hours / cleaners * 2) / 2).toString().replace('.', ',')} ч</b></li>`;
+      $('orderNote').textContent = `${t.name} уборка ${area} м² за ${$('sum').textContent}. Уточним детали и подберём удобное время.`;
+    }
+    $('types').addEventListener('click', (e) => { const b = e.target.closest('[data-t]'); if (b) { type = b.dataset.t; calc(); } });
+    $('baths').addEventListener('click', (e) => { const b = e.target.closest('[data-b]'); if (b) { baths = +b.dataset.b; calc(); } });
+    $('freq').addEventListener('click', (e) => { const b = e.target.closest('[data-f]'); if (b) { freq = b.dataset.f; calc(); } });
+    $('extras').addEventListener('change', (e) => { const x = e.target.dataset.x; if (x) { e.target.checked ? on.add(x) : on.delete(x); calc(); } });
+    $('area').oninput = calc;
+    $('orderBtn').onclick = () => kitToast(`Отлично! Заполните заявку ниже — зафиксируем цену ${$('sum').textContent}`);
+
+    const ROOMS = {
+      'Кухня': ['QSX4WH8BDB', ['Моем фасады шкафов и технику снаружи', 'Отмываем столешницу, фартук и плиту от жира', 'Чистим раковину и смеситель до блеска', 'Протираем микроволновку внутри и снаружи', 'Выносим мусор и меняем пакет']],
+      'Комнаты': ['D0NOMANBA7', ['Протираем пыль со всех поверхностей, даже на шкафах', 'Пылесосим ковры и мягкую мебель', 'Моем полы и плинтусы', 'Протираем зеркала, выключатели и ручки дверей', 'Заправляем постель и аккуратно раскладываем вещи']],
+      'Санузел': ['SX2H0BU5EG', ['Удаляем налёт и известь с плитки и сантехники', 'Дезинфицируем унитаз, ванну и душевую', 'Отмываем зеркала и стеклянные перегородки', 'Чистим швы между плиткой', 'Моем пол и протираем полки']],
+      'Спальня': ['FYCMDNOLYU', ['Меняем постельное бельё, если оставите чистое', 'Пылесосим под кроватью', 'Протираем прикроватные тумбы и лампы', 'Убираем пыль с подоконников и батарей', 'Проветриваем комнату']],
+    };
+    let room = 'Кухня';
+    function renderRoom() {
+      $('roomTabs').innerHTML = Object.keys(ROOMS).map((r) => `<button class="${r === room ? 'is-on' : ''}" data-r="${r}">${r}</button>`).join('');
+      $('checklist').innerHTML = ROOMS[room][1].map((t) => `<li>${t}</li>`).join('');
+      $('roomImg').src = `https://cdn.stocksnap.io/img-thumbs/960w/${ROOMS[room][0]}.jpg`; $('roomImg').alt = room;
+    }
+    $('roomTabs').addEventListener('click', (e) => { const b = e.target.closest('[data-r]'); if (b) { room = b.dataset.r; renderRoom(); } });
+
+    calc(); renderRoom();
+  </script>
+</body>
+</html>

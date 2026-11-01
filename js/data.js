@@ -20,5 +20,9 @@ export const SITES = [
   { slug: 'build', brand: 'Каркас', niche: 'Строительство домов', cat: 'services', color: '#b5763c', features: ['Каталог проектов', 'Калькулятор дома', 'Этапы'] },
   { slug: 'sushi', brand: 'Сакура Экспресс', niche: 'Доставка еды', cat: 'food', color: '#e63946', features: ['Меню по категориям', 'Рабочая корзина', 'Расчёт доставки'] },
   { slug: 'english', brand: 'Speakly', niche: 'Онлайн-школа', cat: 'edu', color: '#6c4cf5', features: ['Тест уровня', 'Тарифы', 'Пробный урок'] },
+  { slug: 'coffee', brand: 'Зерно', niche: 'Кофейня и пекарня', cat: 'food', color: '#c98a4b', features: ['Меню с размерами', 'Заказ навынос ко времени', 'Карта лояльности'] },
+  { slug: 'vet', brand: 'Лапа', niche: 'Ветклиника', cat: 'beauty', color: '#12a594', features: ['Услуги по видам питомцев', 'Календарь прививок', 'Запись'] },
+  { slug: 'wedding', brand: 'Вера Лис', niche: 'Свадебный фотограф', cat: 'services', color: '#b0895a', features: ['Портфолио с просмотром', 'Пакеты', 'Календарь свободных дат'] },
+  { slug: 'cleaning', brand: 'Чисто', niche: 'Клининг', cat: 'services', color: '#2f6bff', features: ['Калькулятор уборки', 'Чек-листы по зонам', 'Заявка'] },
   { slug: 'travel', brand: 'Горизонт', niche: 'Турагентство', cat: 'travel', color: '#ff8a3d', features: ['Туры с фильтрами', 'Горящий тур с таймером', 'Подбор тура'] },
 ];

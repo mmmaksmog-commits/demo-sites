@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Вера Лис — свадебный фотограф</title>
+  <meta name="description" content="Демо-сайт свадебного фотографа: портфолио с просмотром, пакеты съёмки, календарь свободных дат и бронирование.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="kit.css">
+  <style>
+    :root { --ivory: #faf7f2; --sand: #efe7da; --ink: #1d1a17; --muted: #7c7268; --gold: #b0895a; --line: #e5dccd; --menu-bg: #faf7f2; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--ivory); color: var(--ink); font: 16px/1.7 Manrope, system-ui, sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; color: inherit; }
+    button { cursor: pointer; }
+    h1, h2, h3 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; line-height: 1.05; letter-spacing: -0.01em; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 16px 30px; border: 1px solid var(--ink); background: var(--ink); color: var(--ivory); font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; transition: background 0.25s, color 0.25s; }
+    .btn:hover { background: transparent; color: var(--ink); }
+    .btn--light { background: transparent; border-color: #fff; color: #fff; }
+    .btn--light:hover { background: #fff; color: var(--ink); }
+    .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); }
+
+    header { position: absolute; top: 0; left: 0; right: 0; z-index: 30; color: #fff; }
+    header .wrap { position: relative; display: flex; align-items: center; gap: 30px; padding-top: 22px; padding-bottom: 22px; }
+    .logo { font: 600 28px 'Cormorant Garamond', serif; letter-spacing: 0.04em; }
+    .logo small { display: block; font: 600 10px Manrope, sans-serif; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.8; margin-top: -2px; }
+    nav { display: flex; gap: 28px; margin-left: auto; font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
+    nav a { opacity: 0.85; } nav a:hover { opacity: 1; }
+    .kit-burger { margin-left: auto; width: 46px; height: 46px; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.5); background: transparent; color: #fff; font-size: 20px; }
+    .kit-menu.is-open a { color: var(--ink); }
+
+    .hero { position: relative; min-height: min(100svh, 900px); display: grid; align-items: end; color: #fff; overflow: hidden; }
+    .hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 22% 50%; animation: zoom 18s ease-out forwards; }
+    @keyframes zoom { from { transform: scale(1.12); } }
+    .hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(20, 16, 12, 0.75), rgba(20, 16, 12, 0.1) 55%, rgba(20, 16, 12, 0.35)); }
+    .hero .wrap { position: relative; z-index: 1; padding-bottom: clamp(50px, 9vw, 110px); }
+    .hero .eyebrow { color: #e8d3b4; }
+    .hero h1 { margin: 14px 0 22px; font-size: clamp(48px, 9vw, 112px); max-width: 900px; }
+    .hero h1 i { color: #e8d3b4; }
+    .hero p { max-width: 460px; margin: 0 0 30px; font-size: 17px; opacity: 0.9; }
+    .hero .cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    section { padding: clamp(64px, 9vw, 120px) 0; }
+    .head { max-width: 640px; margin: 0 auto 44px; text-align: center; }
+    .head h2 { margin: 12px 0 0; font-size: clamp(38px, 6vw, 64px); }
+    .head p { color: var(--muted); }
+
+    .filters { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; margin-bottom: 26px; }
+    .filters button { padding: 9px 18px; border: 1px solid var(--line); background: transparent; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+    .filters button.is-on { background: var(--ink); color: var(--ivory); border-color: var(--ink); }
+    .masonry { columns: 3 280px; column-gap: 14px; }
+    .masonry button { display: block; width: 100%; margin: 0 0 14px; padding: 0; border: 0; background: var(--sand); break-inside: avoid; overflow: hidden; position: relative; }
+    .masonry img { width: 100%; display: block; transition: transform 0.8s ease, opacity 0.3s; }
+    .masonry button:hover img { transform: scale(1.04); }
+    .masonry button span { position: absolute; left: 14px; bottom: 12px; color: #fff; font: italic 500 20px 'Cormorant Garamond', serif; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); opacity: 0; transition: opacity 0.3s; }
+    .masonry button:hover span { opacity: 1; }
+
+    .about .wrap { display: grid; gap: 50px; align-items: center; }
+    @media (min-width: 900px) { .about .wrap { grid-template-columns: 0.9fr 1fr; } }
+    .about img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block; background: var(--sand); }
+    .about h2 { margin: 12px 0 18px; font-size: clamp(38px, 5vw, 58px); }
+    .about p { color: var(--muted); }
+    .nums { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 30px; padding-top: 26px; border-top: 1px solid var(--line); }
+    .nums b { display: block; font: 500 clamp(34px, 5vw, 46px)/1 'Cormorant Garamond', serif; }
+    .nums span { font-size: 13px; color: var(--muted); }
+
+    .packs { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+    .pack { display: flex; flex-direction: column; padding: 34px 28px; border: 1px solid var(--line); background: #fff; }
+    .pack.feat { background: var(--ink); color: var(--ivory); border-color: var(--ink); }
+    .pack h3 { margin: 8px 0 4px; font-size: 34px; }
+    .pack .price { font: 500 42px 'Cormorant Garamond', serif; margin: 8px 0 18px; }
+    .pack ul { margin: 0 0 28px; padding: 0; list-style: none; flex: 1; }
+    .pack li { padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+    .pack.feat li { border-color: rgba(255, 255, 255, 0.15); }
+    .pack li::before { content: '—'; margin-right: 10px; color: var(--gold); }
+    .pack.feat .btn { background: var(--ivory); color: var(--ink); border-color: var(--ivory); }
+    .pack .btn { width: 100%; }
+
+    .book .wrap { display: grid; gap: 40px; }
+    @media (min-width: 960px) { .book .wrap { grid-template-columns: 1fr 1fr; align-items: start; } }
+    .cal { padding: 26px; background: #fff; border: 1px solid var(--line); }
+    .cal__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .cal__head b { font: 500 28px 'Cormorant Garamond', serif; text-transform: capitalize; }
+    .cal__head button { width: 40px; height: 40px; border: 1px solid var(--line); background: transparent; font-size: 18px; }
+    .days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; }
+    .days .wd { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: var(--muted); padding-bottom: 6px; }
+    .day { aspect-ratio: 1; border: 1px solid transparent; background: transparent; font-weight: 600; font-size: 14px; }
+    .day.free { border-color: var(--line); }
+    .day.free:hover { border-color: var(--gold); }
+    .day.busy { color: #c9bfb2; text-decoration: line-through; cursor: not-allowed; }
+    .day.few { position: relative; }
+    .day.few::after { content: ''; position: absolute; left: 50%; bottom: 5px; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: var(--gold); }
+    .day.sel { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .day.past { visibility: hidden; }
+    .legend { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 14px; font-size: 13px; color: var(--muted); }
+    .legend i { display: inline-block; width: 12px; height: 12px; margin-right: 6px; vertical-align: -1px; border: 1px solid var(--line); }
+    form { display: grid; gap: 12px; }
+    form input, form select, form textarea { width: 100%; padding: 15px 16px; border: 0; border-bottom: 1px solid var(--line); background: transparent; font-size: 16px; outline: none; }
+    form input:focus, form select:focus, form textarea:focus { border-color: var(--ink); }
+    form textarea { min-height: 90px; resize: vertical; }
+    .chosen { padding: 16px 18px; background: var(--sand); font: italic 500 22px 'Cormorant Garamond', serif; }
+
+    .quote { text-align: center; }
+    .quote blockquote { max-width: 860px; margin: 0 auto; font: italic 500 clamp(26px, 4vw, 40px)/1.3 'Cormorant Garamond', serif; }
+    .quote cite { display: block; margin-top: 20px; font: 700 12px Manrope, sans-serif; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-style: normal; }
+    .dots { display: flex; justify-content: center; gap: 8px; margin-top: 24px; }
+    .dots button { width: 9px; height: 9px; padding: 0; border: 0; border-radius: 50%; background: var(--line); }
+    .dots button.is-on { background: var(--gold); }
+
+    .lightbox { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; padding: 20px; background: rgba(15, 12, 10, 0.94); opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .lightbox.is-open { opacity: 1; pointer-events: auto; }
+    .lightbox img { max-width: 100%; max-height: 82vh; object-fit: contain; }
+    .lightbox p { margin: 14px 0 0; color: #e8d3b4; text-align: center; font: italic 500 22px 'Cormorant Garamond', serif; }
+    .lb-btn { position: absolute; top: 50%; width: 52px; height: 52px; margin-top: -26px; border: 1px solid rgba(255, 255, 255, 0.3); background: rgba(0, 0, 0, 0.3); color: #fff; font-size: 22px; }
+    .lb-prev { left: 14px; } .lb-next { right: 14px; }
+    .lb-close { position: absolute; top: 16px; right: 16px; width: 46px; height: 46px; border: 0; background: transparent; color: #fff; font-size: 26px; }
+
+    footer { padding: 34px 0 100px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="logo" href="#">Вера Лис<small>Свадебный фотограф</small></a>
+      <nav class="kit-menu"><a href="#works">Работы</a><a href="#about">Обо мне</a><a href="#packs">Пакеты</a><a href="#book">Свободные даты</a></nav>
+      <button class="kit-burger" aria-label="Меню">☰</button>
+    </div>
+  </header>
+
+  <section class="hero" style="padding:0">
+    <img src="https://cdn.stocksnap.io/img-thumbs/960w/ZIL107JUKC.jpg" alt="Невеста с букетом">
+    <div class="wrap">
+      <span class="eyebrow">Москва · Санкт-Петербург · выезд по миру</span>
+      <h1>Ваша история, <i>без постановки</i></h1>
+      <p>Снимаю живые эмоции, а не дежурные улыбки. Через 20 лет вы будете пересматривать эти кадры и чувствовать тот день заново.</p>
+      <div class="cta"><a class="btn btn--light" href="#book">Проверить дату</a><a class="btn btn--light" href="#works" style="border-color:transparent">Смотреть работы →</a></div>
+    </div>
+  </section>
+
+  <section id="works">
+    <div class="wrap">
+      <div class="head kit-reveal"><span class="eyebrow">Портфолио</span><h2>Избранные кадры</h2><p>Нажмите на фотографию, чтобы посмотреть её крупно.</p></div>
+      <div class="filters" id="filters"></div>
+      <div class="masonry" id="gallery"></div>
+    </div>
+  </section>
+
+  <section class="about" id="about" style="background:var(--sand)">
+    <div class="wrap">
+      <img class="kit-reveal" src="https://cdn.stocksnap.io/img-thumbs/960w/ROZAW2RHHV.jpg" alt="Фотограф с камерой" loading="lazy">
+      <div class="kit-reveal">
+        <span class="eyebrow">Обо мне</span>
+        <h2>Привет, я Вера</h2>
+        <p>Восемь лет снимаю свадьбы и до сих пор плачу на каждой церемонии. Работаю в репортажном стиле: почти не прошу позировать, зато ловлю моменты, которые вы сами могли не заметить, — папину слезу, бабушкин танец, ваши переглядывания.</p>
+        <p>Перед свадьбой мы встречаемся за кофе, вместе продумываем тайминг и места для прогулки. После — вы получаете галерею, которой не стыдно поделиться.</p>
+        <div class="nums"><div><b>240+</b><span>свадеб</span></div><div><b>14</b><span>стран</span></div><div><b>30</b><span>дней на обработку</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="packs">
+    <div class="wrap">
+      <div class="head kit-reveal"><span class="eyebrow">Стоимость</span><h2>Пакеты съёмки</h2><p>Можно собрать свой вариант — просто напишите, что для вас важно.</p></div>
+      <div class="packs">
+        <div class="pack kit-reveal"><span class="eyebrow">Камерная</span><h3>Регистрация</h3><div class="price">45 000 ₽</div><ul><li>4 часа съёмки</li><li>200+ фотографий в обработке</li><li>Онлайн-галерея на год</li><li>Готовность за 3 недели</li></ul><button class="btn" data-pack="Регистрация">Выбрать</button></div>
+        <div class="pack feat kit-reveal"><span class="eyebrow">Чаще всего выбирают</span><h3>Весь день</h3><div class="price">95 000 ₽</div><ul><li>10 часов: сборы, церемония, банкет</li><li>600+ фотографий в обработке</li><li>Тизер из 20 кадров через 3 дня</li><li>Фотокнига 30×30 в подарок</li><li>Второй фотограф на церемонии</li></ul><button class="btn" data-pack="Весь день">Выбрать</button></div>
+        <div class="pack kit-reveal"><span class="eyebrow">Перед свадьбой</span><h3>Love story</h3><div class="price">25 000 ₽</div><ul><li>2 часа на локации</li><li>80+ фотографий</li><li>Помощь со стилем и образами</li><li>Скидка 10% на свадебную съёмку</li></ul><button class="btn" data-pack="Love story">Выбрать</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="quote" style="padding-top:0">
+    <div class="wrap kit-reveal">
+      <blockquote id="quote"></blockquote>
+      <div class="dots" id="dots"></div>
+    </div>
+  </section>
+
+  <section class="book" id="book" style="background:var(--sand)">
+    <div class="wrap">
+      <div class="kit-reveal">
+        <span class="eyebrow">Бронирование</span>
+        <h2 style="font-size:clamp(38px,5vw,58px);margin:12px 0 18px">Свободна ли ваша дата?</h2>
+        <div class="cal">
+          <div class="cal__head"><button id="prevM" aria-label="Предыдущий месяц">‹</button><b id="monthTitle"></b><button id="nextM" aria-label="Следующий месяц">›</button></div>
+          <div class="days" id="days"></div>
+          <div class="legend"><span><i></i>Свободно</span><span><i style="border:0;background:var(--gold);border-radius:50%;width:6px;height:6px;vertical-align:2px"></i>Популярная дата</span><span style="text-decoration:line-through">Занято</span></div>
+        </div>
+      </div>
+      <form class="kit-reveal" data-demo="Спасибо! Это демо-сайт — на настоящем Вера написала бы вам в течение часа и придержала дату на 3 дня.">
+        <div class="chosen" id="chosen">Выберите дату в календаре</div>
+        <input required placeholder="Ваши имена" autocomplete="name">
+        <input required type="tel" placeholder="Телефон или мессенджер" autocomplete="tel">
+        <select id="packSel" aria-label="Пакет"><option>Весь день</option><option>Регистрация</option><option>Love story</option><option>Пока не знаем</option></select>
+        <textarea placeholder="Где будет свадьба и что для вас важно в фотографиях?"></textarea>
+        <button class="btn">Забронировать дату</button>
+      </form>
+    </div>
+  </section>
+
+  <footer><div class="wrap"><span>© 2026 Вера Лис · демо-сайт, фотограф вымышлен</span><span>Фото: StockSnap (CC0)</span></div></footer>
+
+  <div class="lightbox" id="lb">
+    <button class="lb-close" id="lbClose" aria-label="Закрыть">✕</button>
+    <button class="lb-btn lb-prev" id="lbPrev" aria-label="Назад">‹</button>
+    <div><img id="lbImg" alt=""><p id="lbCap"></p></div>
+    <button class="lb-btn lb-next" id="lbNext" aria-label="Вперёд">›</button>
+  </div>
+
+  <script src="kit.js"></script>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const PHOTOS = [
+      ['PHUDUMBCHR', 'Церемония', 'Аня и Кирилл, Подмосковье'], ['NABNCHL6PX', 'Детали', 'Кольца и обещания'], ['MUTOLX42TS', 'Сборы', 'Утро невесты'],
+      ['2VUIWMMQ7K', 'Детали', 'Последние минуты перед церемонией'], ['YZFKHEEDQF', 'Банкет', 'Первый кусочек торта'], ['SEQ6XOMRLL', 'Церемония', 'Выездная регистрация у озера'],
+      ['ZWY6ZBRNAM', 'Церемония', 'Лиза и Марк, Калининград'], ['C1ZAW5IMSC', 'Детали', 'Кольца на дереве'], ['VIWIBCR4L9', 'Банкет', 'Первый танец'],
+      ['IDDL2CVSRC', 'Детали', 'Руки'], ['QENIUPRJ9B', 'Сборы', 'Платье'], ['PFDKWMZLBY', 'Прогулка', 'Вдвоём'],
+    ];
+    let filter = 'Все', shown = PHOTOS, idx = 0;
+    function renderGallery() {
+      const cats = ['Все', ...new Set(PHOTOS.map((p) => p[1]))];
+      $('filters').innerHTML = cats.map((c) => `<button class="${c === filter ? 'is-on' : ''}" data-f="${c}">${c}</button>`).join('');
+      shown = filter === 'Все' ? PHOTOS : PHOTOS.filter((p) => p[1] === filter);
+      $('gallery').innerHTML = shown.map(([id, , cap], i) => `<button data-i="${i}"><img src="https://cdn.stocksnap.io/img-thumbs/960w/${id}.jpg" alt="${cap}" loading="lazy"><span>${cap}</span></button>`).join('');
+    }
+    $('filters').addEventListener('click', (e) => { const b = e.target.closest('[data-f]'); if (b) { filter = b.dataset.f; renderGallery(); } });
+    $('gallery').addEventListener('click', (e) => { const b = e.target.closest('[data-i]'); if (b) openLb(+b.dataset.i); });
+    function openLb(i) { idx = (i + shown.length) % shown.length; $('lbImg').src = `https://cdn.stocksnap.io/img-thumbs/960w/${shown[idx][0]}.jpg`; $('lbCap').textContent = shown[idx][2]; $('lb').classList.add('is-open'); }
+    const closeLb = () => $('lb').classList.remove('is-open');
+    $('lbClose').onclick = closeLb; $('lbPrev').onclick = () => openLb(idx - 1); $('lbNext').onclick = () => openLb(idx + 1);
+    $('lb').addEventListener('click', (e) => { if (e.target === $('lb')) closeLb(); });
+    addEventListener('keydown', (e) => { if (!$('lb').classList.contains('is-open')) return; if (e.key === 'Escape') closeLb(); if (e.key === 'ArrowLeft') openLb(idx - 1); if (e.key === 'ArrowRight') openLb(idx + 1); });
+    let sx = 0; $('lb').addEventListener('touchstart', (e) => (sx = e.touches[0].clientX), { passive: true });
+    $('lb').addEventListener('touchend', (e) => { const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 50) openLb(idx + (dx < 0 ? 1 : -1)); });
+
+    // календарь: занятость детерминированная, субботы летом разбирают быстрее
+    const view = new Date(); view.setDate(1);
+    let selected = null;
+    const hash = (n) => { n = Math.imul(n ^ 0x5bd1e995, 2654435761); return ((n ^ (n >>> 15)) >>> 0) / 4294967296; };
+    function status(d) {
+      const key = d.getFullYear() * 400 + d.getMonth() * 32 + d.getDate();
+      const sat = d.getDay() === 6, fri = d.getDay() === 5, summer = d.getMonth() >= 4 && d.getMonth() <= 8;
+      const busyP = sat ? (summer ? 0.8 : 0.5) : fri ? 0.35 : 0.1;
+      const r = hash(key);
+      return r < busyP ? 'busy' : (sat || fri) ? 'few' : 'free';
+    }
+    function renderCal() {
+      $('monthTitle').textContent = view.toLocaleDateString('ru-RU', { month: 'long', year: 'numeric' });
+      const first = (view.getDay() + 6) % 7, dim = new Date(view.getFullYear(), view.getMonth() + 1, 0).getDate();
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      let html = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map((d) => `<span class="wd">${d}</span>`).join('');
+      for (let i = 0; i < first; i++) html += '<span></span>';
+      for (let d = 1; d <= dim; d++) {
+        const date = new Date(view.getFullYear(), view.getMonth(), d);
+        if (date <= today) { html += `<button class="day past" disabled>${d}</button>`; continue; }
+        const st = status(date);
+        const sel = selected && +selected === +date;
+        html += `<button class="day ${st === 'busy' ? 'busy' : 'free'} ${st === 'few' ? 'few' : ''} ${sel ? 'sel' : ''}" ${st === 'busy' ? 'disabled title="Дата занята"' : ''} data-d="${d}">${d}</button>`;
+      }
+      $('days').innerHTML = html;
+      const now = new Date(); $('prevM').disabled = view.getFullYear() === now.getFullYear() && view.getMonth() === now.getMonth();
+    }
+    $('days').addEventListener('click', (e) => {
+      const b = e.target.closest('[data-d]'); if (!b || b.disabled) return;
+      selected = new Date(view.getFullYear(), view.getMonth(), +b.dataset.d);
+      const st = status(selected);
+      $('chosen').textContent = `${selected.toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })} — свободно${st === 'few' ? ', но эту дату часто бронируют' : ''} ✨`;
+      renderCal();
+    });
+    $('prevM').onclick = () => { view.setMonth(view.getMonth() - 1); renderCal(); };
+    $('nextM').onclick = () => { view.setMonth(view.getMonth() + 1); renderCal(); };
+    document.querySelectorAll('[data-pack]').forEach((b) => b.onclick = () => { $('packSel').value = b.dataset.pack; $('book').scrollIntoView({ behavior: 'smooth' }); kitToast(`Пакет «${b.dataset.pack}» — выберите дату в календаре`); });
+
+    // отзывы
+    const QUOTES = [['Мы плакали, когда открыли галерею. Вера поймала всё: и нервные смешки, и как папа поправлял галстук.', 'Аня и Кирилл'], ['Совсем не чувствовали камеру. Будто подруга пришла на свадьбу и случайно сделала лучшие кадры в нашей жизни.', 'Лиза и Марк'], ['Тизер пришёл через два дня — мы показывали его всем родственникам. Книга стоит на самом видном месте.', 'Оля и Денис']];
+    let q = 0;
+    function renderQuote() { $('quote').innerHTML = `«${QUOTES[q][0]}»<cite>${QUOTES[q][1]}</cite>`; $('dots').innerHTML = QUOTES.map((_, i) => `<button class="${i === q ? 'is-on' : ''}" data-q="${i}" aria-label="Отзыв ${i + 1}"></button>`).join(''); }
+    $('dots').addEventListener('click', (e) => { const b = e.target.closest('[data-q]'); if (b) { q = +b.dataset.q; renderQuote(); } });
+    setInterval(() => { q = (q + 1) % QUOTES.length; renderQuote(); }, 7000);
+
+    renderGallery(); renderCal(); renderQuote();
+  </script>
+</body>
+</html>

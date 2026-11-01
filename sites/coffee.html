@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Зерно — кофейня и пекарня</title>
+  <meta name="description" content="Демо-сайт кофейни: меню с вкладками, заказ навынос ко времени, карта лояльности, акции и контакты.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="kit.css">
+  <style>
+    :root { --cream: #f7efe4; --cream2: #efe2cf; --esp: #2b1a12; --brown: #7a4a2b; --caramel: #c98a4b; --muted: #7d6656; --card: #fffaf3; --line: #e6d6c0; --menu-bg: #fffaf3; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--cream); color: var(--esp); font: 16px/1.6 Manrope, system-ui, sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    button, select, input { font: inherit; color: inherit; }
+    button { cursor: pointer; }
+    h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; line-height: 1.1; letter-spacing: -0.01em; }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 15px 26px; border: 0; border-radius: 999px; background: var(--esp); color: var(--cream); font-weight: 700; transition: transform 0.15s, background 0.2s; }
+    .btn:hover { background: var(--brown); }
+    .btn:active { transform: scale(0.97); }
+    .btn--line { background: transparent; color: var(--esp); box-shadow: inset 0 0 0 2px var(--esp); }
+    .btn--line:hover { background: var(--esp); color: var(--cream); }
+
+    header { position: sticky; top: 0; z-index: 30; background: rgba(247, 239, 228, 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+    header .wrap { position: relative; display: flex; align-items: center; gap: 28px; padding-top: 14px; padding-bottom: 14px; }
+    .logo { display: flex; align-items: center; gap: 10px; font: 800 24px 'Playfair Display', serif; }
+    .logo i { font-style: normal; font-size: 26px; }
+    nav { display: flex; gap: 24px; margin-left: auto; font-weight: 600; font-size: 15px; }
+    nav a:hover { color: var(--caramel); }
+    .bag { position: relative; display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border: 0; border-radius: 999px; background: var(--esp); color: var(--cream); font-weight: 700; font-size: 14px; }
+    .bag b { min-width: 22px; height: 22px; display: inline-grid; place-items: center; border-radius: 11px; background: var(--caramel); color: var(--esp); font-size: 12px; }
+    .kit-burger { width: 44px; height: 44px; align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: 50%; background: var(--card); font-size: 18px; }
+    @media (max-width: 860px) { .bag { margin-left: auto; } }
+
+    .hero { padding: clamp(28px, 6vw, 70px) 0 clamp(40px, 6vw, 80px); }
+    .hero .wrap { display: grid; gap: 40px; align-items: center; }
+    @media (min-width: 920px) { .hero .wrap { grid-template-columns: 1.1fr 1fr; } }
+    .eyebrow { display: inline-flex; gap: 8px; padding: 7px 14px; border-radius: 999px; background: var(--cream2); font-weight: 700; font-size: 14px; color: var(--brown); }
+    .hero h1 { margin: 18px 0 0; font-size: clamp(42px, 7vw, 82px); font-weight: 800; }
+    .hero h1 em { color: var(--caramel); font-weight: 600; }
+    .hero p { max-width: 480px; margin: 20px 0 30px; font-size: 18px; color: var(--muted); }
+    .hero .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+    .open { display: flex; align-items: center; gap: 10px; margin-top: 26px; font-weight: 700; font-size: 15px; }
+    .open i { width: 10px; height: 10px; border-radius: 50%; background: #3fa34d; box-shadow: 0 0 0 4px rgba(63, 163, 77, 0.18); }
+    .hero__img { position: relative; }
+    .hero__img img { width: 100%; aspect-ratio: 4 / 4.6; object-fit: cover; border-radius: 220px 220px 28px 28px; display: block; background: var(--cream2); }
+    .sticker { position: absolute; right: -6px; bottom: 34px; width: 128px; height: 128px; display: grid; place-items: center; border-radius: 50%; background: var(--caramel); color: var(--esp); text-align: center; font: 800 15px/1.2 Manrope, sans-serif; transform: rotate(-12deg); box-shadow: 0 16px 30px -12px rgba(43, 26, 18, 0.5); }
+    .sticker b { display: block; font: 800 30px 'Playfair Display', serif; }
+    @media (max-width: 600px) { .sticker { right: 10px; width: 104px; height: 104px; font-size: 13px; } .sticker b { font-size: 24px; } }
+
+    section { padding: clamp(56px, 8vw, 96px) 0; }
+    .title { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 30px; }
+    .title h2 { margin: 0; font-size: clamp(34px, 5vw, 52px); }
+    .title p { margin: 0; max-width: 400px; color: var(--muted); }
+
+    .tabs { display: flex; gap: 8px; overflow-x: auto; margin-bottom: 22px; scrollbar-width: none; }
+    .tab { flex: none; padding: 11px 20px; border: 1.5px solid var(--line); border-radius: 999px; background: transparent; font-weight: 700; color: var(--muted); }
+    .tab.is-on { background: var(--esp); border-color: var(--esp); color: var(--cream); }
+    .menu { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); }
+    .item { display: flex; flex-direction: column; padding: 20px; border-radius: 22px; background: var(--card); border: 1px solid var(--line); }
+    .item__top { display: flex; align-items: flex-start; gap: 12px; }
+    .item__top span { font-size: 34px; line-height: 1; }
+    .item h3 { margin: 0; font-size: 21px; }
+    .item p { margin: 6px 0 14px; color: var(--muted); font-size: 14px; flex: 1; }
+    .sizes { display: flex; gap: 6px; margin-bottom: 14px; }
+    .sizes button { flex: 1; padding: 7px 4px; border: 1.5px solid var(--line); border-radius: 10px; background: transparent; font-size: 13px; font-weight: 700; color: var(--muted); }
+    .sizes button.is-on { border-color: var(--esp); color: var(--esp); }
+    .item__bottom { display: flex; align-items: center; justify-content: space-between; }
+    .price { font: 800 22px 'Playfair Display', serif; }
+    .add { width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--esp); color: var(--cream); font-size: 22px; transition: transform 0.15s; }
+    .add:active { transform: scale(0.9); }
+    .tag { display: inline-block; margin-left: 6px; padding: 2px 8px; border-radius: 6px; background: var(--caramel); color: var(--esp); font: 700 11px Manrope, sans-serif; vertical-align: middle; }
+
+    .loyal { display: grid; grid-template-columns: minmax(0, 1fr); gap: 30px; align-items: center; padding: clamp(28px, 5vw, 56px); border-radius: 32px; background: var(--esp); color: var(--cream); }
+    @media (min-width: 880px) { .loyal { grid-template-columns: 1fr 1fr; } }
+    .loyal h2 { margin: 0; font-size: clamp(32px, 4.6vw, 48px); }
+    .loyal p { color: #d8c3ab; }
+    .stamps { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: clamp(4px, 1.5vw, 8px); padding: clamp(14px, 3vw, 22px); border-radius: 22px; background: var(--cream); }
+    .stamp { aspect-ratio: 1; display: grid; place-items: center; border-radius: 50%; border: 2px dashed var(--line); font-size: clamp(16px, 4vw, 24px); color: var(--esp); background: transparent; }
+    .stamp.is-on { border: 0; background: var(--caramel); }
+    .stamp.free { border-color: var(--caramel); color: var(--caramel); font-weight: 800; font-size: 11px; }
+    .stamps small { grid-column: 1 / -1; color: var(--muted); text-align: center; font-size: 13px; }
+
+    .gallery { display: grid; gap: 12px; grid-template-columns: repeat(2, 1fr); }
+    @media (min-width: 800px) { .gallery { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 200px; } .gallery img:nth-child(1) { grid-column: span 2; grid-row: span 2; } .gallery img:nth-child(4) { grid-row: span 2; } }
+    .gallery img { width: 100%; height: 100%; min-height: 160px; object-fit: cover; border-radius: 20px; display: block; background: var(--cream2); }
+
+    .visit .wrap { display: grid; gap: 30px; }
+    @media (min-width: 880px) { .visit .wrap { grid-template-columns: 1fr 1fr; align-items: start; } }
+    .hours { margin: 0; padding: 0; list-style: none; }
+    .hours li { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed var(--line); font-weight: 600; }
+    .hours li.today { color: var(--caramel); }
+    .addr { margin-top: 20px; color: var(--muted); }
+    .addr b { color: var(--esp); }
+    form { display: grid; gap: 12px; padding: 28px; border-radius: 26px; background: var(--card); border: 1px solid var(--line); }
+    form h3 { margin: 0 0 4px; font-size: 26px; }
+    input, select { width: 100%; padding: 14px 16px; border: 1.5px solid var(--line); border-radius: 14px; background: var(--cream); font-size: 16px; outline: none; }
+    input:focus, select:focus { border-color: var(--caramel); }
+    form small { color: var(--muted); }
+
+    .drawer { position: fixed; inset: 0; z-index: 60; display: flex; justify-content: flex-end; background: rgba(43, 26, 18, 0.45); opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .drawer.is-open { opacity: 1; pointer-events: auto; }
+    .drawer__panel { width: min(420px, 100%); height: 100%; display: flex; flex-direction: column; background: var(--cream); transform: translateX(100%); transition: transform 0.3s; }
+    .drawer.is-open .drawer__panel { transform: none; }
+    .drawer__head { display: flex; align-items: center; justify-content: space-between; padding: 20px; border-bottom: 1px solid var(--line); }
+    .drawer__head h3 { margin: 0; font-size: 24px; }
+    .drawer__head button { width: 40px; height: 40px; border: 0; border-radius: 50%; background: var(--cream2); font-size: 18px; }
+    .lines { flex: 1; overflow: auto; padding: 10px 20px; }
+    .line { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; padding: 14px 0; border-bottom: 1px dashed var(--line); }
+    .line small { color: var(--muted); }
+    .qty { display: flex; align-items: center; gap: 10px; grid-row: span 2; }
+    .qty button { width: 32px; height: 32px; border: 1.5px solid var(--line); border-radius: 50%; background: transparent; font-weight: 800; }
+    .drawer__foot { padding: 20px; border-top: 1px solid var(--line); display: grid; gap: 12px; }
+    .total { display: flex; justify-content: space-between; font: 800 22px 'Playfair Display', serif; }
+    .empty { padding: 40px 0; text-align: center; color: var(--muted); }
+
+    footer { padding: 30px 0 100px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="logo" href="#"><i>☕</i>Зерно</a>
+      <nav class="kit-menu"><a href="#menu">Меню</a><a href="#loyal">Бонусы</a><a href="#gallery">Атмосфера</a><a href="#visit">Как найти</a></nav>
+      <button class="bag" id="bagBtn">Заказ <b id="bagCount">0</b></button>
+      <button class="kit-burger" aria-label="Меню">☰</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">🥐 Свежая выпечка с 7:30 утра</span>
+        <h1>Кофе, который хочется пить <em>медленно</em></h1>
+        <p>Обжариваем зерно сами раз в неделю, печём круассаны на сливочном масле и знаем по имени почти всех гостей. Закажите онлайн и заберите без очереди.</p>
+        <div class="cta"><a class="btn" href="#menu">Заказать навынос</a><a class="btn btn--line" href="#visit">Как нас найти</a></div>
+        <div class="open" id="openNow"><i></i>Открыто до 22:00</div>
+      </div>
+      <div class="hero__img">
+        <img src="https://cdn.stocksnap.io/img-thumbs/960w/6B1SUAYDO1.jpg" alt="Бариста готовит кофе">
+        <div class="sticker"><span><b>−20%</b>на всё до 9:00</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu" style="padding-top:0">
+    <div class="wrap">
+      <div class="title kit-reveal"><h2>Меню</h2><p>Добавьте напитки и выпечку в заказ, выберите время — и заберите всё горячим без очереди.</p></div>
+      <div class="tabs" id="tabs"></div>
+      <div class="menu" id="menuList"></div>
+    </div>
+  </section>
+
+  <section id="loyal" style="padding-top:0">
+    <div class="wrap">
+      <div class="loyal kit-reveal">
+        <div>
+          <h2>Каждый седьмой кофе — в подарок</h2>
+          <p>Электронная карта копит штампы автоматически: просто назовите номер телефона на кассе. Нажмите на кружки, чтобы проверить, как это работает.</p>
+          <a class="btn" style="background:var(--caramel);color:var(--esp)" href="#visit">Получить карту</a>
+        </div>
+        <div class="stamps" id="stamps"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" style="padding-top:0">
+    <div class="wrap">
+      <div class="title kit-reveal"><h2>Атмосфера</h2><p>Большие окна, тёплый свет и розетки у каждого столика.</p></div>
+      <div class="gallery kit-reveal">
+        <img src="https://cdn.stocksnap.io/img-thumbs/960w/HOHJK6B7TD.jpg" alt="Интерьер кофейни" loading="lazy">
+        <img src="https://cdn.stocksnap.io/img-thumbs/960w/JTML1ADOPE.jpg" alt="Латте-арт" loading="lazy">
+        <img src="https://cdn.stocksnap.io/img-thumbs/960w/VXG3A0OXZP.jpg" alt="Круассан" loading="lazy">
+        <img src="https://cdn.stocksnap.io/img-thumbs/960w/AAASH8OTNW.jpg" alt="Свежая выпечка" loading="lazy">
+        <img src="https://cdn.stocksnap.io/img-thumbs/960w/CB9BPBBWMD.jpg" alt="Завтрак с кофе" loading="lazy">
+        <img src="https://cdn.stocksnap.io/img-thumbs/960w/TUKUBAALHJ.jpg" alt="Домашний пирог" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <section class="visit" id="visit" style="padding-top:0">
+    <div class="wrap">
+      <div class="kit-reveal">
+        <div class="title"><h2>Ждём в гости</h2></div>
+        <ul class="hours" id="hours"></ul>
+        <p class="addr">📍 <b>ул. Примерная, 12</b>, вход со двора, у зелёной двери<br>📞 <b>+7 (900) 000-00-00</b><br>🚲 Есть велопарковка, с собаками можно</p>
+      </div>
+      <form data-demo="Спасибо! Это демо-сайт — на настоящем мы бы прислали карту лояльности в СМС." class="kit-reveal">
+        <h3>Карта гостя</h3>
+        <input required placeholder="Ваше имя" autocomplete="given-name">
+        <input required type="tel" placeholder="Телефон" autocomplete="tel">
+        <select aria-label="Любимый напиток"><option>Любимый напиток: капучино</option><option>Флэт уайт</option><option>Раф</option><option>Фильтр-кофе</option><option>Чай</option></select>
+        <button class="btn">Получить карту и −20% на первый заказ</button>
+        <small>Никакого спама — только штампы и редкие новости о новых сортах.</small>
+      </form>
+    </div>
+  </section>
+
+  <footer><div class="wrap"><span>© 2026 Кофейня «Зерно» · демо-сайт, кофейня вымышлена</span><span>Сделано с любовью к кофе</span></div></footer>
+
+  <div class="drawer" id="drawer">
+    <div class="drawer__panel">
+      <div class="drawer__head"><h3>Ваш заказ</h3><button id="closeBag" aria-label="Закрыть">✕</button></div>
+      <div class="lines" id="lines"></div>
+      <div class="drawer__foot">
+        <div class="total"><span>Итого</span><span id="total">0 ₽</span></div>
+        <select id="pickup" aria-label="Время готовности"></select>
+        <button class="btn" id="checkout">Оформить к этому времени</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="kit.js"></script>
+  <script>
+    const MENU = {
+      'Кофе': [
+        ['☕', 'Капучино', 'Двойной эспрессо и бархатная молочная пена', [190, 230, 270], 'Хит'],
+        ['🥛', 'Флэт уайт', 'Больше кофе, меньше молока — для тех, кто любит покрепче', [220, 260]],
+        ['🍯', 'Раф «Мёд и лаванда»', 'Сливки, цветочный мёд и щепотка лаванды', [260, 300, 340], 'Новинка'],
+        ['🫖', 'Фильтр дня', 'Эфиопия, ноты черники и жасмина. Сорт меняется каждую неделю', [180, 220]],
+        ['🧊', 'Эспрессо-тоник', 'Освежает лучше лимонада: тоник, лёд и эспрессо', [250]],
+        ['⚫', 'Эспрессо', 'Наша фирменная смесь, обжарка в понедельник', [130]],
+      ],
+      'Не кофе': [
+        ['🍵', 'Матча латте', 'Японский чай матча на овсяном молоке', [250, 290]],
+        ['🍫', 'Какао с маршмеллоу', 'Бельгийский шоколад и много маршмеллоу', [220, 260]],
+        ['🍊', 'Облепиховый чай', 'С апельсином, имбирём и мёдом. Чайник на двоих', [320]],
+        ['🌿', 'Травяной сбор', 'Мята, чабрец, иван-чай — без кофеина', [200]],
+      ],
+      'Выпечка': [
+        ['🥐', 'Круассан', 'На сливочном масле 82%, 27 слоёв теста', [150], 'Хит'],
+        ['🥐', 'Круассан с миндалём', 'Миндальный крем и хлопья', [210]],
+        ['🧁', 'Синнабон', 'С корицей и сливочным сыром', [190]],
+        ['🍪', 'Печенье с солёной карамелью', 'Тёплое, тянется', [110]],
+        ['🥧', 'Пирог дня', 'Спросите у бариста — каждый день новый', [230]],
+      ],
+      'Завтраки': [
+        ['🍳', 'Скрэмбл на бриоши', 'Сливочный скрэмбл, зелёный лук, бриошь', [390]],
+        ['🥑', 'Тост с авокадо', 'Цельнозерновой хлеб, яйцо пашот, микрозелень', [450], 'Хит'],
+        ['🥣', 'Гранола с йогуртом', 'Домашняя гранола, ягоды, мёд', [320]],
+        ['🥞', 'Сырники', 'Со сметаной и ягодным соусом', [360]],
+      ],
+    };
+    const SIZES = ['S', 'M', 'L'];
+    let current = 'Кофе';
+    const sizeSel = {};
+    const cart = [];
+    const fmt = (v) => `${v.toLocaleString('ru-RU')} ₽`;
+    const $ = (id) => document.getElementById(id);
+
+    function renderMenu() {
+      $('tabs').innerHTML = Object.keys(MENU).map((k) => `<button class="tab ${k === current ? 'is-on' : ''}" data-tab="${k}">${k}</button>`).join('');
+      $('menuList').innerHTML = MENU[current].map(([ico, name, desc, prices, tag], i) => {
+        const key = `${current}-${i}`, s = sizeSel[key] ?? 0;
+        return `<article class="item"><div class="item__top"><span>${ico}</span><div><h3>${name}${tag ? `<span class="tag">${tag}</span>` : ''}</h3></div></div>
+          <p>${desc}</p>
+          ${prices.length > 1 ? `<div class="sizes">${prices.map((p, k) => `<button class="${k === s ? 'is-on' : ''}" data-size="${key}:${k}">${SIZES[k]} · ${p}</button>`).join('')}</div>` : ''}
+          <div class="item__bottom"><span class="price">${fmt(prices[s])}</span><button class="add" data-add="${key}" aria-label="Добавить ${name}">+</button></div></article>`;
+      }).join('');
+    }
+    $('tabs').addEventListener('click', (e) => { const b = e.target.closest('[data-tab]'); if (b) { current = b.dataset.tab; renderMenu(); } });
+    $('menuList').addEventListener('click', (e) => {
+      const s = e.target.closest('[data-size]');
+      if (s) { const [key, k] = s.dataset.size.split(':'); sizeSel[key] = +k; renderMenu(); return; }
+      const a = e.target.closest('[data-add]');
+      if (a) {
+        const [cat, i] = a.dataset.add.split('-');
+        const [ico, name, , prices] = MENU[cat][+i];
+        const s = sizeSel[a.dataset.add] ?? 0;
+        const label = prices.length > 1 ? `${name}, ${SIZES[s]}` : name;
+        const line = cart.find((l) => l.label === label);
+        if (line) line.qty++; else cart.push({ ico, label, price: prices[s], qty: 1 });
+        renderCart();
+        kitToast(`${ico} ${label} — в заказе`);
+      }
+    });
+
+    function renderCart() {
+      const count = cart.reduce((s, l) => s + l.qty, 0);
+      $('bagCount').textContent = count;
+      $('lines').innerHTML = cart.length ? cart.map((l, i) => `<div class="line"><b>${l.ico} ${l.label}</b><div class="qty"><button data-q="${i}:-1" aria-label="Меньше">−</button>${l.qty}<button data-q="${i}:1" aria-label="Больше">+</button></div><small>${fmt(l.price * l.qty)}</small></div>`).join('') : '<div class="empty">Пока пусто. Добавьте что-нибудь вкусное из меню ☕</div>';
+      $('total').textContent = fmt(cart.reduce((s, l) => s + l.price * l.qty, 0));
+    }
+    $('lines').addEventListener('click', (e) => {
+      const b = e.target.closest('[data-q]'); if (!b) return;
+      const [i, d] = b.dataset.q.split(':').map(Number);
+      cart[i].qty += d; if (cart[i].qty <= 0) cart.splice(i, 1);
+      renderCart();
+    });
+    const drawer = $('drawer');
+    $('bagBtn').onclick = () => { fillPickup(); drawer.classList.add('is-open'); };
+    $('closeBag').onclick = () => drawer.classList.remove('is-open');
+    drawer.addEventListener('click', (e) => { if (e.target === drawer) drawer.classList.remove('is-open'); });
+    function fillPickup() {
+      const now = new Date(), opts = [];
+      const t = new Date(now); t.setMinutes(Math.ceil((t.getMinutes() + 10) / 5) * 5, 0, 0);
+      for (let i = 0; i < 12; i++) { const x = new Date(t.getTime() + i * 10 * 60000); if (x.getHours() >= 22 || x.getHours() < 8) break; opts.push(x); }
+      $('pickup').innerHTML = opts.length ? opts.map((x, i) => `<option>${i === 0 ? 'Как можно скорее · ' : 'К '}${x.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}</option>`).join('') : '<option>Завтра к 8:00</option>';
+    }
+    $('checkout').onclick = () => {
+      if (!cart.length) { kitToast('Сначала добавьте что-нибудь в заказ'); return; }
+      kitToast(`Заказ на ${$('total').textContent} принят: ${$('pickup').value.toLowerCase()}. Это демо — на настоящем сайте пришло бы СМС.`);
+      cart.length = 0; renderCart(); drawer.classList.remove('is-open');
+    };
+
+    // карта лояльности
+    let stamps = 4;
+    function renderStamps() {
+      $('stamps').innerHTML = Array.from({ length: 7 }, (_, i) => i === 6 ? `<button class="stamp free ${stamps >= 7 ? 'is-on' : ''}" data-st="${i}">${stamps >= 7 ? '🎁' : 'FREE'}</button>` : `<button class="stamp ${i < stamps ? 'is-on' : ''}" data-st="${i}">${i < stamps ? '☕' : ''}</button>`).join('') + `<small>${stamps >= 7 ? 'Следующий кофе — бесплатно! 🎉' : `Ещё ${7 - stamps} до бесплатного кофе`}</small>`;
+    }
+    $('stamps').addEventListener('click', (e) => { if (e.target.closest('[data-st]')) { stamps = stamps >= 7 ? 0 : stamps + 1; renderStamps(); } });
+
+    // часы работы и «открыто сейчас»
+    const HOURS = [['Понедельник', '7:30–22:00'], ['Вторник', '7:30–22:00'], ['Среда', '7:30–22:00'], ['Четверг', '7:30–22:00'], ['Пятница', '7:30–23:00'], ['Суббота', '9:00–23:00'], ['Воскресенье', '9:00–21:00']];
+    const today = (new Date().getDay() + 6) % 7;
+    $('hours').innerHTML = HOURS.map(([d, h], i) => `<li class="${i === today ? 'today' : ''}"><span>${d}${i === today ? ' · сегодня' : ''}</span><span>${h}</span></li>`).join('');
+    const [o, c] = HOURS[today][1].split('–').map((t) => { const [h, m] = t.split(':').map(Number); return h * 60 + m; });
+    const nowM = new Date().getHours() * 60 + new Date().getMinutes();
+    if (nowM < o || nowM >= c) $('openNow').innerHTML = `<i style="background:#c0563b;box-shadow:0 0 0 4px rgba(192,86,59,.18)"></i>Сейчас закрыто · откроемся в ${HOURS[nowM >= c ? (today + 1) % 7 : today][1].split('–')[0]}`;
+    else $('openNow').innerHTML = `<i></i>Открыто до ${HOURS[today][1].split('–')[1]}`;
+
+    renderMenu(); renderCart(); renderStamps();
+  </script>
+</body>
+</html>

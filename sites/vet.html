@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Лапа — ветеринарная клиника</title>
+  <meta name="description" content="Демо-сайт ветклиники: услуги и цены для собак, кошек и экзотов, врачи, календарь прививок и запись питомца.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="kit.css">
+  <style>
+    :root { --mint: #12a594; --mint-d: #0c7f72; --mint-l: #e3f6f3; --sun: #ff9f43; --sun-l: #fff1e2; --ink: #17312d; --muted: #5d7570; --bg: #f8fbfa; --line: #dfecea; --menu-bg: #fff; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 Nunito, system-ui, sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; color: inherit; }
+    button { cursor: pointer; }
+    h1, h2, h3 { line-height: 1.12; font-weight: 900; letter-spacing: -0.01em; }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 15px 26px; border: 0; border-radius: 18px; background: var(--mint); color: #fff; font-weight: 800; transition: background 0.2s, transform 0.15s; }
+    .btn:hover { background: var(--mint-d); }
+    .btn:active { transform: scale(0.97); }
+    .btn--sun { background: var(--sun); color: #3b2104; }
+    .btn--sun:hover { background: #f48a1f; }
+
+    .alert { background: var(--ink); color: #fff; font-size: 14px; font-weight: 700; text-align: center; padding: 9px 16px; }
+    .alert a { color: var(--sun); }
+    header { position: sticky; top: 0; z-index: 30; background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+    header .wrap { position: relative; display: flex; align-items: center; gap: 24px; padding-top: 12px; padding-bottom: 12px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 900; font-size: 24px; }
+    .logo i { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 14px 14px 14px 4px; background: var(--mint); font-style: normal; font-size: 22px; }
+    nav { display: flex; gap: 22px; margin-left: auto; font-weight: 700; color: var(--muted); }
+    nav a:hover { color: var(--mint); }
+    .kit-burger { margin-left: auto; width: 44px; height: 44px; align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: 14px; background: #fff; font-size: 20px; }
+    @media (max-width: 860px) { header .btn { display: none; } }
+
+    .hero { padding: clamp(28px, 6vw, 64px) 0; }
+    .hero .wrap { display: grid; gap: 40px; align-items: center; }
+    @media (min-width: 920px) { .hero .wrap { grid-template-columns: 1fr 1fr; } }
+    .badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; background: var(--sun-l); color: #a35a10; font-weight: 800; font-size: 14px; }
+    .badge i { width: 8px; height: 8px; border-radius: 50%; background: var(--sun); animation: pulse 1.6s infinite; }
+    @keyframes pulse { 50% { box-shadow: 0 0 0 6px rgba(255, 159, 67, 0.25); } }
+    .hero h1 { margin: 16px 0 0; font-size: clamp(38px, 6vw, 66px); }
+    .hero h1 span { color: var(--mint); }
+    .hero p { max-width: 500px; margin: 18px 0 28px; font-size: 18px; color: var(--muted); }
+    .hero .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+    .pets { display: flex; gap: 10px; margin-top: 26px; flex-wrap: wrap; }
+    .pets span { padding: 8px 14px; border-radius: 14px; background: #fff; border: 1px solid var(--line); font-weight: 700; font-size: 14px; }
+    .hero__img { position: relative; }
+    .hero__img img { width: 100%; aspect-ratio: 1 / 0.95; object-fit: cover; border-radius: 40px 40px 40px 120px; display: block; background: var(--mint-l); }
+    .bubble { position: absolute; display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 18px; background: #fff; box-shadow: 0 18px 40px -18px rgba(23, 49, 45, 0.45); font-size: 14px; font-weight: 700; }
+    .bubble b { display: block; font-size: 19px; font-weight: 900; }
+    .bubble span { font-size: 26px; }
+    .bubble--a { left: -12px; top: 22px; } .bubble--b { right: -10px; bottom: 28px; }
+    @media (max-width: 600px) { .bubble--a { left: 8px; } .bubble--b { right: 8px; } }
+
+    section { padding: clamp(56px, 8vw, 96px) 0; }
+    .title { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 28px; }
+    .title h2 { margin: 0; font-size: clamp(30px, 4.6vw, 46px); }
+    .title p { margin: 0; max-width: 420px; color: var(--muted); }
+
+    .pettabs { display: inline-flex; gap: 6px; padding: 6px; border-radius: 20px; background: #fff; border: 1px solid var(--line); margin-bottom: 18px; flex-wrap: wrap; }
+    .pettabs button { padding: 10px 18px; border: 0; border-radius: 14px; background: transparent; font-weight: 800; color: var(--muted); }
+    .pettabs button.is-on { background: var(--mint); color: #fff; }
+    .services { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); }
+    .svc { padding: 22px; border-radius: 24px; background: #fff; border: 1px solid var(--line); transition: transform 0.2s, box-shadow 0.2s; }
+    .svc:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -28px rgba(23, 49, 45, 0.5); }
+    .svc i { display: grid; place-items: center; width: 54px; height: 54px; border-radius: 16px; background: var(--mint-l); font-style: normal; font-size: 28px; }
+    .svc h3 { margin: 14px 0 6px; font-size: 20px; }
+    .svc p { margin: 0 0 14px; color: var(--muted); font-size: 15px; }
+    .svc b { font-size: 18px; color: var(--mint-d); }
+
+    .vacc { display: grid; gap: 24px; padding: clamp(24px, 4vw, 44px); border-radius: 32px; background: linear-gradient(135deg, var(--mint-d), var(--mint)); color: #fff; }
+    @media (min-width: 900px) { .vacc { grid-template-columns: 1fr 1.2fr; align-items: start; } }
+    .vacc h2 { margin: 0; font-size: clamp(28px, 4vw, 40px); }
+    .vacc p { color: #d3f3ee; }
+    .vform { display: grid; gap: 10px; }
+    .vform .row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
+    .vform label { display: grid; gap: 4px; font-size: 13px; font-weight: 800; color: #d3f3ee; }
+    .vform input, .vform select { width: 100%; min-width: 0; max-width: 100%; padding: 13px 14px; border: 0; border-radius: 14px; background: rgba(255, 255, 255, 0.95); color: var(--ink); font-size: 16px; }
+    .plan { display: grid; gap: 8px; }
+    .step { display: grid; grid-template-columns: 96px 1fr; gap: 12px; align-items: center; padding: 12px 16px; border-radius: 16px; background: rgba(255, 255, 255, 0.14); }
+    .step.done { opacity: 0.55; }
+    .step.next { background: #fff; color: var(--ink); }
+    .step.next small { color: var(--muted); }
+    .step b { font-size: 15px; }
+    .step small { display: block; color: #d3f3ee; font-size: 13px; }
+    .step .date { font-weight: 900; font-size: 15px; }
+
+    .docs { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); }
+    .doc { border-radius: 26px; background: #fff; border: 1px solid var(--line); overflow: hidden; }
+    .doc img { width: 100%; aspect-ratio: 4 / 3.2; object-fit: cover; display: block; background: var(--mint-l); }
+    .doc div { padding: 18px 20px 22px; }
+    .doc h3 { margin: 0; font-size: 20px; }
+    .doc p { margin: 4px 0 10px; color: var(--muted); font-size: 15px; }
+    .doc span { display: inline-block; margin: 0 4px 4px 0; padding: 4px 10px; border-radius: 10px; background: var(--sun-l); color: #a35a10; font-weight: 800; font-size: 13px; }
+
+    .reviews { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+    .rev { padding: 22px; border-radius: 24px; background: var(--mint-l); }
+    .rev p { margin: 10px 0 14px; }
+    .rev b { display: flex; align-items: center; gap: 10px; }
+    .rev b span { font-size: 26px; }
+
+    .book .wrap { display: grid; gap: 30px; }
+    @media (min-width: 880px) { .book .wrap { grid-template-columns: 1fr 1fr; align-items: center; } }
+    form.main { display: grid; gap: 12px; padding: 28px; border-radius: 28px; background: #fff; border: 1px solid var(--line); box-shadow: 0 30px 60px -40px rgba(23, 49, 45, 0.45); }
+    form.main input, form.main select { width: 100%; padding: 15px 16px; border: 1.5px solid var(--line); border-radius: 14px; background: var(--bg); font-size: 16px; outline: none; }
+    form.main input:focus, form.main select:focus { border-color: var(--mint); }
+    form.main .row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
+    form.main small { color: var(--muted); font-size: 13px; }
+    .contacts p { margin: 0 0 10px; color: var(--muted); font-size: 17px; }
+    .contacts b { color: var(--ink); }
+    footer { padding: 30px 0 100px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+  </style>
+</head>
+<body>
+  <div class="alert">🚑 Экстренная помощь круглосуточно: <a href="#book">+7 (900) 000-00-00</a></div>
+  <header>
+    <div class="wrap">
+      <a class="logo" href="#"><i>🐾</i>Лапа</a>
+      <nav class="kit-menu"><a href="#services">Услуги</a><a href="#vacc">Прививки</a><a href="#doctors">Врачи</a><a href="#book">Запись</a></nav>
+      <a class="btn" href="#book">Записать питомца</a>
+      <button class="kit-burger" aria-label="Меню">☰</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="badge"><i></i>Открыто 24/7, без выходных</span>
+        <h1>Лечим с заботой, <span>как своих</span></h1>
+        <p>Терапия, хирургия, УЗИ и анализы в одной клинике. Врачи не торопятся, всё объясняют и присылают план лечения в мессенджер.</p>
+        <div class="cta"><a class="btn" href="#book">Записаться на приём</a><a class="btn btn--sun" href="#book">🏠 Вызвать врача на дом</a></div>
+        <div class="pets"><span>🐕 Собаки</span><span>🐈 Кошки</span><span>🐇 Кролики</span><span>🦜 Птицы</span><span>🐢 Рептилии</span></div>
+      </div>
+      <div class="hero__img">
+        <img src="https://cdn.stocksnap.io/img-thumbs/960w/YNI4E0XAAS.jpg" alt="Собака и кошка">
+        <div class="bubble bubble--a"><span>❤️</span><div><b>12 000+</b>здоровых питомцев</div></div>
+        <div class="bubble bubble--b"><span>⭐</span><div><b>4.9</b>1 870 отзывов</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" style="padding-top:20px">
+    <div class="wrap">
+      <div class="title kit-reveal"><h2>Услуги и цены</h2><p>Выберите, кто у вас дома: покажем, с чем можем помочь именно ему.</p></div>
+      <div class="pettabs" id="pettabs"></div>
+      <div class="services" id="services-list"></div>
+    </div>
+  </section>
+
+  <section id="vacc" style="padding-top:0">
+    <div class="wrap">
+      <div class="vacc kit-reveal">
+        <div>
+          <h2>Календарь прививок</h2>
+          <p>Укажите, кто ваш питомец и когда родился, — составим график прививок и подскажем, какая следующая.</p>
+          <div class="vform">
+            <div class="row">
+              <label>Питомец<select id="vType"><option value="dog">🐕 Собака</option><option value="cat">🐈 Кошка</option></select></label>
+              <label>Дата рождения<input type="date" id="vBirth"></label>
+            </div>
+            <a class="btn btn--sun" href="#book" id="vBook">Записаться на прививку</a>
+          </div>
+        </div>
+        <div class="plan" id="plan"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="doctors" style="padding-top:0">
+    <div class="wrap">
+      <div class="title kit-reveal"><h2>Наши врачи</h2><p>Каждый врач работает с нами больше 5 лет и регулярно учится в профильных школах.</p></div>
+      <div class="docs">
+        <article class="doc kit-reveal"><img src="https://cdn.stocksnap.io/img-thumbs/960w/9VARWAV9C3.jpg" alt="" loading="lazy"><div><h3>Анна Соколова</h3><p>Главный врач, терапевт</p><span>Стаж 14 лет</span><span>Кошки</span></div></article>
+        <article class="doc kit-reveal"><img src="https://cdn.stocksnap.io/img-thumbs/960w/SEZ0BOQJBD.jpg" alt="" loading="lazy"><div><h3>Артём Белов</h3><p>Хирург, ортопед</p><span>Стаж 10 лет</span><span>Операции</span></div></article>
+        <article class="doc kit-reveal"><img src="https://cdn.stocksnap.io/img-thumbs/960w/B2W1ZBFGPQ.jpg" alt="" loading="lazy"><div><h3>Мария Ким</h3><p>Ратолог, орнитолог</p><span>Стаж 8 лет</span><span>Экзоты</span></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="title kit-reveal"><h2>Нам доверяют</h2></div>
+      <div class="reviews">
+        <div class="rev kit-reveal">⭐⭐⭐⭐⭐<p>Привезли кота ночью с отравлением. Приняли сразу, всё объяснили, а утром прислали фото — живой и голодный. Спасибо!</p><b><span>🐈</span>Ольга и кот Барсик</b></div>
+        <div class="rev kit-reveal">⭐⭐⭐⭐⭐<p>Наш лабрадор боится врачей, но здесь даже дал себя осмотреть без намордника. Терпеливые и добрые люди.</p><b><span>🐕</span>Игорь и Рекс</b></div>
+        <div class="rev kit-reveal">⭐⭐⭐⭐⭐<p>Редко где разбираются в черепахах. Мария подобрала питание и лампу, черепаха снова активная.</p><b><span>🐢</span>Света и Тортилла</b></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="book" id="book" style="padding-top:0">
+    <div class="wrap">
+      <div class="contacts kit-reveal">
+        <div class="title"><h2>Запишите питомца на приём</h2></div>
+        <p>📍 <b>ул. Примерная, 8</b>, своя парковка</p>
+        <p>🕐 <b>Круглосуточно</b>, плановые приёмы с 9:00 до 21:00</p>
+        <p>📞 <b>+7 (900) 000-00-00</b></p>
+        <p>🏠 Выезд на дом в пределах города — от 1 500 ₽</p>
+      </div>
+      <form class="main kit-reveal" data-demo="Спасибо! Это демо-сайт — на настоящем администратор перезвонил бы в течение 10 минут.">
+        <div class="row"><input required placeholder="Ваше имя" autocomplete="name"><input required type="tel" placeholder="Телефон" autocomplete="tel"></div>
+        <div class="row"><input required placeholder="Кличка питомца" id="petName"><select id="petType" aria-label="Вид"><option>🐕 Собака</option><option>🐈 Кошка</option><option>🐇 Грызун</option><option>🦜 Птица</option><option>🐢 Рептилия</option></select></div>
+        <select id="svcSel" aria-label="Услуга"></select>
+        <button class="btn">Записаться</button>
+        <small>Первичный осмотр — 900 ₽. Скидка 10% пенсионерам и волонтёрам приютов.</small>
+      </form>
+    </div>
+  </section>
+
+  <footer><div class="wrap"><span>© 2026 Ветклиника «Лапа» · демо-сайт, клиника вымышлена</span><span>Лицензия на ветеринарную деятельность — на настоящем сайте здесь был бы номер</span></div></footer>
+
+  <script src="kit.js"></script>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const SERVICES = {
+      dog: [['🩺', 'Осмотр терапевта', 'Полный осмотр, рекомендации по питанию и уходу', 'от 900 ₽'], ['💉', 'Комплексная вакцинация', 'Вакцина, осмотр, отметка в паспорте', 'от 1 600 ₽'], ['✂️', 'Кастрация', 'С наркозом, наблюдением и попоной', 'от 6 500 ₽'], ['🦷', 'Чистка зубов ультразвуком', 'Под седацией, с полировкой', 'от 4 200 ₽'], ['🔬', 'Анализы крови', 'Результат через 2 часа', 'от 1 100 ₽'], ['📡', 'УЗИ брюшной полости', 'Современный аппарат, заключение сразу', 'от 1 800 ₽']],
+      cat: [['🩺', 'Осмотр терапевта', 'Без стресса: отдельный «кошачий» кабинет', 'от 900 ₽'], ['💉', 'Вакцинация', 'Комплексная вакцина против основных инфекций', 'от 1 400 ₽'], ['✂️', 'Стерилизация', 'Лапароскопически, шов 5 мм', 'от 5 900 ₽'], ['🧪', 'Почечный профиль', 'Обязательно для кошек старше 7 лет', 'от 1 900 ₽'], ['🐾', 'Стрижка когтей', 'Быстро и аккуратно', '350 ₽'], ['🏠', 'Приём на дому', 'Для пугливых котов — врач приедет сам', 'от 1 500 ₽']],
+      exotic: [['🐇', 'Осмотр кролика или грызуна', 'Ратолог с опытом 8 лет', 'от 1 000 ₽'], ['🦜', 'Приём птиц', 'Подбор рациона, подрезка клюва и когтей', 'от 1 100 ₽'], ['🐢', 'Рептилии', 'Подбор лампы, температуры и питания', 'от 1 200 ₽'], ['🦷', 'Коррекция зубов', 'Для кроликов и шиншилл', 'от 1 500 ₽'], ['🔬', 'Анализ помёта', 'Выявление паразитов', '700 ₽'], ['✂️', 'Кастрация грызунов', 'Щадящий газовый наркоз', 'от 3 500 ₽']],
+    };
+    const TABS = { dog: '🐕 Собаки', cat: '🐈 Кошки', exotic: '🦜 Экзоты' };
+    let pet = 'dog';
+    function renderServices() {
+      $('pettabs').innerHTML = Object.entries(TABS).map(([k, v]) => `<button class="${k === pet ? 'is-on' : ''}" data-pet="${k}">${v}</button>`).join('');
+      $('services-list').innerHTML = SERVICES[pet].map(([i, t, d, p]) => `<div class="svc"><i>${i}</i><h3>${t}</h3><p>${d}</p><b>${p}</b></div>`).join('');
+      $('svcSel').innerHTML = SERVICES[pet].map(([, t]) => `<option>${t}</option>`).join('') + '<option>Другое — расскажу по телефону</option>';
+    }
+    $('pettabs').addEventListener('click', (e) => { const b = e.target.closest('[data-pet]'); if (b) { pet = b.dataset.pet; renderServices(); } });
+
+    // график прививок: недели от рождения
+    const PLAN = {
+      dog: [[8, 'Первая комплексная вакцина', 'Чума, парвовирус, аденовирус'], [12, 'Вторая комплексная + бешенство', 'После неё — 2 недели карантина'], [16, 'Третья комплексная', 'Можно гулять с другими собаками'], [52, 'Ревакцинация', 'Комплекс + бешенство'], [104, 'Ежегодная прививка', 'Дальше — раз в год']],
+      cat: [[8, 'Первая комплексная вакцина', 'Панлейкопения, калицивироз, ринотрахеит'], [12, 'Вторая комплексная + бешенство', 'Можно знакомить с другими кошками'], [52, 'Ревакцинация', 'Комплекс + бешенство'], [104, 'Ежегодная прививка', 'Даже домашним кошкам']],
+    };
+    const b = new Date(); b.setDate(b.getDate() - 70);
+    $('vBirth').value = b.toISOString().slice(0, 10);
+    function renderPlan() {
+      const v = $('vBirth').value;
+      if (!v) { $('plan').innerHTML = ''; return; }
+      const [y, m, d] = v.split('-').map(Number), birth = new Date(y, m - 1, d), now = new Date();
+      let nextFound = false;
+      $('plan').innerHTML = PLAN[$('vType').value].map(([w, t, s]) => {
+        const date = new Date(birth.getTime() + w * 7 * 864e5);
+        const done = date < now - 7 * 864e5;
+        const next = !done && !nextFound; if (next) nextFound = true;
+        return `<div class="step ${done ? 'done' : ''} ${next ? 'next' : ''}"><span class="date">${date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short', year: date.getFullYear() !== now.getFullYear() ? '2-digit' : undefined })}</span><div><b>${done ? '✓ ' : next ? '👉 ' : ''}${t}</b><small>${s}${next ? ` · ${Math.max(0, Math.ceil((date - now) / 864e5)) === 0 ? 'пора сейчас' : `через ${Math.ceil((date - now) / 864e5)} дн.`}` : ''}</small></div></div>`;
+      }).join('');
+    }
+    $('vType').onchange = renderPlan; $('vBirth').oninput = renderPlan;
+    $('vBook').onclick = () => { pet = $('vType').value; renderServices(); $('svcSel').selectedIndex = 1; $('petType').selectedIndex = pet === 'dog' ? 0 : 1; };
+
+    renderServices(); renderPlan();
+  </script>
+</body>
+</html>
